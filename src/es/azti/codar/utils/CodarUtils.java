@@ -28,6 +28,7 @@ import es.azti.codar.beans.CodarRadialBean;
 import es.azti.codar.beans.CodarTotalBean;
 import es.azti.codar.beans.RadialQCQATestBean;
 import es.azti.codar.beans.TotalQCQATestBean;
+import es.azti.utils.Lldistkm;
 import net.sf.geographiclib.Geodesic;
 import net.sf.geographiclib.GeodesicData;
 import es.azti.codar.beans.CodarDataTableBean;
@@ -824,14 +825,14 @@ public class CodarUtils {
 			List<Float> x, List<Float> y) {
 		int i = 0;
 		for (float xInc : x) {
-			GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, 0, xInc * 1000);
-			latd.add(i, new Float(data.lat2));
+			GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, 90, xInc * 1000);
+			lond.add(i, new Float(data.lon2));
 			i++;
 		}
 		i = 0;
 		for (float yInc : y) {
-			GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, 90, yInc * 1000);
-			lond.add(i, new Float(data.lon2));
+			GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, 0, yInc * 1000);
+			latd.add(i, new Float(data.lat2));
 			i++;
 		}
 	}
@@ -957,11 +958,25 @@ public class CodarUtils {
 
 		List<Float> xAxisDims = new ArrayList<Float>();
 		List<Float> yAxisDims = new ArrayList<Float>();
+		
+		//pasamos de lat long a x e y para calcular las dimensiones en km - distancia
+		float siteLat = bean.getOriginElementAsFloat(0);
+		float siteLon = bean.getOriginElementAsFloat(1);
 
-		float maxX = Float.isNaN(bean.getxMaxAsFloat()) ? profile.getxMaxAsFloat() : bean.getxMaxAsFloat();
-		float minX = Float.isNaN(bean.getxMinAsFloat()) ? profile.getxMinAsFloat() : bean.getxMinAsFloat();
-		float maxY = Float.isNaN(bean.getyMaxAsFloat()) ? profile.getyMaxAsFloat() : bean.getyMaxAsFloat();
-		float minY = Float.isNaN(bean.getyMinAsFloat()) ? profile.getyMinAsFloat() : bean.getyMinAsFloat();
+		float lonMin = Float.isNaN(bean.getxMinAsFloat()) ? profile.getxMinAsFloat() : bean.getxMinAsFloat();
+		float lonMax = Float.isNaN(bean.getxMaxAsFloat()) ? profile.getxMaxAsFloat() : bean.getxMaxAsFloat();
+		float latMin = Float.isNaN(bean.getyMinAsFloat()) ? profile.getyMinAsFloat() : bean.getyMinAsFloat();
+		float latMax = Float.isNaN(bean.getyMaxAsFloat()) ? profile.getyMaxAsFloat() : bean.getyMaxAsFloat();
+		
+		double minX = (Lldistkm.calculate(siteLat, siteLon, siteLat, lonMin))[0];
+		if (lonMin < siteLon) minX = minX*-1;
+		double minY = (Lldistkm.calculate(siteLat, siteLon, latMin, siteLon))[0];
+		if (latMin < siteLat) minY = minY*-1;
+		double maxX = (Lldistkm.calculate(siteLat, siteLon, siteLat, lonMax))[0];
+		if (lonMax < siteLon) maxX = maxX*-1;
+		double maxY = (Lldistkm.calculate(siteLat, siteLon, latMax, siteLon))[0];
+		if (latMax < siteLat) maxY = maxY*-1;
+		
 		float gridSpacing = Float.isNaN(bean.getGridSpacingAsFloat()) ? profile.getGridSpacingAsFloat()
 				: bean.getGridSpacingAsFloat();
 

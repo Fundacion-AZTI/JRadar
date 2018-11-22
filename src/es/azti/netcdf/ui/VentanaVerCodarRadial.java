@@ -122,19 +122,19 @@ public class VentanaVerCodarRadial extends JFrame {
 		// data language: suggested: The language in which the data elements are
 		// expressed
 		this.addRowDisplay(tempPanel, "Data Language", this.bean.getData_language(),
-				this.profile == null ? null : this.profile.getData_language(), "Data_language", false, true);
+				this.profile == null ? null : this.profile.getData_language(), "Data_language", false, false);
 		// data character set: suggested: the character set used for expresising
 		// data
 		this.addRowDisplay(tempPanel, "Data Character Set: ", this.bean.getData_char_set(),
-				this.profile == null ? null : this.profile.getData_char_set(), "Data_char_set", false, true);
+				this.profile == null ? null : this.profile.getData_char_set(), "Data_char_set", false, false);
 		// Metadata language: sugested: the language in with the metadata
 		// elements are expresed
 		this.addRowDisplay(tempPanel, "Metadata Laguage", this.bean.getMetadata_language(),
-				this.profile == null ? null : this.profile.getMetadata_language(), "Metadata_language", false, true);
+				this.profile == null ? null : this.profile.getMetadata_language(), "Metadata_language", false, false);
 		// metadata character set: suggested: the character set used for
 		// expressing metadata
 		this.addRowDisplay(tempPanel, "Metadata Character Set", this.bean.getMetadata_char_set(),
-				this.profile == null ? null : this.profile.getMetadata_char_set(), "Metadata_char_set", false, true);
+				this.profile == null ? null : this.profile.getMetadata_char_set(), "Metadata_char_set", false, false);
 		// topic_category: sugested: ISO 19115 topic category
 		this.addRowDisplay(tempPanel, "Topic Cathegory", this.bean.getTopic_cat(),
 				this.profile == null ? null : this.profile.getTopic_cat(), "Topic_cat", false, true);

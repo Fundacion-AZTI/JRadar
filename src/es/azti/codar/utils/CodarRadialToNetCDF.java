@@ -926,8 +926,10 @@ public class CodarRadialToNetCDF {
 				varid_vart.addAttribute(new Attribute("flag_meanings",
 						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
 				varid_vart.addAttribute(new Attribute("comment",
-						"OceanSITES quality flagging for Variance Threshold QC test. Threshold set to "
-								+ bean.getRadialTest().getVarianceThreshold() + " m2/s2."));
+						"OceanSITES quality flagging for Variance Threshold QC test. Test not applicable "
+						+ "to Direction Finding Systems. "
+						+ "The Temporal Derivative test is applied. Threshold set to "
+						+ bean.getRadialTest().getVarianceThreshold() + " m2/s2."));
 				varid_vart.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_vart.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_vart.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
@@ -1031,6 +1033,11 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("geospatial_vertical_min", "0"));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_start", bean.getTime_coverage_start()));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_end", bean.getTime_coverage_end()));
+
+				dataFile.addGroupAttribute(null,
+						new Attribute("geospatial_lat_units", "degrees_north"));
+				dataFile.addGroupAttribute(null,
+						new Attribute("geospatial_lon_units", "degrees_east"));
 
 				// Conventions used
 				dataFile.addGroupAttribute(null, new Attribute("format_version", "v2.1"));

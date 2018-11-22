@@ -582,11 +582,20 @@ public class VentanaRunTotalQualityTests extends JFrame {
 				List<Integer> codarToNetcdfIndex1 = CodarUtils.getTotalIndexArray(bean, prevBean.getTable(), profile);
 				List<Integer> codarToNetcdfIndex2 = CodarUtils.getTotalIndexArray(bean, nextBean.getTable(), profile);
 
-				List<Float> prevVelo = prevBean.getTable().getColumnElementsInOrder(TableColumnNames.VELO,
-						codarToNetcdfIndex1);
-				List<Float> nextVelo = nextBean.getTable().getColumnElementsInOrder(TableColumnNames.VELO,
-						codarToNetcdfIndex2);
+				List<Float> prevVelu = prevBean.getTable().getColumnElementsInOrder(TableColumnNames.VELU, codarToNetcdfIndex1);
+				List<Float> prevVelv = prevBean.getTable().getColumnElementsInOrder(TableColumnNames.VELV, codarToNetcdfIndex1);
+				List<Float> nextVelu = nextBean.getTable().getColumnElementsInOrder(TableColumnNames.VELU, codarToNetcdfIndex2);
+				List<Float> nextVelv = nextBean.getTable().getColumnElementsInOrder(TableColumnNames.VELV, codarToNetcdfIndex2);
 
+				List<Float> prevVelo = new ArrayList<Float>(prevVelu.size());
+				List<Float> nextVelo = new ArrayList<Float>(nextVelu.size());
+
+				for (int i = 0; i < prevVelu.size(); i++) {
+					prevVelo.add(new Float(Math.sqrt(Math.pow(prevVelu.get(i), 2) + Math.pow(prevVelv.get(i), 2))));
+					nextVelo.add(new Float(Math.sqrt(Math.pow(nextVelu.get(i), 2) + Math.pow(nextVelv.get(i), 2))));
+				}
+
+				
 				if (prevVelo.size() == velo.size() && nextVelo.size() == velo.size()) {
 					List<Float> diffPrev = new ArrayList<Float>(velo.size());
 					List<Float> diffNext = new ArrayList<Float>(velo.size());

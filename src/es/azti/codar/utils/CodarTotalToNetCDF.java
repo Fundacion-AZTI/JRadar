@@ -20,6 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import es.azti.codar.beans.CodarTotalBean;
 import es.azti.netcdf.ui.VentanaRunTotalQualityTests;
 import es.azti.netcdf.ui.VentanaSaveFichero;
+import es.azti.utils.Lldistkm;
 import es.azti.utils.TableColumnNames;
 import ucar.ma2.Array;
 import ucar.ma2.ArrayChar;
@@ -135,14 +136,32 @@ public class CodarTotalToNetCDF {
 				// interpolation.
 				List<Float> xAxisDims = new ArrayList<Float>();
 				List<Float> yAxisDims = new ArrayList<Float>();
+				
+				//pasamos de lat long a x e y para calcular las dimensiones en km - distancia
+				float siteLat = bean.getOriginElementAsFloat(0);
+				float siteLon = bean.getOriginElementAsFloat(1);
 
-				float xMax = ((int) (bean.getxMaxAsFloat() / bean.getGridSpacingAsFloat()))
+				float lonMin = bean.getxMinAsFloat();
+				float lonMax = bean.getxMaxAsFloat();
+				float latMin = bean.getyMinAsFloat();
+				float latMax = bean.getyMaxAsFloat();
+				
+				double minimunX = (Lldistkm.calculate(siteLat, siteLon, siteLat, lonMin))[0];
+				if (lonMin < siteLon) minimunX = minimunX*-1;
+				double minimunY = (Lldistkm.calculate(siteLat, siteLon, latMin, siteLon))[0];
+				if (latMin < siteLat) minimunY = minimunY*-1;
+				double maximunX = (Lldistkm.calculate(siteLat, siteLon, siteLat, lonMax))[0];
+				if (lonMax < siteLon) maximunX = maximunX*-1;
+				double maximunY = (Lldistkm.calculate(siteLat, siteLon, latMax, siteLon))[0];
+				if (latMax < siteLat) maximunY = maximunY*-1;
+
+				float xMax = ((int) (maximunX / bean.getGridSpacingAsFloat()))
 						* bean.getGridSpacingAsFloat();
-				float xMin = ((int) (bean.getxMinAsFloat() / bean.getGridSpacingAsFloat()))
+				float xMin = ((int) (minimunX / bean.getGridSpacingAsFloat()))
 						* bean.getGridSpacingAsFloat();
-				float yMax = ((int) (bean.getyMaxAsFloat() / bean.getGridSpacingAsFloat()))
+				float yMax = ((int) (maximunY / bean.getGridSpacingAsFloat()))
 						* bean.getGridSpacingAsFloat();
-				float yMin = ((int) (bean.getyMinAsFloat() / bean.getGridSpacingAsFloat()))
+				float yMin = ((int) (minimunY / bean.getGridSpacingAsFloat()))
 						* bean.getGridSpacingAsFloat();
 
 				for (float i = xMin; i <= xMax; i = i + bean.getGridSpacingAsFloat()) {
@@ -155,8 +174,7 @@ public class CodarTotalToNetCDF {
 
 				// TODO: This must be improved the values are aproximated
 				List<Integer> codarToNetcdfIndex = bean.getTable().getTotalTableIndexInNetCdf(xAxisDims, yAxisDims);
-				float siteLat = bean.getOriginElementAsFloat(0);
-				float siteLon = bean.getOriginElementAsFloat(1);
+
 				List<Float> lonCalc = new ArrayList<Float>(xAxisDims.size());
 				List<Float> latCalc = new ArrayList<Float>(yAxisDims.size());
 				CodarUtils.fillLatLonValuesTotals(siteLat, siteLon, latCalc, lonCalc, xAxisDims, yAxisDims);
@@ -531,8 +549,9 @@ public class CodarTotalToNetCDF {
 				varid_vart.addAttribute(new Attribute("flag_meanings",
 						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
 				varid_vart.addAttribute(new Attribute("comment",
-						"OceanSITES quality flagging for Variance Threshold QC test. Threshold set to "
-								+ bean.getTotalTest().getVarianceThreshold() + " m2/s2."));
+						"OceanSITES quality flagging for Variance Threshold QC test. Test not applicable "
+								+ "to Direction Finding Systems. "
+								+ "The Temporal Derivative test is applied. Threshold set to "								+ bean.getTotalTest().getVarianceThreshold() + " m2/s2."));
 				varid_vart.addAttribute(new Attribute("scale_factor", Arrays.asList(new Short((short) 1))));
 				varid_vart.addAttribute(new Attribute("add_offset", Arrays.asList(new Short((short) 0))));
 
@@ -731,6 +750,11 @@ public class CodarTotalToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("geospatial_vertical_min", "0"));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_start", bean.getTime_coverage_start()));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_end", bean.getTime_coverage_end()));
+
+				dataFile.addGroupAttribute(null,
+						new Attribute("geospatial_lat_units", "degrees_north"));
+				dataFile.addGroupAttribute(null,
+						new Attribute("geospatial_lon_units", "degrees_east"));
 
 				// Conventions used
 				dataFile.addGroupAttribute(null, new Attribute("format_version", "v2.1"));

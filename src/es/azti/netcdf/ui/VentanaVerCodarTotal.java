@@ -77,18 +77,29 @@ public class VentanaVerCodarTotal extends JFrame {
 		// show attributes:
 
 		// x Minimun: the minimun to use to create the netcdf
-		this.addRowDisplay(tempPanel, "NetCDF minimun X (Km): ", this.bean.getxMin(),
-				this.profile == null ? null : this.profile.getxMin(), "xMin", true, true);
+		String defaultValueLonMin = null;
+		String defaultValueLonMax = null;
+		String defaultValueLatMin = null;
+		String defaultValueLatMax = null;
+		if (this.bean.getNetworkBean() != null) {
+			defaultValueLonMin = Float.toString(Float.parseFloat(this.bean.getNetworkBean().getGeospatial_lon_min()));
+			defaultValueLonMax = Float.toString(Float.parseFloat(this.bean.getNetworkBean().getGeospatial_lon_max()));
+			defaultValueLatMin = Float.toString(Float.parseFloat(this.bean.getNetworkBean().getGeospatial_lat_min()));
+			defaultValueLatMax = Float.toString(Float.parseFloat(this.bean.getNetworkBean().getGeospatial_lat_max()));
+		}
+
+		this.addRowDisplay(tempPanel, "NetCDF min lon (degrees): ", this.bean.getxMin(),
+				this.profile == null ? defaultValueLonMin : this.profile.getxMin(), "xMin", true, true);
 		// maximun X: the maximun to use to create the netcdf
-		this.addRowDisplay(tempPanel, "NetCDF maximun X (Km): ", this.bean.getxMax(),
-				this.profile == null ? null : this.profile.getxMax(), "xMax", true, true);
+		this.addRowDisplay(tempPanel, "NetCDF max lon (degrees): ", this.bean.getxMax(),
+				this.profile == null ? defaultValueLonMax : this.profile.getxMax(), "xMax", true, true);
 		// minimun Y for the netcdf grid
-		this.addRowDisplay(tempPanel, "NetCDF minimun Y (Km): ", this.bean.getyMin(),
-				this.profile == null ? null : this.profile.getyMin(), "yMin", true, true);
+		this.addRowDisplay(tempPanel, "NetCDF min lat (degrees): ", this.bean.getyMin(),
+				this.profile == null ? defaultValueLatMin : this.profile.getyMin(), "yMin", true, true);
 
 		// Maximun Y for the netcdf grid
-		this.addRowDisplay(tempPanel, "NetCDF maximun Y (Km): ", this.bean.getyMax(),
-				this.profile == null ? null : this.profile.getyMax(), "yMax", true, true);
+		this.addRowDisplay(tempPanel, "NetCDF max lat (degrees): ", this.bean.getyMax(),
+				this.profile == null ? defaultValueLatMax : this.profile.getyMax(), "yMax", true, true);
 
 		// data mode: mandatory: Indicates if the file contais real time
 		// provisional or delayed mode data.
@@ -114,19 +125,19 @@ public class VentanaVerCodarTotal extends JFrame {
 		// data language: suggested: The language in which the data elements are
 		// expressed
 		this.addRowDisplay(tempPanel, "Data Language", this.bean.getData_language(),
-				this.profile == null ? null : this.profile.getData_language(), "Data_language", false, true);
+				this.profile == null ? null : this.profile.getData_language(), "Data_language", false, false);
 		// data character set: suggested: the character set used for expresising
 		// data
 		this.addRowDisplay(tempPanel, "Data Character Set: ", this.bean.getData_char_set(),
-				this.profile == null ? null : this.profile.getData_char_set(), "Data_char_set", false, true);
+				this.profile == null ? null : this.profile.getData_char_set(), "Data_char_set", false, false);
 		// Metadata language: sugested: the language in with the metadata
 		// elements are expresed
 		this.addRowDisplay(tempPanel, "Metadata Laguage", this.bean.getMetadata_language(),
-				this.profile == null ? null : this.profile.getMetadata_language(), "Metadata_language", false, true);
+				this.profile == null ? null : this.profile.getMetadata_language(), "Metadata_language", false, false);
 		// metadata character set: suggested: the character set used for
 		// expressing metadata
 		this.addRowDisplay(tempPanel, "Metadata Character Set", this.bean.getMetadata_char_set(),
-				this.profile == null ? null : this.profile.getMetadata_char_set(), "Metadata_char_set", false, true);
+				this.profile == null ? null : this.profile.getMetadata_char_set(), "Metadata_char_set", false, false);
 		// topic_category: sugested: ISO 19115 topic category
 		this.addRowDisplay(tempPanel, "Topic Cathegory", this.bean.getTopic_cat(),
 				this.profile == null ? null : this.profile.getTopic_cat(), "Topic_cat", false, true);

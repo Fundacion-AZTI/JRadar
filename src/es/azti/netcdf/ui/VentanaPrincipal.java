@@ -12,7 +12,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -242,14 +244,25 @@ public class VentanaPrincipal extends JFrame {
 								"output: " + outputFile.getAbsolutePath() + File.separatorChar + individual.getName());
 						log.debug("profile: " + profile);
 
+						SimpleDateFormat filenameFormat = new SimpleDateFormat("yyyy_MM_dd_HHmm");
+						filenameFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+						
 						int error = -1;
 						if (individual.getName().endsWith(".ruv") && ficheroProfile.getName().endsWith(".radial")) {
 							codarRadialData = CodarUtils.loadCodarRadialData(individual, props);
 							CodarRadialToNetCDF ctn = new CodarRadialToNetCDF(codarRadialData);
 							// this is working in console mode, no data base
 							// information, only profiles.
-							String fileName = profileCodarRadialData.getStationBean().getNetwork_id() + "_"
-									+ individual.getName();
+							String patternType = "";
+							if (codarRadialData.getPatternType().contains("Measured")) {
+								patternType="m";
+							} else if (codarRadialData.getPatternType().contains("Ideal")) {
+								patternType="i";
+							}
+							
+							String fileName = profileCodarRadialData.getStationBean().getNetwork_id() + "_RDL_" + patternType + "_"
+									+ profileCodarRadialData.getStationBean().getStation_id() + "_" + 
+									filenameFormat.format(codarRadialData.getTimeStampAsCalendar().getTime());
 							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar + fileName;
 							if (outputFileName.lastIndexOf(".") > 0)
 								outputFileName = outputFileName.substring(0, outputFileName.lastIndexOf(".")) + ".nc";
@@ -258,8 +271,10 @@ public class VentanaPrincipal extends JFrame {
 								&& ficheroProfile.getName().endsWith(".total")) {
 							codarTotalData = CodarUtils.loadCodarTotalData(individual, props);
 							CodarTotalToNetCDF ctn = new CodarTotalToNetCDF(codarTotalData);
+							String fileName = profileCodarTotalData.getNetworkBean().getNetwork_id() + "_TOTL_" +
+									filenameFormat.format(codarTotalData.getTimeStampAsCalendar().getTime());
 							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar
-									+ individual.getName();
+									+ fileName;
 							if (outputFileName.lastIndexOf(".") > 0)
 								outputFileName = outputFileName.substring(0, outputFileName.lastIndexOf(".")) + ".nc";
 							error = ctn.toNetCDF4(profileCodarTotalData, outputFileName);
@@ -819,7 +834,7 @@ public class VentanaPrincipal extends JFrame {
 		String networkId = JOptionPane.showInputDialog(frame, "Type Network id", currentNwk);
 		String siteId = null;
 		if (codarTotalData == null) {
-			JOptionPane.showInputDialog(frame, "Type Site id", currentSt);
+			siteId = JOptionPane.showInputDialog(frame, "Type Site id", currentSt);
 		}
 
 		DataBaseBean networkData = null;
