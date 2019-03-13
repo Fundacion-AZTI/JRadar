@@ -179,10 +179,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 
 		File entrada = new File(input);
-		// mandatory to start with a letter, a to Z (to avoid hidden and
-		// temporal files like
-		// the ones present in mac OS, starting with a dot
-		if (entrada.isFile() && input.substring(0, 1).matches("\\w")) {
+		if (entrada.isFile()) {
 			// Digest file.
 			try {
 				int error = -1;
@@ -235,13 +232,11 @@ public class VentanaPrincipal extends JFrame {
 			// only codar files accepted.
 			File[] lista = entrada.listFiles();
 			for (File individual : lista) {
-				// Digest file.
+				// Digest files. check temporally files!
 				if (individual.getName().substring(0, 1).matches("\\w")) {
 					try {
 						log.debug("********************************************");
 						log.debug("input: " + individual.getAbsolutePath());
-						log.debug(
-								"output: " + outputFile.getAbsolutePath() + File.separatorChar + individual.getName());
 						log.debug("profile: " + profile);
 
 						SimpleDateFormat filenameFormat = new SimpleDateFormat("yyyy_MM_dd_HHmm");
@@ -262,10 +257,9 @@ public class VentanaPrincipal extends JFrame {
 							
 							String fileName = profileCodarRadialData.getStationBean().getNetwork_id() + "_RDL_" + patternType + "_"
 									+ profileCodarRadialData.getStationBean().getStation_id() + "_" + 
-									filenameFormat.format(codarRadialData.getTimeStampAsCalendar().getTime());
-							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar + fileName;
-							if (outputFileName.lastIndexOf(".") > 0)
-								outputFileName = outputFileName.substring(0, outputFileName.lastIndexOf(".")) + ".nc";
+									filenameFormat.format(codarRadialData.getTimeStampAsCalendar().getTime() );
+							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar + fileName + ".nc";
+							log.debug("output: " + outputFileName);
 							error = ctn.toNetCDF4(profileCodarRadialData, outputFileName);
 						} else if (individual.getName().endsWith(".tuv")
 								&& ficheroProfile.getName().endsWith(".total")) {
@@ -274,9 +268,8 @@ public class VentanaPrincipal extends JFrame {
 							String fileName = profileCodarTotalData.getNetworkBean().getNetwork_id() + "_TOTL_" +
 									filenameFormat.format(codarTotalData.getTimeStampAsCalendar().getTime());
 							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar
-									+ fileName;
-							if (outputFileName.lastIndexOf(".") > 0)
-								outputFileName = outputFileName.substring(0, outputFileName.lastIndexOf(".")) + ".nc";
+									+ fileName + ".nc";
+							log.debug("output: " + outputFileName);
 							error = ctn.toNetCDF4(profileCodarTotalData, outputFileName);
 						}
 						// code = 0: ok
@@ -839,7 +832,8 @@ public class VentanaPrincipal extends JFrame {
 
 		DataBaseBean networkData = null;
 		DataBaseBean stationData = null;
-
+		DataBaseBean stationDataTemp = null;
+		
 		DBSQLAccess dbAccess = new DBSQLAccess();
 		try {
 
@@ -853,6 +847,17 @@ public class VentanaPrincipal extends JFrame {
 				// stationData = dbAccess.getMockTable("station_tb",
 				// "station_id", siteId);
 				stationData = dbAccess.getTable("station_tb", "station_id", siteId);
+			} else {
+				stationDataTemp = dbAccess.getCalibration("station_tb", "network_id", networkId);
+				if (stationDataTemp == null) {
+					JOptionPane.showMessageDialog(this,
+							"It was not possible to retrieve the calibration metadata for the network.");
+				} else {
+					((NETWORK_TB) networkData).setDoA_estimation_method(((STATION_TB) stationDataTemp).getDoA_estimation_method());
+					((NETWORK_TB) networkData).setCalibration_type(((STATION_TB) stationDataTemp).getCalibration_type());
+					((NETWORK_TB) networkData).setCalibration_link(((STATION_TB) stationDataTemp).getCalibration_link());
+					((NETWORK_TB) networkData).setLast_calibration_date(((STATION_TB) stationDataTemp).getLast_calibration_date());
+				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.error("error retrieving network and station data from DDBB:", e);
@@ -868,6 +873,7 @@ public class VentanaPrincipal extends JFrame {
 			codarRadialData.setStationBean((STATION_TB) stationData);
 		} else if (codarTotalData != null) {
 			codarTotalData.setNetworkBean((NETWORK_TB) networkData);
+			
 		}
 		verDDBB.mostrarDatos();
 

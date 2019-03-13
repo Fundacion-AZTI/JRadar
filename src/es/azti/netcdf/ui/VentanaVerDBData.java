@@ -59,7 +59,7 @@ public class VentanaVerDBData extends JFrame {
 		// 2 rows for the titles, 1 station & 1 network
 		// 17 values for the station
 		// 34 values for the network
-		glayout.setRows(53);
+		glayout.setRows(60);
 
 		// gap between elements.
 		glayout.setHgap(5);
@@ -73,10 +73,6 @@ public class VentanaVerDBData extends JFrame {
 			this.addRowDisplay(tempPanel, "EDIOS_Series_id", this.networkBean.getEDIOS_Series_id());
 			this.addRowDisplay(tempPanel, "EDMO_code", this.networkBean.getEDMO_code());
 			this.addRowDisplay(tempPanel, "metadata_page", this.networkBean.getMetadata_page());
-			this.addRowDisplay(tempPanel, "DoA_estimation_method", this.networkBean.getDoA_estimation_method());
-			this.addRowDisplay(tempPanel, "calibration_type", this.networkBean.getCalibration_type());
-			this.addRowDisplay(tempPanel, "calibration_link", this.networkBean.getCalibration_link());
-			this.addRowDisplay(tempPanel, "last_calibration_date", this.networkBean.getLast_calibration_date());
 			this.addRowDisplay(tempPanel, "title", this.networkBean.getTitle());
 			this.addRowDisplay(tempPanel, "summary", this.networkBean.getSummary());
 			this.addRowDisplay(tempPanel, "institution_name", this.networkBean.getInstitution_name());
@@ -102,6 +98,8 @@ public class VentanaVerDBData extends JFrame {
 			this.addRowDisplay(tempPanel, "geospatial_lat_min", this.networkBean.getGeospatial_lat_min());
 			this.addRowDisplay(tempPanel, "geospatial_lat_max", this.networkBean.getGeospatial_lat_max());
 			this.addRowDisplay(tempPanel, "grid_resolution", this.networkBean.getGrid_resolution());
+			this.addRowDisplay(tempPanel, "temporal_resolution", this.networkBean.getTemporal_resolution());
+			
 			this.addRowDisplay(tempPanel, "region_bigram", this.networkBean.getRegion_bigram());
 			this.addRowDisplay(tempPanel, "combination_search_radius", this.networkBean.getCombination_search_radius());
 			this.addRowDisplay(tempPanel, "total_input_folder_path", this.networkBean.getTotal_input_folder_path());
@@ -142,6 +140,11 @@ public class VentanaVerDBData extends JFrame {
 			this.addRowDisplay(tempPanel, "radial_input_folder_path", this.stationBean.getRadial_input_folder_path());
 			this.addRowDisplay(tempPanel, "radial_HFRnetCDF_folder_path",
 					this.stationBean.getRadial_HFRnetCDF_folder_path());
+			this.addRowDisplay(tempPanel, "DoA_estimation_method", this.stationBean.getDoA_estimation_method());
+			this.addRowDisplay(tempPanel, "calibration_type", this.stationBean.getCalibration_type());
+			this.addRowDisplay(tempPanel, "calibration_link", this.stationBean.getCalibration_link());
+			this.addRowDisplay(tempPanel, "last_calibration_date", this.stationBean.getLast_calibration_date());
+
 		} else {
 			// if there is no bean loaded.
 			this.addRowDisplay(tempPanel, "NO DATA TO DISPLAY", "NO DATA TO DISPLAY");

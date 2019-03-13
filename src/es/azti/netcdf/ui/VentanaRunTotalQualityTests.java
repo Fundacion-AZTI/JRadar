@@ -559,8 +559,8 @@ public class VentanaRunTotalQualityTests extends JFrame {
 		try {
 			previous = (Calendar) bean.getTimeStampAsCalendar().clone();
 			next = (Calendar) bean.getTimeStampAsCalendar().clone();
-			previous.add(Calendar.HOUR, -1);
-			next.add(Calendar.HOUR, 1);
+			previous.add(Calendar.MINUTE, Math.negateExact(bean.getNetworkBean().getTemporal_resolution_Int()));
+			next.add(Calendar.MINUTE, bean.getNetworkBean().getTemporal_resolution_Int());
 			String prevFileName = filename.replace(filenameFormat.format(bean.getTimeStampAsCalendar().getTime()),
 					filenameFormat.format(previous.getTime()));
 			String nextFileName = filename.replace(filenameFormat.format(bean.getTimeStampAsCalendar().getTime()),

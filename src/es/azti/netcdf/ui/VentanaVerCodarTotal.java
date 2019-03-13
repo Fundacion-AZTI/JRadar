@@ -68,7 +68,7 @@ public class VentanaVerCodarTotal extends JFrame {
 
 		GridLayout glayout = new GridLayout();
 		glayout.setColumns(3);
-		glayout.setRows(19);
+		glayout.setRows(25);
 
 		glayout.setHgap(5);
 		glayout.setVgap(5);
@@ -164,6 +164,25 @@ public class VentanaVerCodarTotal extends JFrame {
 		// GridAxisOrientation
 		this.addRowDisplay(tempPanel, "Grid Spacing: ", this.bean.getGridSpacing(),
 				this.profile == null ? null : this.profile.getGridSpacing(), "GridSpacing", true, true);
+
+		this.addRowDisplay(tempPanel, "Publisher Name: ", this.bean.getPublisher_name(),
+				this.profile == null ? null : this.profile.getPublisher_name(), "Publisher_name", true, false);
+
+		this.addRowDisplay(tempPanel, "Publisher Url: ", this.bean.getPublisher_url(),
+				this.profile == null ? null : this.profile.getPublisher_url(), "Publisher_url", true, false);
+
+		this.addRowDisplay(tempPanel, "Publisher Email: ", this.bean.getPublisher_name(),
+				this.profile == null ? null : this.profile.getPublisher_name(), "Publisher_name", true, false);
+
+		 //contributors name: recomended: A semi colon separaed list of the names of any individuals or institutions that contributed to the creation of this data file
+		 this.addRowDisplay(tempPanel, "Contributor Names: ", this.bean.getContributor_name(),
+				 this.profile==null?null:this.profile.getContributor_name(), "Contributor_name", true, true);
+		 //contributors roles: recomended: A semi colon separated list of roles of any individuals or institutions mentioned in the previous attribute
+		 this.addRowDisplay(tempPanel, "Contributor Roles: ", this.bean.getContributor_role(),
+				 this.profile==null?null:this.profile.getContributor_role(), "Contributor_role", true, true);
+		 //contributors email: recomended: A semi colon separated list of emails fo any individuals or institutions mentioned in the previous attributes
+		 this.addRowDisplay(tempPanel, "Contributor Emails: ", this.bean.getContributor_email(),
+				 this.profile==null?null:this.profile.getContributor_email(), "Contributor_email", true, true);
 
 		// //CTF
 		// this.addRowDisplay(tempPanel, "CTF: ", this.bean.getCTF(),

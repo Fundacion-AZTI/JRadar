@@ -102,12 +102,12 @@ public class CodarTotalBean implements Serializable {
 	private String area = "";
 	private String quality_control = "Level-B: advanced QC";
 	private String references = "Netcdf Java Documentation - https://www.unidata.ucar.edu/software/thredds/current/netcdf-java/";
-	private String publisher_name = "Lorenzo Corgnati";
-	private String publisher_url = "http://www.ismar.cnr.it/";
+	private String publisher_name = "European HFR node";
+	private String publisher_url = "https://azti.sharepoint.com/sites/Proyectos/EUHFRNODE";
 	private String publisher_email = "lorenzo.corgnati@sp.ismar.cnr.it";
-	private String contributor_name = "Vega Forneris, Cristina Tronconi";
-	private String contributor_role = "THREDDS expert, metadata expert";
-	private String contributor_email = "vega.forneris@artov.isac.cnr.it, cristina.tronconi@artov.isac.cnr.it";
+	private String contributor_name = "";
+	private String contributor_role = "";
+	private String contributor_email = "";
 
 	private String title = "Near Real Time Surface Ocean Total Velocity";
 	private String institution;

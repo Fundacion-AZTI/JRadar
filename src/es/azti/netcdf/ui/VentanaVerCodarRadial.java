@@ -68,7 +68,7 @@ public class VentanaVerCodarRadial extends JFrame {
 
 		GridLayout glayout = new GridLayout();
 		glayout.setColumns(3);
-		glayout.setRows(25);
+		glayout.setRows(31);
 
 		glayout.setHgap(5);
 		glayout.setVgap(5);
@@ -149,24 +149,16 @@ public class VentanaVerCodarRadial extends JFrame {
 		// YYYY-MM-DDThh:mm:ssZ
 		this.addRowDisplay(tempPanel, "Time Coverage End: ", this.bean.getTime_coverage_end(),
 				this.profile == null ? null : this.profile.getTime_coverage_end(), "Time_coverage_end", true, false);
-		// Publisher Name: recomended: Name of hte person responsible for
-		// metadata and formatting of the data file.
-		// this.addRowDisplay(tempPanel, "Publisher Name: ",
-		// this.bean.getPublisher_name(),
-		// this.profile==null?null:this.profile.getPublisher_name(),
-		// "Publisher_name", true, true);
-		// //Publisher Email: recomended: email address of the person
-		// responsible for metadata and formattin gof the data file.
-		// this.addRowDisplay(tempPanel, "Publisher Email: ",
-		// this.bean.getPublisher_email(),
-		// this.profile==null?null:this.profile.getPublisher_email(),
-		// "Publisher_email", true, true);
-		// //publisher URL: recomended: web ddress of the institution or of the
-		// data publisher.
-		// this.addRowDisplay(tempPanel, "Publisher URL: ",
-		// this.bean.getPublisher_url(),
-		// this.profile==null?null:this.profile.getPublisher_url(),
-		// "Publisher_url", true, true);
+
+		this.addRowDisplay(tempPanel, "Publisher Name: ", this.bean.getPublisher_name(),
+				this.profile == null ? null : this.profile.getPublisher_name(), "Publisher_name", true, false);
+
+		this.addRowDisplay(tempPanel, "Publisher Url: ", this.bean.getPublisher_url(),
+				this.profile == null ? null : this.profile.getPublisher_url(), "Publisher_url", true, false);
+
+		this.addRowDisplay(tempPanel, "Publisher Email: ", this.bean.getPublisher_name(),
+				this.profile == null ? null : this.profile.getPublisher_name(), "Publisher_name", true, false);
+
 		// history: Provides an audit trail for modifications to the original
 		// data. It should contain a separate line for each modification, with
 		// each line beginning with a timestmp, and including user name,
@@ -175,27 +167,15 @@ public class VentanaVerCodarRadial extends JFrame {
 		// YYYY-MM-DDThh:mm:ssZ"
 		this.addRowDisplay(tempPanel, "History: ", this.bean.getHistCreated(),
 				this.profile == null ? null : this.profile.getHistCreated(), "HistCreated", true, false);
-		// //contributors name: recomended: A semi colon separaed list of the
-		// names of any individuals or institutions that contributed to the
-		// creation of this data file
-		// this.addRowDisplay(tempPanel, "Contributor Names: ",
-		// this.bean.getContributor_name(),
-		// this.profile==null?null:this.profile.getContributor_name(),
-		// "Contributor_name", true, true);
-		// //contributors roles: recomended: A semi colon separated list of
-		// roles of any individuals or institutions mentioned in the previous
-		// attribute
-		// this.addRowDisplay(tempPanel, "Contributor Roles: ",
-		// this.bean.getContributor_role(),
-		// this.profile==null?null:this.profile.getContributor_role(),
-		// "Contributor_role", true, true);
-		// //contributors email: recomended: A semi colon separated list of
-		// emails fo any individuals or institutions mentioned in the previous
-		// attributes
-		// this.addRowDisplay(tempPanel, "Contributor Emails: ",
-		// this.bean.getContributor_email(),
-		// this.profile==null?null:this.profile.getContributor_email(),
-		// "Contributor_email", true, true);
+		 //contributors name: recomended: A semi colon separaed list of the names of any individuals or institutions that contributed to the creation of this data file
+		 this.addRowDisplay(tempPanel, "Contributor Names: ", this.bean.getContributor_name(),
+				 this.profile==null?null:this.profile.getContributor_name(), "Contributor_name", true, true);
+		 //contributors roles: recomended: A semi colon separated list of roles of any individuals or institutions mentioned in the previous attribute
+		 this.addRowDisplay(tempPanel, "Contributor Roles: ", this.bean.getContributor_role(),
+				 this.profile==null?null:this.profile.getContributor_role(), "Contributor_role", true, true);
+		 //contributors email: recomended: A semi colon separated list of emails fo any individuals or institutions mentioned in the previous attributes
+		 this.addRowDisplay(tempPanel, "Contributor Emails: ", this.bean.getContributor_email(),
+				 this.profile==null?null:this.profile.getContributor_email(), "Contributor_email", true, true);
 		// angular resolution
 		this.addRowDisplay(tempPanel, "Angular Resolution: ", this.bean.getAngularResolution(),
 				this.profile == null ? null : this.profile.getAngularResolution(), "AngularResolution", true, true);

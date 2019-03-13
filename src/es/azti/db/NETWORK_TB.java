@@ -48,6 +48,7 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 	private String geospatial_lat_min;
 	private String geospatial_lat_max;
 	private String grid_resolution;
+	private String temporal_resolution;
 	private String region_bigram;
 	private String combination_search_radius;
 	private String total_input_folder_path;
@@ -606,10 +607,10 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		System.out.println("EDIOS_Series_id parameter: " + EDIOS_Series_id);
 		System.out.println("EDMO_code parameter: " + EDMO_code);
 		System.out.println("metadata_page parameter: " + metadata_page);
-		System.out.println("DoA_estimation_method parameter: " + DoA_estimation_method);
-		System.out.println("calibration_type parameter: " + calibration_type);
-		System.out.println("calibration_link parameter: " + calibration_link);
-		System.out.println("last_calibration_date parameter: " + last_calibration_date);
+//		System.out.println("DoA_estimation_method parameter: " + DoA_estimation_method);
+//		System.out.println("calibration_type parameter: " + calibration_type);
+//		System.out.println("calibration_link parameter: " + calibration_link);
+//		System.out.println("last_calibration_date parameter: " + last_calibration_date);
 		System.out.println("title parameter: " + title);
 		System.out.println("summary parameter: " + summary);
 		System.out.println("institution_name parameter: " + institution_name);
@@ -650,10 +651,10 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		this.EDIOS_Series_id = "HFR_TirLig";
 		this.EDMO_code = "134";
 		this.metadata_page = "http://150.145.136.27:8080/thredds/HF_RADAR/TirLig/TirLig_catalog.html";
-		this.DoA_estimation_method = "Direction Finding";
-		this.calibration_type = "APM";
-		this.calibration_link = "carlo.mantovani@cnr.it";
-		this.last_calibration_date = "07/09/2016";
+//		this.DoA_estimation_method = "Direction Finding";
+//		this.calibration_type = "APM";
+//		this.calibration_link = "carlo.mantovani@cnr.it";
+//		this.last_calibration_date = "07/09/2016";
 		this.title = "MOCK NETWORK Data, not real, only for development purpouses";
 		this.summary = "The data set consists of maps of total velocity of the surface current in the North-Western Tyrrhenian Sea and Ligurian Sea averaged over a time interval of 1 hour around the cardinal hour. Surface ocean velocities estimated by HF Radar are representative of the upper 0.3-2.5 meters of the ocean.	";
 		this.institution_name = "Laboratorio di Monitoraggio e Modellistica Ambientale per lo sviluppo sostenibile";
@@ -665,8 +666,8 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		this.total_QC_variance_threshold = "1";
 		this.total_QC_temporal_derivative_threshold = "1.2";
 		this.total_QC_data_density_threshold = "3";
-		this.project = "RITMARE, Jerico-Next, IMPACT and SICOMAR Plus";
-		this.institution_website = "http://www.ismar.cnr.it/";
+		this.project = "EUSKALMET, Jerico-Next, IMPACT and SICOMAR Plus";
+		this.institution_website = "http://www.azti.es/";
 		this.comment = "Total velocities are derived using least square fit that maps radial velocities measured from individual sites onto a cartesian grid. The final product is a map of the horizontal components of the ocean currents on a regular grid in the area of overlap of two or more radar stations.";
 		this.network_name = "LaMMA_HFR";
 		this.area = "Mediterranean Sea";
@@ -681,6 +682,28 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		this.total_HFRnetCDF_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Totals_nc";
 		this.total_mat_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Totals_mat";
 
+	}
+
+	/**
+	 * @return the temporal_resolution
+	 */
+	public String getTemporal_resolution() {
+		return temporal_resolution;
+	}
+	
+	/**
+	 * @return the int value of temporal_resolution
+	 */
+	public int getTemporal_resolution_Int(){
+		double data = Double.parseDouble(temporal_resolution);
+		return (int)data;
+	}
+
+	/**
+	 * @param temporal_resolution the temporal_resolution to set
+	 */
+	public void setTemporal_resolution(String temporal_resolution) {
+		this.temporal_resolution = temporal_resolution;
 	}
 
 }

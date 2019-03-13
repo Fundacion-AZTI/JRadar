@@ -239,6 +239,7 @@ public class CodarRadialToNetCDF {
 				}
 
 				String site_code = bean.getNetworkBean().getNetwork_id();
+				String site_id = bean.getStationBean().getStation_id();
 				String platform_code = site_code + "_" + bean.getStationBean().getStation_id();
 				String id = platform_code + "_" + bean.getTimeStampAsUTC();
 				String TDS_catalog = bean.getNetworkBean().getMetadata_page();
@@ -258,9 +259,9 @@ public class CodarRadialToNetCDF {
 				Dimension dimid_depth = dataFile.addDimension(null, "DEPH", 1);
 				Dimension dimid_maxsite = dataFile.addDimension(null, "MAXSITE", CodarRadialToNetCDF.MAX_SITE);
 				Dimension dimid_refmax = dataFile.addDimension(null, "REFMAX", CodarRadialToNetCDF.REF_MAX);
-				Dimension dimid_string4 = dataFile.addDimension(null, "STRING4", 4);
-				Dimension dimid_string_site_code = dimid_string4;
-				if (site_code.length() != 4) {
+				Dimension dimid_string_site_id = dataFile.addDimension(null, "STRING"+site_id.length(), site_id.length());
+				Dimension dimid_string_site_code = dimid_string_site_id;
+				if (site_code.length() != site_id.length()) {
 					dimid_string_site_code = dataFile.addDimension(null, "STRING" + site_code.length(),
 							site_code.length());
 				}
@@ -315,7 +316,7 @@ public class CodarRadialToNetCDF {
 
 				dimsTMS4.add(dimid_t);
 				dimsTMS4.add(dimid_maxsite);
-				dimsTMS4.add(dimid_string4);
+				dimsTMS4.add(dimid_string_site_id);
 
 				// https://www.unidata.ucar.edu/software/netcdf/docs/BestPractices.html
 				// check how to add fillvalues..
@@ -1001,12 +1002,12 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("platform_code", platform_code));
 				dataFile.addGroupAttribute(null, new Attribute("data_mode", bean.getData_mode()));
 				dataFile.addGroupAttribute(null,
-						new Attribute("DoA_estimation_method", bean.getNetworkBean().getDoA_estimation_method()));
+						new Attribute("DoA_estimation_method", bean.getStationBean().getDoA_estimation_method()));
 				dataFile.addGroupAttribute(null,
-						new Attribute("calibration_type", bean.getNetworkBean().getCalibration_type()));
+						new Attribute("calibration_type", bean.getStationBean().getCalibration_type()));
 				dataFile.addGroupAttribute(null, new Attribute("last_calibration_date", bean.getPatternDateUTC()));
 				dataFile.addGroupAttribute(null,
-						new Attribute("calibration_link", bean.getNetworkBean().getCalibration_link()));
+						new Attribute("calibration_link", bean.getStationBean().getCalibration_link()));
 				dataFile.addGroupAttribute(null, new Attribute("title", bean.getNetworkBean().getTitle()));
 				dataFile.addGroupAttribute(null, new Attribute("summary", bean.getNetworkBean().getSummary()));
 				dataFile.addGroupAttribute(null, new Attribute("source", bean.getSource()));

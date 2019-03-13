@@ -5,6 +5,11 @@
 package es.azti.db;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Class to retrieve data from STATION_TB table in the european node ddbb
@@ -36,6 +41,96 @@ public class STATION_TB extends DataBaseBean implements Serializable {
 	private String number_of_range_cells;
 	private String radial_input_folder_path;
 	private String radial_HFRnetCDF_folder_path;
+	private String DoA_estimation_method;
+	private String calibration_type;
+	private String calibration_link;
+	private String last_calibration_date;
+
+	private String EDMO_code;
+	private String institution_name;
+	private String institution_website;
+
+	
+	/**
+	 * @return the doA_estimation_method
+	 */
+	public String getDoA_estimation_method() {
+		return DoA_estimation_method;
+	}
+
+	/**
+	 * @param doA_estimation_method
+	 *            the doA_estimation_method to set
+	 */
+	public void setDoA_estimation_method(String doA_estimation_method) {
+		DoA_estimation_method = doA_estimation_method;
+	}
+
+	/**
+	 * @return the calibration_type
+	 */
+	public String getCalibration_type() {
+		return calibration_type;
+	}
+
+	/**
+	 * @param calibration_type
+	 *            the calibration_type to set
+	 */
+	public void setCalibration_type(String calibration_type) {
+		this.calibration_type = calibration_type;
+	}
+
+	/**
+	 * @return the calibration_link
+	 */
+	public String getCalibration_link() {
+		return calibration_link;
+	}
+
+	/**
+	 * @param calibration_link
+	 *            the calibration_link to set
+	 */
+	public void setCalibration_link(String calibration_link) {
+		this.calibration_link = calibration_link;
+	}
+
+	/**
+	 * @return the last_calibration_date
+	 */
+	public String getLast_calibration_date() {
+		return last_calibration_date;
+	}
+
+	/**
+	 * @param last_calibration_date
+	 *            the last_calibration_date to set
+	 */
+	public void setLast_calibration_date(String last_calibration_date) {
+		this.last_calibration_date = last_calibration_date;
+	}
+
+	/**
+	 * parses the calibration date stored in the data base and transforms to the UTC ISO 8601
+	 * @return
+	 */
+	public String getLasCalibrationDateUTC() {
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		hourFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		Date coverageStart = Calendar.getInstance().getTime();
+		try {
+			coverageStart = dateFormat.parse(last_calibration_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dateFormat.format(coverageStart.getTime()) + "T" + hourFormat.format(coverageStart.getTime()) + "Z";
+	}
 
 	/**
 	 * @return the station_id
@@ -325,6 +420,47 @@ public class STATION_TB extends DataBaseBean implements Serializable {
 	}
 
 	/**
+	 * @return the institution_name
+	 */
+	public String getInstitution_name() {
+		return institution_name;
+	}
+
+	/**
+	 * @param institution_name
+	 *            the institution_name to set
+	 */
+	public void setInstitution_name(String institution_name) {
+		this.institution_name = institution_name;
+	}
+
+	/**
+	 * @return the institution_website
+	 */
+	public String getInstitution_website() {
+		return institution_website;
+	}
+
+	/**
+	 * @param institution_website
+	 *            the institution_website to set
+	 */
+	public void setInstitution_website(String institution_website) {
+		this.institution_website = institution_website;
+	}
+
+	/**
+	 * @return the eDMO_code
+	 */
+	public String getEDMO_code() {
+		return EDMO_code;
+	}
+
+	public Short getEDMO_code_As_Short() {
+		return Short.parseShort(EDMO_code);
+	}
+
+	/**
 	 * For developing, it prints the values in the console. 
 	 */
 	public void printData() {
@@ -348,6 +484,13 @@ public class STATION_TB extends DataBaseBean implements Serializable {
 		System.out.println("number_of_range_cells property: " + number_of_range_cells);
 		System.out.println("radial_input_folder_path property: " + radial_input_folder_path);
 		System.out.println("radial_HFRnetCDF_folder_path property: " + radial_HFRnetCDF_folder_path);
+		System.out.println("DoA_estimation_method parameter: " + DoA_estimation_method);
+		System.out.println("calibration_type parameter: " + calibration_type);
+		System.out.println("calibration_link parameter: " + calibration_link);
+		System.out.println("last_calibration_date parameter: " + last_calibration_date);
+		System.out.println("EDMO_code parameter: " + EDMO_code);
+		System.out.println("institution_name parameter: " + institution_name);
+		System.out.println("institution_website parameter: " + institution_website);
 
 	}
 	/**
@@ -374,6 +517,13 @@ public class STATION_TB extends DataBaseBean implements Serializable {
 		this.number_of_range_cells = "50";
 		this.radial_input_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Radials_ruv/LIVO";
 		this.radial_HFRnetCDF_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Radials_nc";
+		this.DoA_estimation_method = "Direction Finding";
+		this.calibration_type = "APM";
+		this.calibration_link = "jlasensio@azti.es";
+		this.last_calibration_date = "07/09/2016";
+		this.EDMO_code = "134";
+		this.institution_name = "Laboratorio di Monitoraggio e Modellistica Ambientale per lo sviluppo sostenibile";
+		this.institution_website = "http://www.azti.es/";
 
 	}
 

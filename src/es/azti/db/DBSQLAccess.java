@@ -147,6 +147,39 @@ public class DBSQLAccess {
 	}
 
 	/**
+	 * Method to get the station with last Calibration date that belongs
+	 * to a specific Id.
+	 * 
+	 * @param tableId
+	 *            The name of the table we want to run the select.
+	 * @param fieldId
+	 *            the name of the column to apply the where clause within the
+	 *            select query
+	 * @param fieldValue
+	 *            the value for the where clause within the select query
+	 * @return A bean containing the values.
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public DataBaseBean getCalibration(String tableId, String fieldId, String fieldValue)
+			throws ClassNotFoundException, SQLException {
+		openConnection();
+
+		String query = composeCalibrationQuery(tableId, fieldId, fieldValue);
+		// Result set get the result of the SQL query
+		resultSet = statement.executeQuery(query);
+		DataBaseBean table = null;
+		try {
+			table = parseResultSet(resultSet);
+		} catch (Exception e) {
+			log.error("generic error retrieving info from database: ", e);
+		}
+
+		closeConnection();
+		return table;
+	}
+
+	/**
 	 * Creates the query based on the table name, column and value we are asking
 	 * for. For example, if tableId = "NETWORK_TB", fieldId="EDIOS_Series_id"
 	 * and fieldValue="HFR_TirLig" the query is SELEC * FROM NETWORK_TB WHERE
@@ -176,6 +209,50 @@ public class DBSQLAccess {
 
 		return sb.toString();
 	}
+
+	/**
+	 * Creates the query based on the table name, column and value we are asking
+	 * for but only get the one with the latest calibration. 
+	 * For example, if tableId = "STATION_TB", fieldId="EDIOS_Series_id"
+	 * and fieldValue="HFR_TirLig" the query is 
+	 * SELEC * FROM STATION_TB WHERE 
+	 * tableId = "HFR_TirLig" AND last_calibration_date= 
+	 * (SELECT MAX(last_calibration_date) * FROM STATION_TB
+	 * WHERE tableId="HFR_TirLig")
+	 * 
+	 * @param tableId
+	 *            The name of the table we want to run the select.
+	 * @param fieldId
+	 *            the name of the column to apply the where clause within the
+	 *            select query
+	 * @param fieldValue
+	 *            the value for the where clause within the select query
+	 * @return
+	 */
+	private String composeCalibrationQuery(String tableId, String fieldId, String fieldValue) {
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("select * from ");
+		sb.append(dbName);
+		sb.append(".");
+		sb.append(tableId);
+		sb.append(" where ");
+		sb.append(fieldId);
+		sb.append(" = '");
+		sb.append(fieldValue);
+		sb.append("' and last_calibration_date = (select max(last_calibration_date) from ");
+		sb.append(dbName);
+		sb.append(".");
+		sb.append(tableId);
+		sb.append(" where ");
+		sb.append(fieldId);
+		sb.append(" = '");
+		sb.append(fieldValue);
+		sb.append("');");
+		
+		return sb.toString();
+	}	
+	
 
 	/**
 	 * creates the connection and starts the communication with the data base.
