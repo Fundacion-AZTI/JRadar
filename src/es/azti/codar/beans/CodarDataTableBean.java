@@ -190,7 +190,11 @@ public class CodarDataTableBean {
 	 *         elementes of the rows 1,3,2,5 from codar text file.
 	 */
 	public List<Integer> getTotalTableIndexInNetCdf(List<Float> xData, List<Float> yData) {
-		List<Integer> returnTable = new ArrayList<Integer>(xData.size() * yData.size());
+		List<Integer> returnTable = new ArrayList<Integer>(xData.size() * yData.size()) ;
+			for(int i=0;i<xData.size()*yData.size();i++){
+				returnTable.add(new Integer(-1));
+			}
+		
 		List<Float> xCodarData = getColumnElements(TableColumnNames.XDST);
 		List<Float> yCodarData = getColumnElements(TableColumnNames.YDST);
 		for (int indexb = 0; indexb < xData.size(); indexb++) {
@@ -208,12 +212,14 @@ public class CodarDataTableBean {
 				}
 				if (position != -1) {
 					// For debugging purpouses
-					// System.out.println("found y: "+ y + " not found x: " + x
-					// + "pos x: " + indexb + " pos y: "+ indexr + "mascara: " +
-					// ((indexb*yData.size() + indexr) + " : pos: " +
-					// position));
+//					 System.out.println("found y: "+ y + " not found x: " + x
+//					 + "pos x: " + indexb + " pos y: "+ indexr + "mascara: " +
+//					 ((indexb*yData.size() + indexr) + " : pos: " +
+//					 position));
 				}
-				returnTable.add(indexb * yData.size() + indexr, new Integer(position));
+				//returnTable.add(indexb * yData.size() + indexr, new Integer(position));
+				returnTable.remove(indexr * xData.size() + indexb);
+				returnTable.add(indexr * xData.size() + indexb, new Integer(position));
 			}
 		}
 

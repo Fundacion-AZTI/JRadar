@@ -370,7 +370,10 @@ public class CodarUtils {
 	 */
 	public static Array transformCollectionInMultidimensionalFloatArray(List<Float> data, List<Dimension> dimensions) {
 		ArrayFloat A = null;
-		if (dimensions.size() == 1) {
+		if (dimensions.size() == 0) {
+			//nada
+			A = new ArrayFloat.D0();
+		} else if (dimensions.size() == 1) {
 			Dimension dimid_1 = dimensions.get(0);
 			A = new ArrayFloat.D1(dimid_1.getLength());
 			Index ima = A.getIndex();
@@ -458,7 +461,9 @@ public class CodarUtils {
 	 */
 	public static Array transformCollectionInMultidimensionalDoubleArray(List<Float> data, List<Dimension> dimensions) {
 		ArrayDouble A = null;
-		if (dimensions.size() == 1) {
+		if (dimensions.size() == 0) {
+			A = new ArrayDouble.D0();
+		} else if (dimensions.size() == 1) {
 			Dimension dimid_1 = dimensions.get(0);
 			A = new ArrayDouble.D1(dimid_1.getLength());
 			Index ima = A.getIndex();
@@ -579,7 +584,10 @@ public class CodarUtils {
 	 */
 	public static Array transformCollectionInMultidimensionalShortArray(List<Float> data, List<Dimension> dimensions) {
 		ArrayShort A = null;
-		if (dimensions.size() == 1) {
+		if (dimensions.size() == 0) {
+			//nada
+			A = new ArrayShort.D0();
+		} else if (dimensions.size() == 1) {
 			Dimension dimid_1 = dimensions.get(0);
 			A = new ArrayShort.D1(dimid_1.getLength());
 			Index ima = A.getIndex();
@@ -668,7 +676,10 @@ public class CodarUtils {
 	 */
 	public static Array transformCollectionInMultidimensionalByteArray(List<Float> data, List<Dimension> dimensions) {
 		ArrayByte A = null;
-		if (dimensions.size() == 1) {
+		if (dimensions.size() == 0) {
+			//nada 
+			A = new ArrayByte.D0();
+		} else if (dimensions.size() == 1) {
 			Dimension dimid_1 = dimensions.get(0);
 			A = new ArrayByte.D1(dimid_1.getLength());
 			Index ima = A.getIndex();

@@ -59,7 +59,7 @@ public class VentanaVerDBData extends JFrame {
 		// 2 rows for the titles, 1 station & 1 network
 		// 17 values for the station
 		// 34 values for the network
-		glayout.setRows(60);
+		glayout.setRows(63);
 
 		// gap between elements.
 		glayout.setHgap(5);
@@ -106,6 +106,9 @@ public class VentanaVerDBData extends JFrame {
 			this.addRowDisplay(tempPanel, "total_HFRnetCDF_folder_path",
 					this.networkBean.getTotal_HFRnetCDF_folder_path());
 			this.addRowDisplay(tempPanel, "total_mat_folder_path", this.networkBean.getTotal_mat_folder_path());
+			this.addRowDisplay(tempPanel,  "contributor_name", this.networkBean.getContributor_name());
+			this.addRowDisplay(tempPanel,  "contributor_role", this.networkBean.getContributor_role());
+			this.addRowDisplay(tempPanel,  "contributor_email", this.networkBean.getContributor_email());
 		} else {
 			// if there is no bean loaded
 			this.addRowDisplay(tempPanel, "NO DATA TO DISPLAY", "NO DATA TO DISPLAY");

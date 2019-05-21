@@ -54,6 +54,51 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 	private String total_input_folder_path;
 	private String total_HFRnetCDF_folder_path;
 	private String total_mat_folder_path;
+	private String contributor_name;
+	private String contributor_role;
+	private String contributor_email;
+
+	/**
+	 * @return the contributor_name
+	 */
+	public String getContributor_name() {
+		return contributor_name;
+	}
+
+	/**
+	 * @param contributor_name the contributor_name to set
+	 */
+	public void setContributor_name(String contributor_name) {
+		this.contributor_name = contributor_name;
+	}
+
+	/**
+	 * @return the contributor_role
+	 */
+	public String getContributor_role() {
+		return contributor_role;
+	}
+
+	/**
+	 * @param contributor_role the contributor_role to set
+	 */
+	public void setContributor_role(String contributor_role) {
+		this.contributor_role = contributor_role;
+	}
+
+	/**
+	 * @return the contributor_email
+	 */
+	public String getContributor_email() {
+		return contributor_email;
+	}
+
+	/**
+	 * @param contributor_email the contributor_email to set
+	 */
+	public void setContributor_email(String contributor_email) {
+		this.contributor_email = contributor_email;
+	}
 
 	/**
 	 * @return the network_id
@@ -638,6 +683,10 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		System.out.println("total_input_folder_path parameter: " + total_input_folder_path);
 		System.out.println("total_HFRnetCDF_folder_path  parameter: " + total_HFRnetCDF_folder_path);
 		System.out.println("total_mat_folder_path parameter: " + total_mat_folder_path);
+		System.out.println("contributor_name: " + contributor_name);
+		System.out.println("contributor_role: " + contributor_role);
+		System.out.println("contributor_email: " + contributor_email);
+		
 	}
 
 	/**
@@ -681,7 +730,10 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		this.total_input_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Totals_tuv";
 		this.total_HFRnetCDF_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Totals_nc";
 		this.total_mat_folder_path = "/Users/reverendo/Documents/CNR/RADAR/DATI/Dati_HFR_LaMMA/Totals_mat";
-
+		this.temporal_resolution = "60";
+		this.contributor_name = "Julien Mader; Anna Rubio; Jose Luis Asensio";
+		this.contributor_role = "Data Centre expert, HFR expert; metadata expert";
+		this.contributor_email = "jmader@azti.es; arubio@azti.es; jlasensio@azti.es";
 	}
 
 	/**

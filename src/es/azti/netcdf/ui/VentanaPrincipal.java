@@ -179,6 +179,11 @@ public class VentanaPrincipal extends JFrame {
 		}
 
 		File entrada = new File(input);
+		// mandatory to start with a letter, a to Z (to avoid hidden and
+		// temporal files like
+		// the ones present in mac OS, starting with a dot
+		// TODO check
+		//if (entrada.isFile() && input.substring(0, 1).matches("\\w")) {
 		if (entrada.isFile()) {
 			// Digest file.
 			try {
@@ -255,7 +260,7 @@ public class VentanaPrincipal extends JFrame {
 								patternType="i";
 							}
 							
-							String fileName = profileCodarRadialData.getStationBean().getNetwork_id() + "_RDL_" + patternType + "_"
+							String fileName = profileCodarRadialData.getStationBean().getNetwork_id() + "-RDL_" + patternType + "_"
 									+ profileCodarRadialData.getStationBean().getStation_id() + "_" + 
 									filenameFormat.format(codarRadialData.getTimeStampAsCalendar().getTime() );
 							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar + fileName + ".nc";
@@ -265,7 +270,7 @@ public class VentanaPrincipal extends JFrame {
 								&& ficheroProfile.getName().endsWith(".total")) {
 							codarTotalData = CodarUtils.loadCodarTotalData(individual, props);
 							CodarTotalToNetCDF ctn = new CodarTotalToNetCDF(codarTotalData);
-							String fileName = profileCodarTotalData.getNetworkBean().getNetwork_id() + "_TOTL_" +
+							String fileName = profileCodarTotalData.getNetworkBean().getNetwork_id() + "-TOTL_" +
 									filenameFormat.format(codarTotalData.getTimeStampAsCalendar().getTime());
 							String outputFileName = outputFile.getAbsolutePath() + File.separatorChar
 									+ fileName + ".nc";
@@ -840,14 +845,14 @@ public class VentanaPrincipal extends JFrame {
 			networkData = dbAccess.getTable("network_tb", "network_id", networkId);
 			// JOptionPane.showMessageDialog(this, "Mocking data from DDBB:
 			// VentanaPrincipal.java line 741");
-			// networkData = dbAccess.getMockTable("network_tb", "network_id",
-			// networkId);
+			// networkData = dbAccess.getMockTable("network_tb");
 			if (codarTotalData == null) {
 				// Station information only loaded when working with radials.
 				// stationData = dbAccess.getMockTable("station_tb",
 				// "station_id", siteId);
 				stationData = dbAccess.getTable("station_tb", "station_id", siteId);
 			} else {
+				
 				stationDataTemp = dbAccess.getCalibration("station_tb", "network_id", networkId);
 				if (stationDataTemp == null) {
 					JOptionPane.showMessageDialog(this,
