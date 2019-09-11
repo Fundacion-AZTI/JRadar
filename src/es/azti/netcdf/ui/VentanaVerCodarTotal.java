@@ -175,14 +175,17 @@ public class VentanaVerCodarTotal extends JFrame {
 				this.profile == null ? null : this.profile.getPublisher_name(), "Publisher_name", true, false);
 
 		 //contributors name: recomended: A semi colon separaed list of the names of any individuals or institutions that contributed to the creation of this data file
+		String contName = this.bean.getNetworkBean() == null?"":this.bean.getNetworkBean().getContributor_name();
 		 this.addRowDisplay(tempPanel, "Contributor Names: ", this.bean.getContributor_name(),
-				 this.profile==null?this.bean.getNetworkBean().getContributor_name():this.profile.getContributor_name(), "Contributor_name", true, true);
+				 this.profile==null?contName:this.profile.getContributor_name(), "Contributor_name", true, true);
 		 //contributors roles: recomended: A semi colon separated list of roles of any individuals or institutions mentioned in the previous attribute
+		 String contRole = this.bean.getNetworkBean() == null?"":this.bean.getNetworkBean().getContributor_role();
 		 this.addRowDisplay(tempPanel, "Contributor Roles: ", this.bean.getContributor_role(),
-				 this.profile==null?bean.getNetworkBean().getContributor_role():this.profile.getContributor_role(), "Contributor_role", true, true);
+				 this.profile==null?contRole:this.profile.getContributor_role(), "Contributor_role", true, true);
 		 //contributors email: recomended: A semi colon separated list of emails fo any individuals or institutions mentioned in the previous attributes
+		 String contEmail = this.bean.getNetworkBean() == null?"":this.bean.getNetworkBean().getContributor_email();
 		 this.addRowDisplay(tempPanel, "Contributor Emails: ", this.bean.getContributor_email(),
-				 this.profile==null?bean.getNetworkBean().getContributor_email():this.profile.getContributor_email(), "Contributor_email", true, true);
+				 this.profile==null?contEmail:this.profile.getContributor_email(), "Contributor_email", true, true);
 
 		// //CTF
 		// this.addRowDisplay(tempPanel, "CTF: ", this.bean.getCTF(),

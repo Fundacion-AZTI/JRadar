@@ -837,7 +837,7 @@ public class VentanaPrincipal extends JFrame {
 
 		DataBaseBean networkData = null;
 		DataBaseBean stationData = null;
-		DataBaseBean stationDataTemp = null;
+		Object[] stationDataTemp = null;
 		
 		DBSQLAccess dbAccess = new DBSQLAccess();
 		try {
@@ -858,10 +858,21 @@ public class VentanaPrincipal extends JFrame {
 					JOptionPane.showMessageDialog(this,
 							"It was not possible to retrieve the calibration metadata for the network.");
 				} else {
-					((NETWORK_TB) networkData).setDoA_estimation_method(((STATION_TB) stationDataTemp).getDoA_estimation_method());
-					((NETWORK_TB) networkData).setCalibration_type(((STATION_TB) stationDataTemp).getCalibration_type());
-					((NETWORK_TB) networkData).setCalibration_link(((STATION_TB) stationDataTemp).getCalibration_link());
-					((NETWORK_TB) networkData).setLast_calibration_date(((STATION_TB) stationDataTemp).getLast_calibration_date());
+					//iterate over all possiblities
+					String stimationMethod = "";
+					String calType = "";
+					String calLink = "";
+					String calDate = "";
+					for(Object obj:stationDataTemp) {
+						stimationMethod = stimationMethod + ((STATION_TB) obj).getStation_id() + ":" +((STATION_TB) obj).getDoA_estimation_method() + ";";
+						calType = calType + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getCalibration_type() + ";";
+						calLink = calLink + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getCalibration_link() + ";";
+						calDate = calDate + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getLast_calibration_date() + ";";
+					}
+					((NETWORK_TB) networkData).setDoA_estimation_method(stimationMethod);
+					((NETWORK_TB) networkData).setCalibration_type(calType);
+					((NETWORK_TB) networkData).setCalibration_link(calLink);
+					((NETWORK_TB) networkData).setLast_calibration_date(calDate);
 				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {

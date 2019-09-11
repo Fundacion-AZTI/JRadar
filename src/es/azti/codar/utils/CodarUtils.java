@@ -37,6 +37,7 @@ import ucar.ma2.ArrayByte;
 import ucar.ma2.ArrayChar;
 import ucar.ma2.ArrayDouble;
 import ucar.ma2.ArrayFloat;
+import ucar.ma2.ArrayInt;
 import ucar.ma2.ArrayShort;
 import ucar.ma2.DataType;
 import ucar.ma2.Index;
@@ -582,19 +583,19 @@ public class CodarUtils {
 	 *            variable that defines the dimensions we are needing.
 	 * @return multidimensional Short array from 1D to 4D
 	 */
-	public static Array transformCollectionInMultidimensionalShortArray(List<Float> data, List<Dimension> dimensions) {
+	public static Array transformCollectionInMultidimensionalShortArray(List<Float> data, List<Dimension> dimensions, int scale) {
 		ArrayShort A = null;
 		if (dimensions.size() == 0) {
 			//nada
-			A = new ArrayShort.D0();
+			A = new ArrayShort.D0(false);
 		} else if (dimensions.size() == 1) {
 			Dimension dimid_1 = dimensions.get(0);
-			A = new ArrayShort.D1(dimid_1.getLength());
+			A = new ArrayShort.D1(dimid_1.getLength(),false);
 			Index ima = A.getIndex();
 			// 1D not tested
 			for (int i = 0; i < dimid_1.getLength(); i++) {
 				if (i < data.size())
-					A.setShort(ima.set(i), CodarUtils.floatToShort((float) (data.get(i))));
+					A.setShort(ima.set(i), CodarUtils.floatToShort((float) (data.get(i) * scale)));
 				else {
 					A.setShort(ima.set(i), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT);
 				}
@@ -603,14 +604,14 @@ public class CodarUtils {
 			Dimension dimid_1 = dimensions.get(0);
 			Dimension dimid_2 = dimensions.get(1);
 
-			A = new ArrayShort.D2(dimid_1.getLength(), dimid_2.getLength());
+			A = new ArrayShort.D2(dimid_1.getLength(), dimid_2.getLength(),false);
 			Index ima = A.getIndex();
 			// 2D not tested
 			for (int i = 0; i < dimid_1.getLength(); i++) {
 				for (int j = 0; j < dimid_2.getLength(); j++) {
 					if (j + i * dimid_2.getLength() < data.size())
 						A.setShort(ima.set(i, j),
-								CodarUtils.floatToShort((float) (data.get(j + i * dimid_2.getLength()))));
+								CodarUtils.floatToShort((float) (data.get(j + i * dimid_2.getLength()) * scale)));
 					else {
 						A.setShort(ima.set(i, j), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT);
 					}
@@ -622,14 +623,14 @@ public class CodarUtils {
 			Dimension dimid_2 = dimensions.get(1);
 			Dimension dimid_3 = dimensions.get(2);
 
-			A = new ArrayShort.D3(dimid_1.getLength(), dimid_2.getLength(), dimid_3.getLength());
+			A = new ArrayShort.D3(dimid_1.getLength(), dimid_2.getLength(), dimid_3.getLength(),false);
 			Index ima = A.getIndex();
 			for (int i = 0; i < dimid_1.getLength(); i++) {
 				for (int j = 0; j < dimid_2.getLength(); j++) {
 					for (int k = 0; k < dimid_3.getLength(); k++) {
 						if (k + j * dimid_3.getLength() + i * dimid_3.getLength() * dimid_2.getLength() < data.size())
 							A.setShort(ima.set(i, j, k), CodarUtils.floatToShort((float) data
-									.get(k + j * dimid_3.getLength() + i * dimid_3.getLength() * dimid_2.getLength())));
+									.get(k + j * dimid_3.getLength() + i * dimid_3.getLength() * dimid_2.getLength()) * scale));
 						else {
 							A.setShort(ima.set(i, j, k), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT);
 						}
@@ -642,7 +643,7 @@ public class CodarUtils {
 			Dimension dimid_3 = dimensions.get(2);
 			Dimension dimid_4 = dimensions.get(3);
 
-			A = new ArrayShort.D4(dimid_1, dimid_2.getLength(), dimid_3.getLength(), dimid_4.getLength());
+			A = new ArrayShort.D4(dimid_1, dimid_2.getLength(), dimid_3.getLength(), dimid_4.getLength(),false);
 			Index ima = A.getIndex();
 			for (int i = 0; i < dimid_1; i++) {
 				for (int j = 0; j < dimid_2.getLength(); j++) {
@@ -652,9 +653,102 @@ public class CodarUtils {
 									+ i * dimid_4.getLength() * dimid_3.getLength() * dimid_2.getLength() < data.size())
 								A.setShort(ima.set(i, j, k, l), CodarUtils.floatToShort((float) data.get(l
 										+ k * dimid_4.getLength() + j * dimid_4.getLength() * dimid_3.getLength()
-										+ i * dimid_4.getLength() * dimid_3.getLength() * dimid_2.getLength())));
+										+ i * dimid_4.getLength() * dimid_3.getLength() * dimid_2.getLength()) * scale));
 							else {
 								A.setShort(ima.set(i, j, k, l), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT);
+							}
+						}
+					}
+				}
+			}
+		}
+		return A;
+	}
+
+	
+	/**
+	 * Takes an ArrayList of float values and returns a multidimensional Int
+	 * array (from 1D to 4D depending on the dimensions parameter).
+	 * 
+	 * @param data
+	 *            the information to transform
+	 * @param dimensions
+	 *            variable that defines the dimensions we are needing.
+	 * @return multidimensional Int array from 1D to 4D
+	 */
+	public static Array transformCollectionInMultidimensionalIntArray(List<Float> data, List<Dimension> dimensions, int scale) {
+		ArrayInt A = null;
+		if (dimensions.size() == 0) {
+			//nada
+			A = new ArrayInt.D0(false);
+		} else if (dimensions.size() == 1) {
+			Dimension dimid_1 = dimensions.get(0);
+			A = new ArrayInt.D1(dimid_1.getLength(),false);
+			Index ima = A.getIndex();
+			// 1D not tested
+			for (int i = 0; i < dimid_1.getLength(); i++) {
+				if (i < data.size())
+					A.setInt(ima.set(i), CodarUtils.floatToInt((float) (data.get(i) * scale)));
+				else {
+					A.setInt(ima.set(i), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT);
+				}
+			}
+		} else if (dimensions.size() == 2) {
+			Dimension dimid_1 = dimensions.get(0);
+			Dimension dimid_2 = dimensions.get(1);
+
+			A = new ArrayInt.D2(dimid_1.getLength(), dimid_2.getLength(),false);
+			Index ima = A.getIndex();
+			// 2D not tested
+			for (int i = 0; i < dimid_1.getLength(); i++) {
+				for (int j = 0; j < dimid_2.getLength(); j++) {
+					if (j + i * dimid_2.getLength() < data.size())
+						A.setInt(ima.set(i, j),
+								CodarUtils.floatToInt((float) (data.get(j + i * dimid_2.getLength()) * scale)));
+					else {
+						A.setInt(ima.set(i, j), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT);
+					}
+				}
+			}
+		} else if (dimensions.size() == 3) {
+
+			Dimension dimid_1 = dimensions.get(0);
+			Dimension dimid_2 = dimensions.get(1);
+			Dimension dimid_3 = dimensions.get(2);
+
+			A = new ArrayInt.D3(dimid_1.getLength(), dimid_2.getLength(), dimid_3.getLength(),false);
+			Index ima = A.getIndex();
+			for (int i = 0; i < dimid_1.getLength(); i++) {
+				for (int j = 0; j < dimid_2.getLength(); j++) {
+					for (int k = 0; k < dimid_3.getLength(); k++) {
+						if (k + j * dimid_3.getLength() + i * dimid_3.getLength() * dimid_2.getLength() < data.size())
+							A.setInt(ima.set(i, j, k), CodarUtils.floatToInt((float) data
+									.get(k + j * dimid_3.getLength() + i * dimid_3.getLength() * dimid_2.getLength()) * scale));
+						else {
+							A.setInt(ima.set(i, j, k), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT);
+						}
+					}
+				}
+			}
+		} else if (dimensions.size() == 4) {
+			int dimid_1 = dimensions.get(0).getLength() == 0 ? 1 : dimensions.get(0).getLength();
+			Dimension dimid_2 = dimensions.get(1);
+			Dimension dimid_3 = dimensions.get(2);
+			Dimension dimid_4 = dimensions.get(3);
+
+			A = new ArrayInt.D4(dimid_1, dimid_2.getLength(), dimid_3.getLength(), dimid_4.getLength(),false);
+			Index ima = A.getIndex();
+			for (int i = 0; i < dimid_1; i++) {
+				for (int j = 0; j < dimid_2.getLength(); j++) {
+					for (int k = 0; k < dimid_3.getLength(); k++) {
+						for (int l = 0; l < dimid_4.getLength(); l++) {
+							if (l + k * dimid_4.getLength() + j * dimid_4.getLength() * dimid_3.getLength()
+									+ i * dimid_4.getLength() * dimid_3.getLength() * dimid_2.getLength() < data.size())
+								A.setInt(ima.set(i, j, k, l), CodarUtils.floatToInt((float) data.get(l
+										+ k * dimid_4.getLength() + j * dimid_4.getLength() * dimid_3.getLength()
+										+ i * dimid_4.getLength() * dimid_3.getLength() * dimid_2.getLength()) * scale));
+							else {
+								A.setInt(ima.set(i, j, k, l), ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT);
 							}
 						}
 					}
@@ -678,10 +772,10 @@ public class CodarUtils {
 		ArrayByte A = null;
 		if (dimensions.size() == 0) {
 			//nada 
-			A = new ArrayByte.D0();
+			A = new ArrayByte.D0(false);
 		} else if (dimensions.size() == 1) {
 			Dimension dimid_1 = dimensions.get(0);
-			A = new ArrayByte.D1(dimid_1.getLength());
+			A = new ArrayByte.D1(dimid_1.getLength(),false);
 			Index ima = A.getIndex();
 			// 1D not tested
 			for (int i = 0; i < dimid_1.getLength(); i++) {
@@ -695,7 +789,7 @@ public class CodarUtils {
 			Dimension dimid_1 = dimensions.get(0);
 			Dimension dimid_2 = dimensions.get(1);
 
-			A = new ArrayByte.D2(dimid_1.getLength(), dimid_2.getLength());
+			A = new ArrayByte.D2(dimid_1.getLength(), dimid_2.getLength(),false);
 			Index ima = A.getIndex();
 			// 2D not tested
 			for (int i = 0; i < dimid_1.getLength(); i++) {
@@ -713,7 +807,7 @@ public class CodarUtils {
 			Dimension dimid_2 = dimensions.get(1);
 			Dimension dimid_3 = dimensions.get(2);
 
-			A = new ArrayByte.D3(dimid_1.getLength(), dimid_2.getLength(), dimid_3.getLength());
+			A = new ArrayByte.D3(dimid_1.getLength(), dimid_2.getLength(), dimid_3.getLength(),false);
 			Index ima = A.getIndex();
 			for (int i = 0; i < dimid_1.getLength(); i++) {
 				for (int j = 0; j < dimid_2.getLength(); j++) {
@@ -733,7 +827,7 @@ public class CodarUtils {
 			Dimension dimid_3 = dimensions.get(2);
 			Dimension dimid_4 = dimensions.get(3);
 
-			A = new ArrayByte.D4(dimid_1, dimid_2.getLength(), dimid_3.getLength(), dimid_4.getLength());
+			A = new ArrayByte.D4(dimid_1, dimid_2.getLength(), dimid_3.getLength(), dimid_4.getLength(),false);
 			Index ima = A.getIndex();
 			for (int i = 0; i < dimid_1; i++) {
 				for (int j = 0; j < dimid_2.getLength(); j++) {
@@ -788,6 +882,27 @@ public class CodarUtils {
 			shortNumber = (short) Math.round(x);
 		}
 		return shortNumber;
+	}
+
+	/**
+	 * Converts Float a integer
+	 * 
+	 * @param number
+	 *            float sized number
+	 * @return intnumber int sized number
+	 */
+	private static int floatToInt(float x) {
+		int intNumber = 0;
+		if (Float.isNaN(x)) {
+			intNumber = ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT;
+		} else if (x < Integer.MIN_VALUE) {
+			intNumber = Integer.MIN_VALUE;
+		} else if (x > Integer.MAX_VALUE) {
+			intNumber = Integer.MAX_VALUE;
+		} else {
+			intNumber = Math.round(x);
+		}
+		return intNumber;
 	}
 
 	/**

@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -161,16 +162,16 @@ public class DBSQLAccess {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public DataBaseBean getCalibration(String tableId, String fieldId, String fieldValue)
+	public Object[] getCalibration(String tableId, String fieldId, String fieldValue)
 			throws ClassNotFoundException, SQLException {
 		openConnection();
 
 		String query = composeCalibrationQuery(tableId, fieldId, fieldValue);
 		// Result set get the result of the SQL query
 		resultSet = statement.executeQuery(query);
-		DataBaseBean table = null;
+		Object[] table = null;
 		try {
-			table = parseResultSet(resultSet);
+			table = parseMultipleResultSet(resultSet);
 		} catch (Exception e) {
 			log.error("generic error retrieving info from database: ", e);
 		}
@@ -240,15 +241,17 @@ public class DBSQLAccess {
 		sb.append(fieldId);
 		sb.append(" = '");
 		sb.append(fieldValue);
-		sb.append("' and last_calibration_date = (select max(last_calibration_date) from ");
-		sb.append(dbName);
-		sb.append(".");
-		sb.append(tableId);
-		sb.append(" where ");
-		sb.append(fieldId);
-		sb.append(" = '");
-		sb.append(fieldValue);
-		sb.append("');");
+		sb.append("';");
+//		sb.append("' and last_calibration_date = (select max(last_calibration_date) from ");
+//		sb.append("' from ");
+//		sb.append(dbName);
+//		sb.append(".");
+//		sb.append(tableId);
+//		sb.append(" where ");
+//		sb.append(fieldId);
+//		sb.append(" = '");
+//		sb.append(fieldValue);
+//		sb.append("');");
 		
 		return sb.toString();
 	}	
@@ -340,5 +343,61 @@ public class DBSQLAccess {
 			log.fatal("Couldnt get info from data base", e);
 		}
 		return tableBean;
+	}
+	/**
+	 * translates the result set obtained after running a query. Parses the
+	 * value to the correct class and fill the bean. It only takes the first
+	 * value of the result set. If more, they are not used. This method and
+	 * class is supposed to work only with primary keys. It uses reflection to
+	 * fill the class. The class defined with the table name must be a
+	 * DataBaseBean subclass. TODO: refactor to work with arrays (for stations
+	 * belonging to the same network for example)
+	 * 
+	 * @param resultSet
+	 *            response of a query with the values we want to use.
+	 * @return A bean of a class extending DataBaseBean with the information
+	 *         parsed.
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
+	private Object[] parseMultipleResultSet(ResultSet resultSet)
+			throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		// Now get some metadata from the database
+		// Result set get the result of the SQL query
+
+		log.debug("The columns in the table are: ");
+		log.debug("Table: " + resultSet.getMetaData().getTableName(1));
+
+		ArrayList<DataBaseBean> tableBeanArray = new ArrayList<DataBaseBean>();
+		
+		while(resultSet.next()) {
+			HashMap<String, String> data = new HashMap<String, String>();
+			for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+				data.put(resultSet.getMetaData().getColumnName(i), resultSet.getString(i));
+				log.debug("Column " + i + " " + resultSet.getMetaData().getColumnName(i) + " Value: "
+						+ resultSet.getString(i));
+			}
+	
+			// Search for the bean to fill the info using the table name and
+			// reflection.
+			String table = resultSet.getMetaData().getTableName(1);
+			DataBaseBean tableBean = null;
+			try {
+				tableBean = (DataBaseBean) (Class.forName("es.azti.db." + table.toUpperCase()).getConstructor()
+						.newInstance());
+				tableBean.fillBean(data);
+			} catch (Exception e) {
+				log.fatal("Couldnt get info from data base", e);
+			}
+			tableBeanArray.add(tableBean);
+		}		
+		return tableBeanArray.toArray();
 	}
 }

@@ -236,13 +236,20 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 		hourFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Date coverageStart = Calendar.getInstance().getTime();
-		try {
-			coverageStart = dateFormat.parse(last_calibration_date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		String[] componenetes = last_calibration_date.split(";");
+		String finalCalibration = "";
+		for (String comp:componenetes) {
+			try {
+				coverageStart = dateFormat.parse((comp.split(":"))[1]);
+				String coverageStartString = dateFormat.format(coverageStart.getTime()) + "T" + hourFormat.format(coverageStart.getTime()) + "Z";
+				finalCalibration = finalCalibration + (comp.split(":"))[0] + ":" + coverageStartString + ";";
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return dateFormat.format(coverageStart.getTime()) + "T" + hourFormat.format(coverageStart.getTime()) + "Z";
+		return finalCalibration;
 	}
 
 	/**
