@@ -219,7 +219,7 @@ public class CodarTotalToNetCDF {
 				Dimension dimid_lat = dataFile.addDimension(null, "LATITUDE", latCalc.size());
 				Dimension dimid_lon = dataFile.addDimension(null, "LONGITUDE", lonCalc.size());
 
-				Dimension dimid_depth = dataFile.addDimension(null, "DEPH", 1);
+				Dimension dimid_depth = dataFile.addDimension(null, "DEPTH", 1);
 				Dimension dimid_refmax = dataFile.addDimension(null, "REFMAX", CodarTotalToNetCDF.REF_MAX);
 				Dimension dimid_maxsite = dataFile.addDimension(null, "MAXSITE", CodarTotalToNetCDF.MAX_SITE);
 				Dimension dimid_maxinst = dataFile.addDimension(null, "MAXINST", CodarTotalToNetCDF.MAX_SITE);
@@ -270,7 +270,7 @@ public class CodarTotalToNetCDF {
 				varid_t.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ELTJLD01"));
 				varid_t.addAttribute(new Attribute("sdn_uom_name", "Days"));
 				varid_t.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UTAA"));
-				varid_t.addAttribute(new Attribute("ancillary_variables", "TIME_SEADATANET_QC"));
+				varid_t.addAttribute(new Attribute("ancillary_variables", "TIME_QC"));
 
 				// Latitude
 				Variable varid_lat = dataFile.addVariable(null, "LATITUDE", DataType.FLOAT, "LATITUDE");
@@ -283,7 +283,7 @@ public class CodarTotalToNetCDF {
 				varid_lat.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_lat.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
 				varid_lat.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::DEGN"));
-				varid_lat.addAttribute(new Attribute("ancillary_variables", "POSITION_SEADATANET_QC"));
+				varid_lat.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				// Longitude
 				Variable varid_lon = dataFile.addVariable(null, "LONGITUDE", DataType.FLOAT, "LONGITUDE");
@@ -296,7 +296,7 @@ public class CodarTotalToNetCDF {
 				varid_lon.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_lon.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
 				varid_lon.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::DEGE"));
-				varid_lon.addAttribute(new Attribute("ancillary_variables", "POSITION_SEADATANET_QC"));
+				varid_lon.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				// crs
 				Variable varid_crs = dataFile.addVariable(null, "crs", DataType.SHORT, new ArrayList<Dimension>(0));
@@ -344,7 +344,7 @@ public class CodarTotalToNetCDF {
 				Variable varid_sdnxlink = dataFile.addVariable(null, "SDN_XLINK", DataType.CHAR, dimsTRefMax250);
 				varid_sdnxlink.addAttribute(new Attribute("long_name", "External resource linkages"));
 
-				Variable varid_depth = dataFile.addVariable(null, "DEPH", DataType.FLOAT, "DEPH");
+				Variable varid_depth = dataFile.addVariable(null, "DEPH", DataType.FLOAT, "DEPTH");
 				varid_depth.addAttribute(new Attribute("long_name", "Depth of measurement"));
 				varid_depth.addAttribute(new Attribute("standard_name", "depth"));
 				varid_depth.addAttribute(new Attribute("units", "m"));
@@ -355,7 +355,7 @@ public class CodarTotalToNetCDF {
 				varid_depth.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ADEPZZ01"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_name", "Metres"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULAA"));
-				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPTH_SEADATANET_QC"));
+				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPTH_QC"));
 
 				// u
 				Variable varid_u = dataFile.addVariable(null, "EWCT", DataType.SHORT, dimsTDYX);
@@ -471,7 +471,7 @@ public class CodarTotalToNetCDF {
 
 				// Add QC variables
 				// Time QC Flag
-				Variable varid_tqc = dataFile.addVariable(null, "TIME_SEADATANET_QC", DataType.BYTE, "TIME");
+				Variable varid_tqc = dataFile.addVariable(null, "TIME_QC", DataType.BYTE, "TIME");
 				varid_tqc.addAttribute(new Attribute("long_name", "Time SeaDataNet Quality Flag"));
 				varid_tqc.addAttribute(new Attribute("units", "1"));
 				varid_tqc.addAttribute(
@@ -489,7 +489,7 @@ public class CodarTotalToNetCDF {
 				varid_tqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
 
 				// Position QC Flag
-				Variable varid_posqc = dataFile.addVariable(null, "POSITION_SEADATANET_QC", DataType.BYTE, dimsTDYX);
+				Variable varid_posqc = dataFile.addVariable(null, "POSITION_QC", DataType.BYTE, dimsTDYX);
 				varid_posqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_posqc.addAttribute(new Attribute("long_name", "Position SeaDataNet Quality Flags"));
 				varid_posqc.addAttribute(
@@ -507,7 +507,7 @@ public class CodarTotalToNetCDF {
 				varid_posqc.addAttribute(new Attribute("units", "1"));
 
 				// Depth QC Flag
-				Variable varid_dqc = dataFile.addVariable(null, "DEPTH_SEADATANET_QC", DataType.BYTE, "TIME");
+				Variable varid_dqc = dataFile.addVariable(null, "DEPTH_QC", DataType.BYTE, "TIME");
 				varid_dqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_dqc.addAttribute(new Attribute("long_name", "Depth SeaDataNet Quality Flag"));
 				varid_dqc.addAttribute(

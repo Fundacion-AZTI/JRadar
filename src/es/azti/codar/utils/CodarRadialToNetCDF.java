@@ -256,7 +256,7 @@ public class CodarRadialToNetCDF {
 				// Dimension dimid_t = dataFile.addUnlimitedDimension("TIME");
 				Dimension dimid_bearing = dataFile.addDimension(null, "BEAR", bearingDims.size());
 				Dimension dimid_range = dataFile.addDimension(null, "RNGE", rangeDims.size());
-				Dimension dimid_depth = dataFile.addDimension(null, "DEPH", 1);
+				Dimension dimid_depth = dataFile.addDimension(null, "DEPTH", 1);
 				Dimension dimid_maxsite = dataFile.addDimension(null, "MAXSITE", CodarRadialToNetCDF.MAX_SITE);
 				Dimension dimid_maxinst = dataFile.addDimension(null, "MAXINST", CodarRadialToNetCDF.MAX_SITE);
 				Dimension dimid_refmax = dataFile.addDimension(null, "REFMAX", CodarRadialToNetCDF.REF_MAX);
@@ -335,7 +335,7 @@ public class CodarRadialToNetCDF {
 				varid_t.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ELTJLD01"));
 				varid_t.addAttribute(new Attribute("sdn_uom_name", "Days"));
 				varid_t.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UTAA"));
-				varid_t.addAttribute(new Attribute("ancillary_variables", "TIME_SEADATANET_QC"));
+				varid_t.addAttribute(new Attribute("ancillary_variables", "TIME_QC"));
 
 				Variable varid_bearing = dataFile.addVariable(null, "BEAR", DataType.FLOAT, "BEAR");
 				varid_bearing.addAttribute(new Attribute("axis", "Y"));
@@ -345,7 +345,7 @@ public class CodarRadialToNetCDF {
 				varid_bearing.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::BEARRFTR"));
 				varid_bearing.addAttribute(new Attribute("sdn_uom_name", "Degrees true"));
 				varid_bearing.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UABB"));
-				varid_bearing.addAttribute(new Attribute("ancillary_variables", "POSITION_SEADATANET_QC"));
+				varid_bearing.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				Variable varid_range = dataFile.addVariable(null, "RNGE", DataType.FLOAT, "RNGE");
 				varid_range.addAttribute(new Attribute("axis", "X"));
@@ -356,9 +356,9 @@ public class CodarRadialToNetCDF {
 				varid_range.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::RIFNAX01"));
 				varid_range.addAttribute(new Attribute("sdn_uom_name", "Kilometres"));
 				varid_range.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULKM"));
-				varid_range.addAttribute(new Attribute("ancillary_variables", "POSITION_SEADATANET_QC"));
+				varid_range.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
-				Variable varid_depth = dataFile.addVariable(null, "DEPH", DataType.FLOAT, "DEPH");
+				Variable varid_depth = dataFile.addVariable(null, "DEPH", DataType.FLOAT, "DEPTH");
 				varid_depth.addAttribute(new Attribute("long_name", "Depth of measurement"));
 				varid_depth.addAttribute(new Attribute("standard_name", "depth"));
 				varid_depth.addAttribute(new Attribute("units", "m"));
@@ -369,7 +369,7 @@ public class CodarRadialToNetCDF {
 				varid_depth.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ADEPZZ01"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_name", "Metres"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULAA"));
-				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPTH_SEADATANET_QC"));
+				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPTH_QC"));
 
 				// Add auxillary coordinate variables to provide mapping from
 				// range and bearing to lat, lon.
@@ -396,7 +396,7 @@ public class CodarRadialToNetCDF {
 				varid_lat.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_lat.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
 				varid_lat.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::DEGN"));
-				varid_lat.addAttribute(new Attribute("ancillary_variables", "POSITION_SEADATANET_QC"));
+				varid_lat.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				// Longitude
 				Variable varid_lon = dataFile.addVariable(null, "LONGITUDE", DataType.FLOAT, dimsBR);
@@ -410,7 +410,7 @@ public class CodarRadialToNetCDF {
 				varid_lon.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_lon.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
 				varid_lon.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::DEGE"));
-				varid_lon.addAttribute(new Attribute("ancillary_variables", "POSITION_SEADATANET_QC"));
+				varid_lon.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				// crs
 				Variable varid_crs = dataFile.addVariable(null, "crs", DataType.SHORT, new ArrayList<Dimension>(0));
@@ -815,7 +815,7 @@ public class CodarRadialToNetCDF {
 
 				// Add QC variables
 				// Time QC Flag
-				Variable varid_tqc = dataFile.addVariable(null, "TIME_SEADATANET_QC", DataType.BYTE, "TIME");
+				Variable varid_tqc = dataFile.addVariable(null, "TIME_QC", DataType.BYTE, "TIME");
 				varid_tqc.addAttribute(new Attribute("long_name", "Time SeaDataNet Quality Flag"));
 				varid_tqc.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
@@ -833,7 +833,7 @@ public class CodarRadialToNetCDF {
 				varid_tqc.addAttribute(new Attribute("units", "1"));
 
 				// Position QC Flag
-				Variable varid_posqc = dataFile.addVariable(null, "POSITION_SEADATANET_QC", DataType.BYTE, dimsTDBR);
+				Variable varid_posqc = dataFile.addVariable(null, "POSITION_QC", DataType.BYTE, dimsTDBR);
 				varid_posqc.addAttribute(new Attribute("long_name", "Position SeaDataNet Quality Flags"));
 				varid_posqc.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
@@ -852,7 +852,7 @@ public class CodarRadialToNetCDF {
 				varid_posqc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Depth QC Flag
-				Variable varid_dqc = dataFile.addVariable(null, "DEPTH_SEADATANET_QC", DataType.BYTE, "TIME");
+				Variable varid_dqc = dataFile.addVariable(null, "DEPTH_QC", DataType.BYTE, "TIME");
 				varid_dqc.addAttribute(new Attribute("long_name", "Depth SeaDataNet Quality Flag"));
 				varid_dqc.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
