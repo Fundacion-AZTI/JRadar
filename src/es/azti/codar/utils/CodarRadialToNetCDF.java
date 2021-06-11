@@ -377,7 +377,7 @@ public class CodarRadialToNetCDF {
 				varid_depth.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ADEPZZ01"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_name", "Metres"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULAA"));
-				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPTH_QC"));
+				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPH_QC"));
 
 				// Add auxillary coordinate variables to provide mapping from
 				// range and bearing to lat, lon.
@@ -482,25 +482,22 @@ public class CodarRadialToNetCDF {
 				// outward). The "instrument" (examples are radar and lidar) is
 				// the device
 				// used to make an observation.
-				Variable varid_speed = dataFile.addVariable(null, "RDVA", DataType.FLOAT, dimsTDBR);
+				Variable varid_speed = dataFile.addVariable(null, "RDVA", DataType.SHORT, dimsTDBR);
 				varid_speed.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(-10), new Float(10))));
-				varid_speed
-						.addAttribute(new Attribute("standard_name", "radial_sea_water_velocity_away_from_instrument"));
+				varid_speed.addAttribute(new Attribute("standard_name", "radial_sea_water_velocity_away_from_instrument"));
 				varid_speed.addAttribute(new Attribute("units", "m s-1"));
 				varid_speed.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_speed.addAttribute(new Attribute("valid_max", "10000"));
 				varid_speed.addAttribute(new Attribute("long_name", "Radial sea water velocity away from instrument"));
-				varid_speed.addAttribute(new Attribute("_FillValue", "-32767"));
+				varid_speed.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_speed.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_speed.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_speed.addAttribute(new Attribute("sdn_parameter_name",
-						"Current speed (Eulerian) in the water body by directional range-gated radar"));
+				varid_speed.addAttribute(new Attribute("sdn_parameter_name", "Speed of water current (Eulerian measurement) in the water body by directional range-gated radar"));
 				varid_speed.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCSAWVRD"));
 				varid_speed.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_speed.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
 				varid_speed.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_speed.addAttribute(
-						new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, RDCT_QC"));
+				varid_speed.addAttribute(new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC, RDCT_QC"));
 
 				// (radial current) direction
 				//
@@ -514,61 +511,58 @@ public class CodarRadialToNetCDF {
 				// and lidar) is the device used to make an observation.
 				// "direction_of_X"
 				// means direction of a vector, a bearing.
-				Variable varid_direction = dataFile.addVariable(null, "DRVA", DataType.FLOAT, dimsTDBR);
-				varid_direction
-						.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(0f), new Float(360f))));
-				varid_direction.addAttribute(
-						new Attribute("standard_name", "direction_of_radial_vector_away_from_instrument"));
-				varid_direction
-						.addAttribute(new Attribute("long_name", "Direction Of Radial Vector Away From Instrument"));
-				varid_direction.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
+				Variable varid_direction = dataFile.addVariable(null, "DRVA", DataType.INT, dimsTDBR);
+				varid_direction.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(0f), new Float(360f))));
+				varid_direction.addAttribute(new Attribute("standard_name", "direction_of_radial_vector_away_from_instrument"));
+				varid_direction.addAttribute(new Attribute("long_name", "Direction of radial vector away from instrument"));
+				varid_direction.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
 				varid_direction.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_direction.addAttribute(new Attribute("units", "degree_true"));
-				varid_direction.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
-				varid_direction.addAttribute(new Attribute("sdn_parameter_name",
-						"Current direction (Eulerian) in the water body by directional range-gated radar"));
+				varid_direction.addAttribute(new Attribute("valid_min", "0"));
+				varid_direction.addAttribute(new Attribute("valid_max", "360000"));
+				varid_direction.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
+				varid_direction.addAttribute(new Attribute("sdn_parameter_name","Direction (towards) of water current (Eulerian measurement) in the water body by directional range-gated radar"));
 				varid_direction.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCDAWVRD"));
 				varid_direction.addAttribute(new Attribute("sdn_uom_name", "Degrees True"));
 				varid_direction.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UABB"));
 				varid_direction.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_direction.addAttribute(
-						new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, AVRB_QC, RDCT_QC"));
+				varid_direction.addAttribute(new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, AVRB_QC, RDCT_QC"));
 
 				// u
 				Variable varid_u = dataFile.addVariable(null, "EWCT", DataType.SHORT, dimsTDBR);
 				varid_u.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-10), new Short((short)10))));
-				varid_u.addAttribute(new Attribute("standard_name", "surface_eastward_sea_water_velocity"));
-				varid_u.addAttribute(new Attribute("long_name", "Surface Eastward Sea Water Velocity"));
+				varid_u.addAttribute(new Attribute("standard_name", "eastward_sea_water_velocity"));
+				varid_u.addAttribute(new Attribute("long_name", "West-east current component"));
 				varid_u.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_u.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_u.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_u.addAttribute(new Attribute("units", "m s-1"));
-				varid_u.addAttribute(
-						new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
+				varid_u.addAttribute(new Attribute("valid_min", "-10000"));
+				varid_u.addAttribute(new Attribute("valid_max", "10000"));
+				varid_u.addAttribute(new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
 				varid_u.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCEWZZ01"));
 				varid_u.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_u.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
 				varid_u.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_u.addAttribute(new Attribute("ancillary_variables",
-						"QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC, AVRB_QC, RDCT_QC"));
+				varid_u.addAttribute(new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC, AVRB_QC, RDCT_QC"));
 
 				// v
 				Variable varid_v = dataFile.addVariable(null, "NSCT", DataType.SHORT, dimsTDBR);
 				varid_v.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-10), new Short((short)10))));
-				varid_v.addAttribute(new Attribute("standard_name", "surface_northward_sea_water_velocity"));
-				varid_v.addAttribute(new Attribute("long_name", "Surface Northward Sea Water Velocity"));
+				varid_v.addAttribute(new Attribute("standard_name", "northward_sea_water_velocity"));
+				varid_v.addAttribute(new Attribute("long_name", "South-north current component"));
 				varid_v.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_v.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_v.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_v.addAttribute(new Attribute("units", "m s-1"));
-				varid_v.addAttribute(
-						new Attribute("sdn_parameter_name", "Northward current velocity in the water body"));
+				varid_v.addAttribute(new Attribute("valid_min", "-10000"));
+				varid_v.addAttribute(new Attribute("valid_max", "10000"));
+				varid_v.addAttribute(new Attribute("sdn_parameter_name", "Northward current velocity in the water body"));
 				varid_v.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCNSZZ01"));
 				varid_v.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_v.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
 				varid_v.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_v.addAttribute(new Attribute("ancillary_variables",
-						"QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC, AVRB_QC, RDCT_QC"));
+				varid_v.addAttribute(new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC, AVRB_QC, RDCT_QC"));
 
 				// Spatial Quality
 				Variable varid_espc = dataFile.addVariable(null, "ESPC", DataType.SHORT, dimsTDBR);
@@ -853,106 +847,104 @@ public class CodarRadialToNetCDF {
 				// Add QC variables
 				// Time QC Flag
 				Variable varid_tqc = dataFile.addVariable(null, "TIME_QC", DataType.BYTE, "TIME");
-				varid_tqc.addAttribute(new Attribute("long_name", "Time SeaDataNet Quality Flag"));
-				varid_tqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
-				varid_tqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
-				varid_tqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
-				varid_tqc
-						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for temporal coordinate."));
+				varid_tqc.addAttribute(new Attribute("long_name", "Time quality flag"));
+				varid_tqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
+				varid_tqc.addAttribute(new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+				varid_tqc.addAttribute(new Attribute("flag_values",Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8), new Byte((byte) 9))));
+				varid_tqc.addAttribute(new Attribute("flag_meanings", "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+				varid_tqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for temporal coordinate."));
 				varid_tqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_tqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_tqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_tqc.addAttribute(new Attribute("units", "1"));
-
+				varid_tqc.addAttribute(new Attribute("valid_min", "0"));
+				varid_tqc.addAttribute(new Attribute("valid_max", "9"));
+				
 				// Position QC Flag
 				Variable varid_posqc = dataFile.addVariable(null, "POSITION_QC", DataType.BYTE, dimsTDBR);
-				varid_posqc.addAttribute(new Attribute("long_name", "Position SeaDataNet Quality Flags"));
-				varid_posqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
-				varid_posqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
-				varid_posqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
-				varid_posqc
-						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for position coordinates"));
+				varid_posqc.addAttribute(new Attribute("long_name", "Position quality flag"));
+				varid_posqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
+				varid_posqc.addAttribute(new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+				varid_posqc.addAttribute(new Attribute("flag_values", Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8), new Byte((byte) 9))));
+				varid_posqc.addAttribute(new Attribute("flag_meanings", "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+				varid_posqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for position coordinates"));
 				varid_posqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_posqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_posqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_posqc.addAttribute(new Attribute("units", "1"));
+				varid_posqc.addAttribute(new Attribute("valid_min", "0"));
+				varid_posqc.addAttribute(new Attribute("valid_max", "9"));
 				varid_posqc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
-				// Depth QC Flag
-				Variable varid_dqc = dataFile.addVariable(null, "DEPTH_QC", DataType.BYTE, "TIME");
-				varid_dqc.addAttribute(new Attribute("long_name", "Depth SeaDataNet Quality Flag"));
-				varid_dqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
-				varid_dqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
-				varid_dqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+				// Depth QC
+				Variable varid_dqc = dataFile.addVariable(null, "DEPH_QC", DataType.BYTE, "TIME");
+				varid_dqc.addAttribute(new Attribute("long_name", "Depth quality flag"));
+				varid_dqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
+				varid_dqc.addAttribute(new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+				varid_dqc.addAttribute(new Attribute("flag_values", Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8), new Byte((byte) 9))));
+				varid_dqc.addAttribute(new Attribute("flag_meanings", "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_dqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for depth coordinate."));
 				varid_dqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_dqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_dqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_dqc.addAttribute(new Attribute("units", "1"));
+				varid_dqc.addAttribute(new Attribute("valid_min", "0"));
+				varid_dqc.addAttribute(new Attribute("valid_max", "9"));
 
 				// Overal QC flag
 				Variable varid_ovqc = dataFile.addVariable(null, "QCflag", DataType.BYTE, dimsTDBR);
-				varid_ovqc.addAttribute(new Attribute("long_name", "Overall Quality Flags"));
+				varid_ovqc.addAttribute(new Attribute("long_name", "Overall quality flag"));
+				varid_ovqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_ovqc.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
 				varid_ovqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_ovqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_ovqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for all QC tests."));
 				varid_ovqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_ovqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_ovqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_ovqc.addAttribute(new Attribute("units", "1"));
+				varid_ovqc.addAttribute(new Attribute("valid_min", "0"));
+				varid_ovqc.addAttribute(new Attribute("valid_max", "9"));
 				varid_ovqc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Over-water QC Flag
 				Variable varid_owtr = dataFile.addVariable(null, "OWTR_QC", DataType.BYTE, dimsTDBR);
-				varid_owtr.addAttribute(new Attribute("long_name", "Over-water Quality Flags"));
+				varid_owtr.addAttribute(new Attribute("long_name", "Over-water quality flag"));
+				varid_owtr.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_owtr.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
 				varid_owtr.addAttribute(new Attribute("flag_values",
 						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_owtr.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
-				varid_owtr
-						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for Over-water QC test."));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+				varid_owtr.addAttribute(new Attribute("comment", "OceanSITES quality flagging for Over-water QC test."));
 				varid_owtr.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_owtr.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_owtr.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_owtr.addAttribute(new Attribute("units", "1"));
+				varid_owtr.addAttribute(new Attribute("valid_min", "0"));
+				varid_owtr.addAttribute(new Attribute("valid_max", "9"));
 				varid_owtr.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Median Filter QC Flag
 				Variable varid_mdfl = dataFile.addVariable(null, "MDFL_QC", DataType.BYTE, dimsTDBR);
-				varid_mdfl.addAttribute(new Attribute("long_name", "Median Filter Quality Flags"));
+				varid_mdfl.addAttribute(new Attribute("long_name", "Median filter quality flag"));
+				varid_mdfl.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_mdfl.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
 				varid_mdfl.addAttribute(new Attribute("flag_values",
 						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_mdfl.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_mdfl.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Median Filter QC test. Threshold set to "
 								+ bean.getRadialTest().getMedianFilter() + " m/s."));
@@ -960,21 +952,24 @@ public class CodarRadialToNetCDF {
 				varid_mdfl.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_mdfl.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_mdfl.addAttribute(new Attribute("units", "1"));
+				varid_mdfl.addAttribute(new Attribute("valid_min", "0"));
+				varid_mdfl.addAttribute(new Attribute("valid_max", "9"));
 				varid_mdfl.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Variance Threshold QC Flag
 				Variable varid_vart = dataFile.addVariable(null, "VART_QC", DataType.BYTE, dimsTDBR);
 				// netcdf4 compreison netcdf.defVarDeflate(ncid, varid_vart,
 				// true, true, 6);
-				varid_vart.addAttribute(new Attribute("long_name", "Variance Threshold Quality Flags"));
+				varid_vart.addAttribute(new Attribute("long_name", "Variance threshold quality flag"));
+				varid_vart.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_vart.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
 				varid_vart.addAttribute(new Attribute("flag_values",
 						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_vart.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Variance Threshold QC test. Test not applicable "
 						+ "to Direction Finding Systems. "
@@ -984,19 +979,21 @@ public class CodarRadialToNetCDF {
 				varid_vart.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_vart.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_vart.addAttribute(new Attribute("units", "1"));
+				varid_vart.addAttribute(new Attribute("valid_min", "0"));
+				varid_vart.addAttribute(new Attribute("valid_max", "9"));
 				varid_vart.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Velocity Threshold QC Flag
 				Variable varid_cspd = dataFile.addVariable(null, "CSPD_QC", DataType.BYTE, dimsTDBR);
-				varid_cspd.addAttribute(new Attribute("long_name", "Velocity Threshold Quality Flags"));
-				varid_cspd.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_cspd.addAttribute(new Attribute("long_name", "Velocity threshold quality flag"));
+				varid_cspd.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
+				varid_cspd.addAttribute(new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
 				varid_cspd.addAttribute(new Attribute("flag_values",
 						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_cspd.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_cspd.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Velocity Threshold QC test. Threshold set to "
 								+ bean.getRadialTest().getVeloThreshold() + " m/s."));
@@ -1004,30 +1001,27 @@ public class CodarRadialToNetCDF {
 				varid_cspd.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_cspd.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_cspd.addAttribute(new Attribute("units", "1"));
+				varid_cspd.addAttribute(new Attribute("valid_min", "0"));
+				varid_cspd.addAttribute(new Attribute("valid_max", "9"));
 				varid_cspd.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Average Radial Bearing QC Flag
 				Variable varid_avrb = dataFile.addVariable(null, "AVRB_QC", DataType.BYTE, "TIME");
-				varid_avrb.addAttribute(new Attribute("long_name", "Average Radial Bearing Quality Flags"));
-				varid_avrb.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
-				varid_avrb.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
-				varid_avrb.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
-				varid_avrb.addAttribute(new Attribute("comment",
-						"OceanSITES quality flagging for Average Radial Bearing QC test. Threshold set between "
+				varid_avrb.addAttribute(new Attribute("long_name", "Average radial bearing quality flag"));
+				varid_avrb.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
+				varid_avrb.addAttribute(new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_avrb.addAttribute(new Attribute("flag_values",Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),new Byte((byte) 9))));
+				varid_avrb.addAttribute(new Attribute("flag_meanings", "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+				varid_avrb.addAttribute(new Attribute("comment", "OceanSITES quality flagging for Average Radial Bearing QC test. Threshold set between "
 								+ bean.getRadialTest().getAvRadialBearingMin() + " and "
 								+ bean.getRadialTest().getAvRadialBearingMax() + " deg."));
 				varid_avrb.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_avrb.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_avrb.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_avrb.addAttribute(new Attribute("units", "1"));
+				varid_avrb.addAttribute(new Attribute("units", "1"));	
 				varid_avrb.addAttribute(new Attribute("valid_min", "0"));
 				varid_avrb.addAttribute(new Attribute("valid_max", "9"));
-				
 
 				// Radial Count QC Flag
 				Variable varid_rdct = dataFile.addVariable(null, "RDCT_QC", DataType.BYTE, "TIME");
@@ -1035,7 +1029,7 @@ public class CodarRadialToNetCDF {
 				varid_rdct.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_rdct.addAttribute(new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
 				varid_rdct.addAttribute(new Attribute("flag_values",Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_rdct.addAttribute(new Attribute("flag_meanings", "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_rdct.addAttribute(new Attribute("comment", "OceanSITES quality flagging for Radial Count QC test. Thresholds set to" + bean.getRadialTest().getRadialCount() + " vectors."));
@@ -1043,6 +1037,8 @@ public class CodarRadialToNetCDF {
 				varid_rdct.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_rdct.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_rdct.addAttribute(new Attribute("units", "1"));
+				varid_rdct.addAttribute(new Attribute("valid_min", "0"));
+				varid_rdct.addAttribute(new Attribute("valid_max", "9"));
 
 				// MANDATORY ATTRIBUTES
 				// Discovery and Identification
