@@ -80,7 +80,7 @@ public class CodarTotalBean implements Serializable {
 	private String date_issued;
 
 	private String id;
-	private String naming_authority = "";
+	private String naming_authority = "Copernicus Marine In Situ";
 
 	private String processing_level = "2A";
 	private String license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)";
@@ -95,7 +95,7 @@ public class CodarTotalBean implements Serializable {
 	private String citation;
 	private String operational_manager = "";
 	private String operational_manager_email = "";
-	private String format_version = "v1.0";
+	private String format_version = "1.4";
 	private String data_mode = "R";
 	private String update_interval = "void";
 	private String site_code = "";
@@ -127,7 +127,7 @@ public class CodarTotalBean implements Serializable {
 	private String metadata_contact = "";
 	// private String metadata_date_stamp;
 
-	private String netcdf_version = "4.1.1";
+	private String netcdf_version = "netCDF-4 classic model";
 	private String netcdf_format = NetcdfFileWriter.Version.netcdf4_classic.name();
 	private String name_vocabulary = "NetCDF Climate and Forecast (CF) Metadata Convention Standard Name Table Version 1.6";
 
@@ -165,8 +165,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param networkBean
-	 *            the networkBean to set
+	 * @param networkBean the networkBean to set
 	 */
 	public void setNetworkBean(NETWORK_TB networkBean) {
 		this.networkBean = networkBean;
@@ -181,8 +180,7 @@ public class CodarTotalBean implements Serializable {
 
 	/**
 	 * 
-	 * @param map
-	 *            replace existing attributes if present
+	 * @param map replace existing attributes if present
 	 */
 	public void setAllAdditionalAttributes(HashMap<String, String> map) {
 		this.aditionalAttributes = map;
@@ -197,8 +195,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param key
-	 *            of the required attribute
+	 * @param key of the required attribute
 	 * @return the attribute value required by key
 	 */
 	public String getAdditionalAttribute(String key) {
@@ -206,10 +203,8 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param key
-	 *            id of the attribute
-	 * @param value
-	 *            string with the value of the parameter.
+	 * @param key   id of the attribute
+	 * @param value string with the value of the parameter.
 	 */
 	public void setAdditionalAttribute(String key, String value) {
 		aditionalAttributes.put(key, value);
@@ -237,8 +232,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param fileName
-	 *            the fileName to set
+	 * @param fileName the fileName to set
 	 */
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
@@ -252,8 +246,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param cTF
-	 *            the cTF to set
+	 * @param cTF the cTF to set
 	 */
 	public void setCTF(String cTF) {
 		this.CTF = cTF;
@@ -267,8 +260,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param fileType
-	 *            the fileType to set
+	 * @param fileType the fileType to set
 	 */
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
@@ -282,8 +274,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param lLUVSpec
-	 *            the lLUVSpec to set
+	 * @param lLUVSpec the lLUVSpec to set
 	 */
 	public void setLLUVSpec(String lLUVSpec) {
 		this.LLUVSpec = lLUVSpec;
@@ -297,8 +288,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param uUID
-	 *            the uUID to set
+	 * @param uUID the uUID to set
 	 */
 	public void setUUID(String uUID) {
 		this.UUID = uUID;
@@ -312,8 +302,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param manufacturer
-	 *            the manufacturer to set
+	 * @param manufacturer the manufacturer to set
 	 */
 	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
@@ -327,8 +316,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param site
-	 *            the site to set
+	 * @param site the site to set
 	 */
 	public void setSite(String site) {
 		this.site = site;
@@ -371,8 +359,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param timeStamp
-	 *            the timeStamp to set
+	 * @param timeStamp the timeStamp to set
 	 */
 	public void setTimeStamp(String timeStamp) {
 		this.timeStamp = timeStamp;
@@ -386,8 +373,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param timeZone
-	 *            the timeZone to set
+	 * @param timeZone the timeZone to set
 	 */
 	public void setTimeZone(String timeZone) {
 		this.timeZone = timeZone;
@@ -401,8 +387,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param timeCoverage
-	 *            the timeCoverage to set
+	 * @param timeCoverage the timeCoverage to set
 	 */
 	public void setTimeCoverage(String timeCoverage) {
 		this.timeCoverage = timeCoverage;
@@ -442,8 +427,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param origin
-	 *            the origin to set
+	 * @param origin the origin to set
 	 */
 	public void setOrigin(String origin) {
 		this.origin = origin;
@@ -457,8 +441,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param greatCircle
-	 *            the greatCircle to set
+	 * @param greatCircle the greatCircle to set
 	 */
 	public void setGreatCircle(String greatCircle) {
 		this.greatCircle = greatCircle;
@@ -472,8 +455,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param geodVersion
-	 *            the geodVersion to set
+	 * @param geodVersion the geodVersion to set
 	 */
 	public void setGeodVersion(String geodVersion) {
 		this.geodVersion = geodVersion;
@@ -487,8 +469,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param lLUVTrustData
-	 *            the lLUVTrustData to set
+	 * @param lLUVTrustData the lLUVTrustData to set
 	 */
 	public void setLLUVTrustData(String lLUVTrustData) {
 		this.LLUVTrustData = lLUVTrustData;
@@ -514,8 +495,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param currentVelocityLimit
-	 *            the currentVelocityLimit to set
+	 * @param currentVelocityLimit the currentVelocityLimit to set
 	 */
 	public void setCurrentVelocityLimit(String currentVelocityLimit) {
 		this.currentVelocityLimit = currentVelocityLimit;
@@ -529,8 +509,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param table
-	 *            the table to set
+	 * @param table the table to set
 	 */
 	public void setTable(CodarDataTableBean table) {
 		this.table = table;
@@ -544,8 +523,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param totalTest
-	 *            the totalTest to set
+	 * @param totalTest the totalTest to set
 	 */
 	public void setTotalTest(TotalQCQATestBean totalTest) {
 		this.totalTest = totalTest;
@@ -559,8 +537,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param codarFormat
-	 *            the codarFormat to set
+	 * @param codarFormat the codarFormat to set
 	 */
 	public void setCodarFormat(SimpleDateFormat codarFormat) {
 		this.codarFormat = codarFormat;
@@ -574,8 +551,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param combineMethod
-	 *            the combineMethod to set
+	 * @param combineMethod the combineMethod to set
 	 */
 	public void setCombineMethod(String combineMethod) {
 		this.combineMethod = combineMethod;
@@ -589,8 +565,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridCreatedBy
-	 *            the gridCreatedBy to set
+	 * @param gridCreatedBy the gridCreatedBy to set
 	 */
 	public void setGridCreatedBy(String gridCreatedBy) {
 		this.gridCreatedBy = gridCreatedBy;
@@ -604,8 +579,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridVersion
-	 *            the gridVersion to set
+	 * @param gridVersion the gridVersion to set
 	 */
 	public void setGridVersion(String gridVersion) {
 		this.gridVersion = gridVersion;
@@ -619,8 +593,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridTimeStamp
-	 *            the gridTimeStamp to set
+	 * @param gridTimeStamp the gridTimeStamp to set
 	 */
 	public void setGridTimeStamp(String gridTimeStamp) {
 		this.gridTimeStamp = gridTimeStamp;
@@ -634,8 +607,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridLastModified
-	 *            the gridLastModified to set
+	 * @param gridLastModified the gridLastModified to set
 	 */
 	public void setGridLastModified(String gridLastModified) {
 		this.gridLastModified = gridLastModified;
@@ -649,8 +621,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridAxisOrientation
-	 *            the gridAxisOrientation to set
+	 * @param gridAxisOrientation the gridAxisOrientation to set
 	 */
 	public void setGridAxisOrientation(String gridAxisOrientation) {
 		this.gridAxisOrientation = gridAxisOrientation;
@@ -664,8 +635,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridAxisType
-	 *            the gridAxisType to set
+	 * @param gridAxisType the gridAxisType to set
 	 */
 	public void setGridAxisType(String gridAxisType) {
 		this.gridAxisType = gridAxisType;
@@ -695,8 +665,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param gridSpacing
-	 *            the gridSpacing to set
+	 * @param gridSpacing the gridSpacing to set
 	 */
 	public void setGridSpacing(String gridSpacing) {
 		this.gridSpacing = gridSpacing;
@@ -710,8 +679,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param averagingRadius
-	 *            the averagingRadius to set
+	 * @param averagingRadius the averagingRadius to set
 	 */
 	public void setAveragingRadius(String averagingRadius) {
 		this.averagingRadius = averagingRadius;
@@ -725,8 +693,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param distanceAngularLimit
-	 *            the distanceAngularLimit to set
+	 * @param distanceAngularLimit the distanceAngularLimit to set
 	 */
 	public void setDistanceAngularLimit(String distanceAngularLimit) {
 		this.distanceAngularLimit = distanceAngularLimit;
@@ -740,8 +707,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param time_coverage_start
-	 *            the time_coverage_start to set
+	 * @param time_coverage_start the time_coverage_start to set
 	 */
 	public void setTime_coverage_start(String time_coverage_start) {
 		this.time_coverage_start = time_coverage_start;
@@ -755,8 +721,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param time_coverage_end
-	 *            the time_coverage_end to set
+	 * @param time_coverage_end the time_coverage_end to set
 	 */
 	public void setTime_coverage_end(String time_coverage_end) {
 		this.time_coverage_end = time_coverage_end;
@@ -770,8 +735,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param time_coverage_duration
-	 *            the time_coverage_duration to set
+	 * @param time_coverage_duration the time_coverage_duration to set
 	 */
 	public void setTime_coverage_duration(String time_coverage_duration) {
 		this.time_coverage_duration = time_coverage_duration;
@@ -785,8 +749,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param time_coverage_resolution
-	 *            the time_coverage_resolution to set
+	 * @param time_coverage_resolution the time_coverage_resolution to set
 	 */
 	public void setTime_coverage_resolution(String time_coverage_resolution) {
 		this.time_coverage_resolution = time_coverage_resolution;
@@ -800,8 +763,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param dateCreated
-	 *            the dateCreated to set
+	 * @param dateCreated the dateCreated to set
 	 */
 	public void setDateCreated(String dateCreated) {
 		this.dateCreated = dateCreated;
@@ -815,8 +777,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param dateCollected
-	 *            the dateCollected to set
+	 * @param dateCollected the dateCollected to set
 	 */
 	public void setDateCollected(String dateCollected) {
 		this.dateCollected = dateCollected;
@@ -830,8 +791,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param histCreated
-	 *            the histCreated to set
+	 * @param histCreated the histCreated to set
 	 */
 	public void setHistCreated(String histCreated) {
 		this.histCreated = histCreated;
@@ -845,8 +805,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param date_modified
-	 *            the date_modified to set
+	 * @param date_modified the date_modified to set
 	 */
 	public void setDate_modified(String date_modified) {
 		this.date_modified = date_modified;
@@ -860,8 +819,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param date_issued
-	 *            the date_issued to set
+	 * @param date_issued the date_issued to set
 	 */
 	public void setDate_issued(String date_issued) {
 		this.date_issued = date_issued;
@@ -875,8 +833,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param creator_name
-	 *            the creator_name to set
+	 * @param creator_name the creator_name to set
 	 */
 	public void setCreator_name(String creator_name) {
 		this.creator_name = creator_name;
@@ -890,8 +847,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param creator_email
-	 *            the creator_email to set
+	 * @param creator_email the creator_email to set
 	 */
 	public void setCreator_email(String creator_email) {
 		this.creator_email = creator_email;
@@ -905,8 +861,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param creator_url
-	 *            the creator_url to set
+	 * @param creator_url the creator_url to set
 	 */
 	public void setCreator_url(String creator_url) {
 		this.creator_url = creator_url;
@@ -920,8 +875,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param acknowledgment
-	 *            the acknowledgment to set
+	 * @param acknowledgment the acknowledgment to set
 	 */
 	public void setAcknowledgment(String acknowledgment) {
 		this.acknowledgment = acknowledgment;
@@ -935,8 +889,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param comments
-	 *            the comments to set
+	 * @param comments the comments to set
 	 */
 	public void setComments(String comments) {
 		this.comments = comments;
@@ -950,8 +903,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param metadata_convention
-	 *            the metadata_convention to set
+	 * @param metadata_convention the metadata_convention to set
 	 */
 	public void setMetadata_convention(String metadata_convention) {
 		this.metadata_convention = metadata_convention;
@@ -965,8 +917,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param platform
-	 *            the platform to set
+	 * @param platform the platform to set
 	 */
 	public void setPlatform(String platform) {
 		this.platform = platform;
@@ -980,8 +931,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param sensor
-	 *            the sensor to set
+	 * @param sensor the sensor to set
 	 */
 	public void setSensor(String sensor) {
 		this.sensor = sensor;
@@ -995,8 +945,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param citation
-	 *            the citation to set
+	 * @param citation the citation to set
 	 */
 	public void setCitation(String citation) {
 		this.citation = citation;
@@ -1010,8 +959,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param operational_manager
-	 *            the operational_manager to set
+	 * @param operational_manager the operational_manager to set
 	 */
 	public void setOperational_manager(String operational_manager) {
 		this.operational_manager = operational_manager;
@@ -1025,8 +973,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param operational_manager_email
-	 *            the operational_manager_email to set
+	 * @param operational_manager_email the operational_manager_email to set
 	 */
 	public void setOperational_manager_email(String operational_manager_email) {
 		this.operational_manager_email = operational_manager_email;
@@ -1040,8 +987,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param format_version
-	 *            the format_version to set
+	 * @param format_version the format_version to set
 	 */
 	public void setFormat_version(String format_version) {
 		this.format_version = format_version;
@@ -1055,8 +1001,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param data_mode
-	 *            the data_mode to set
+	 * @param data_mode the data_mode to set
 	 */
 	public void setData_mode(String data_mode) {
 		this.data_mode = data_mode;
@@ -1070,8 +1015,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param processing_level
-	 *            the processing_level to set
+	 * @param processing_level the processing_level to set
 	 */
 	public void setProcessing_level(String processing_level) {
 		this.processing_level = processing_level;
@@ -1085,8 +1029,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param license
-	 *            the license to set
+	 * @param license the license to set
 	 */
 	public void setLicense(String license) {
 		this.license = license;
@@ -1100,8 +1043,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param update_interval
-	 *            the update_interval to set
+	 * @param update_interval the update_interval to set
 	 */
 	public void setUpdate_interval(String update_interval) {
 		this.update_interval = update_interval;
@@ -1115,8 +1057,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param site_code
-	 *            the site_code to set
+	 * @param site_code the site_code to set
 	 */
 	public void setSite_code(String site_code) {
 		this.site_code = site_code;
@@ -1130,8 +1071,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param area
-	 *            the area to set
+	 * @param area the area to set
 	 */
 	public void setArea(String area) {
 		this.area = area;
@@ -1145,8 +1085,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param quality_control
-	 *            the quality_control to set
+	 * @param quality_control the quality_control to set
 	 */
 	public void setQuality_control(String quality_control) {
 		this.quality_control = quality_control;
@@ -1160,8 +1099,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param references
-	 *            the references to set
+	 * @param references the references to set
 	 */
 	public void setReferences(String references) {
 		this.references = references;
@@ -1175,8 +1113,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param publisher_name
-	 *            the publisher_name to set
+	 * @param publisher_name the publisher_name to set
 	 */
 	public void setPublisher_name(String publisher_name) {
 		this.publisher_name = publisher_name;
@@ -1190,8 +1127,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param publisher_url
-	 *            the publisher_url to set
+	 * @param publisher_url the publisher_url to set
 	 */
 	public void setPublisher_url(String publisher_url) {
 		this.publisher_url = publisher_url;
@@ -1205,8 +1141,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param publisher_email
-	 *            the publisher_email to set
+	 * @param publisher_email the publisher_email to set
 	 */
 	public void setPublisher_email(String publisher_email) {
 		this.publisher_email = publisher_email;
@@ -1220,8 +1155,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param contributor_name
-	 *            the contributor_name to set
+	 * @param contributor_name the contributor_name to set
 	 */
 	public void setContributor_name(String contributor_name) {
 		this.contributor_name = contributor_name;
@@ -1235,8 +1169,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param contributor_role
-	 *            the contributor_role to set
+	 * @param contributor_role the contributor_role to set
 	 */
 	public void setContributor_role(String contributor_role) {
 		this.contributor_role = contributor_role;
@@ -1250,8 +1183,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param contributor_email
-	 *            the contributor_email to set
+	 * @param contributor_email the contributor_email to set
 	 */
 	public void setContributor_email(String contributor_email) {
 		this.contributor_email = contributor_email;
@@ -1265,16 +1197,14 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param siteSource
-	 *            the siteSource to set
+	 * @param siteSource the siteSource to set
 	 */
 	public void setSiteSource(ArrayList<String> siteSource) {
 		this.siteSource = siteSource;
 	}
 
 	/**
-	 * @param String
-	 *            siteSource adds one sitesource info to the array
+	 * @param String siteSource adds one sitesource info to the array
 	 */
 	public void addSiteSource(String siteSourceElement) {
 		this.siteSource.add(siteSourceElement);
@@ -1288,8 +1218,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -1303,8 +1232,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param processedTimeStamp
-	 *            the processedTimeStamp to set
+	 * @param processedTimeStamp the processedTimeStamp to set
 	 */
 	public void setProcessedTimeStamp(String processedTimeStamp) {
 		this.processedTimeStamp = processedTimeStamp;
@@ -1318,8 +1246,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param processingTool
-	 *            the processingTool to set
+	 * @param processingTool the processingTool to set
 	 */
 	public void setProcessingTool(String processingTool) {
 		this.processingTool = processingTool;
@@ -1354,8 +1281,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param title
-	 *            the title to set
+	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -1369,8 +1295,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param institution
-	 *            the institution to set
+	 * @param institution the institution to set
 	 */
 	public void setInstitution(String institution) {
 		this.institution = institution;
@@ -1384,8 +1309,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param conventions
-	 *            the conventions to set
+	 * @param conventions the conventions to set
 	 */
 	public void setConventions(String conventions) {
 		this.conventions = conventions;
@@ -1399,8 +1323,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param summary
-	 *            the summary to set
+	 * @param summary the summary to set
 	 */
 	public void setSummary(String summary) {
 		this.summary = summary;
@@ -1414,8 +1337,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param source
-	 *            the source to set
+	 * @param source the source to set
 	 */
 	public void setSource(String source) {
 		this.source = source;
@@ -1429,8 +1351,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param network
-	 *            the network to set
+	 * @param network the network to set
 	 */
 	public void setNetwork(String network) {
 		this.network = network;
@@ -1444,8 +1365,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param keywords
-	 *            the keywords to set
+	 * @param keywords the keywords to set
 	 */
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
@@ -1459,8 +1379,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param keywords_vocabulary
-	 *            the keywords_vocabulary to set
+	 * @param keywords_vocabulary the keywords_vocabulary to set
 	 */
 	public void setKeywords_vocabulary(String keywords_vocabulary) {
 		this.keywords_vocabulary = keywords_vocabulary;
@@ -1474,8 +1393,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param data_language
-	 *            the data_language to set
+	 * @param data_language the data_language to set
 	 */
 	public void setData_language(String data_language) {
 		this.data_language = data_language;
@@ -1489,8 +1407,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param data_char_set
-	 *            the data_char_set to set
+	 * @param data_char_set the data_char_set to set
 	 */
 	public void setData_char_set(String data_char_set) {
 		this.data_char_set = data_char_set;
@@ -1504,8 +1421,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param topic_cat
-	 *            the topic_cat to set
+	 * @param topic_cat the topic_cat to set
 	 */
 	public void setTopic_cat(String topic_cat) {
 		this.topic_cat = topic_cat;
@@ -1519,8 +1435,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param reference_sys
-	 *            the reference_sys to set
+	 * @param reference_sys the reference_sys to set
 	 */
 	public void setReference_sys(String reference_sys) {
 		this.reference_sys = reference_sys;
@@ -1534,8 +1449,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param metadata_language
-	 *            the metadata_language to set
+	 * @param metadata_language the metadata_language to set
 	 */
 	public void setMetadata_language(String metadata_language) {
 		this.metadata_language = metadata_language;
@@ -1549,8 +1463,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param metadata_char_set
-	 *            the metadata_char_set to set
+	 * @param metadata_char_set the metadata_char_set to set
 	 */
 	public void setMetadata_char_set(String metadata_char_set) {
 		this.metadata_char_set = metadata_char_set;
@@ -1564,32 +1477,28 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param metadata_contact
-	 *            the metadata_contact to set
+	 * @param metadata_contact the metadata_contact to set
 	 */
 	public void setMetadata_contact(String metadata_contact) {
 		this.metadata_contact = metadata_contact;
 	}
 
 	/**
-	 * @param netcdf_version
-	 *            the netcdf_version to set
+	 * @param netcdf_version the netcdf_version to set
 	 */
 	public void setNetcdf_version(String netcdf_version) {
 		this.netcdf_version = netcdf_version;
 	}
 
 	/**
-	 * @param netcdf_format
-	 *            the netcdf_format to set
+	 * @param netcdf_format the netcdf_format to set
 	 */
 	public void setNetcdf_format(String netcdf_format) {
 		this.netcdf_format = netcdf_format;
 	}
 
 	/**
-	 * @param name_vocabulary
-	 *            the name_vocabulary to set
+	 * @param name_vocabulary the name_vocabulary to set
 	 */
 	public void setName_vocabulary(String name_vocabulary) {
 		this.name_vocabulary = name_vocabulary;
@@ -1603,8 +1512,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param naming_authority
-	 *            the naming_authority to set
+	 * @param naming_authority the naming_authority to set
 	 */
 	public void setNaming_authority(String naming_authority) {
 		this.naming_authority = naming_authority;
@@ -1633,8 +1541,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param xMin
-	 *            the xMin to set
+	 * @param xMin the xMin to set
 	 */
 	public void setxMin(String xMin) {
 		this.xMin = xMin;
@@ -1663,8 +1570,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param xMax
-	 *            the xMax to set
+	 * @param xMax the xMax to set
 	 */
 	public void setxMax(String xMax) {
 		this.xMax = xMax;
@@ -1693,8 +1599,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param yMin
-	 *            the yMin to set
+	 * @param yMin the yMin to set
 	 */
 	public void setyMin(String yMin) {
 		this.yMin = yMin;
@@ -1723,8 +1628,7 @@ public class CodarTotalBean implements Serializable {
 	}
 
 	/**
-	 * @param yMax
-	 *            the yMax to set
+	 * @param yMax the yMax to set
 	 */
 	public void setyMax(String yMax) {
 		this.yMax = yMax;

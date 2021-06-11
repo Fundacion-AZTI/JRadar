@@ -1,0 +1,6 @@
+.classpath
+.project
+JRadar.log
+bin/.gitignore
+.settings/org.eclipse.jdt.core.prefs
+bin/log4j.properties
