@@ -1069,8 +1069,7 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null,
 						new Attribute("calibration_type", bean.getStationBean().getCalibration_type()));
 				dataFile.addGroupAttribute(null, new Attribute("last_calibration_date", bean.getPatternDateUTC()));
-				dataFile.addGroupAttribute(null,
-						new Attribute("calibration_link", bean.getStationBean().getCalibration_link()));
+				dataFile.addGroupAttribute(null, new Attribute("calibration_link", bean.getStationBean().getCalibration_link()));
 				dataFile.addGroupAttribute(null, new Attribute("title", bean.getNetworkBean().getTitle()));
 				dataFile.addGroupAttribute(null, new Attribute("summary", bean.getNetworkBean().getSummary()));
 				dataFile.addGroupAttribute(null, new Attribute("source", bean.getSource()));

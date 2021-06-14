@@ -320,7 +320,7 @@ public class VentanaPrincipal extends JFrame {
 	public void initMainWindow() {
 
 		setAlwaysOnTop(true);
-		JOptionPane.showMessageDialog(this, "Software in development, not final version");
+		//JOptionPane.showMessageDialog(this, "Software in development, not final version");
 
 		try {
 			setIconImage(ImageIO.read(new File("logoVentana.png")));
@@ -864,8 +864,16 @@ public class VentanaPrincipal extends JFrame {
 					String calLink = "";
 					String calDate = "";
 					for(Object obj:stationDataTemp) {
-						stimationMethod = stimationMethod + ((STATION_TB) obj).getStation_id() + ":" +((STATION_TB) obj).getDoA_estimation_method() + ";";
-						calType = calType + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getCalibration_type() + ";";
+						if (!stimationMethod.isEmpty())
+						{
+							stimationMethod = stimationMethod + "; ";
+						}
+						stimationMethod = stimationMethod + ((STATION_TB) obj).getStation_id() + ": " +((STATION_TB) obj).getDoA_estimation_method();
+						if (!calType.isEmpty())
+						{
+							calType = calType + "; ";
+						}
+						calType = calType + ((STATION_TB) obj).getStation_id() + ": " + ((STATION_TB) obj).getCalibration_type();
 						calLink = calLink + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getCalibration_link() + ";";
 						calDate = calDate + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getLast_calibration_date() + ";";
 					}
