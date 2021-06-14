@@ -1547,7 +1547,7 @@ public class CodarRadialBean implements Serializable {
 	public void setHistCreated(String histCreated) {
 		this.histCreated = histCreated;
 	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -2273,6 +2273,7 @@ public class CodarRadialBean implements Serializable {
 
 			if (getInstitution() == null || getInstitution().isEmpty() || getInstitution().equals("NaN"))
 				setInstitution(profile.getInstitution());
+					
 			// if(getConventions()== null || getConventions().isEmpty() ||
 			// getConventions().equals("NaN"))
 			// setConventions(profile.getConventions());

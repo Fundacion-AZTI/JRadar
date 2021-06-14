@@ -68,7 +68,7 @@ public class VentanaVerCodarRadial extends JFrame {
 
 		GridLayout glayout = new GridLayout();
 		glayout.setColumns(3);
-		glayout.setRows(31);
+		glayout.setRows(32);
 
 		glayout.setHgap(5);
 		glayout.setVgap(5);
@@ -167,6 +167,7 @@ public class VentanaVerCodarRadial extends JFrame {
 		// YYYY-MM-DDThh:mm:ssZ"
 		this.addRowDisplay(tempPanel, "History: ", this.bean.getHistCreated(),
 				this.profile == null ? null : this.profile.getHistCreated(), "HistCreated", true, false);
+		
 		 //contributors name: recomended: A semi colon separaed list of the names of any individuals or institutions that contributed to the creation of this data file
 		String contrib_name_temp = "";
 		String contrib_role_temp = "";

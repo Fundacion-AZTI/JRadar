@@ -370,6 +370,7 @@ public class CodarRadialToNetCDF {
 				varid_depth.addAttribute(new Attribute("units", "m"));
 				varid_depth.addAttribute(new Attribute("valid_min", "-12000"));
 				varid_depth.addAttribute(new Attribute("valid_max", "12000"));
+				varid_depth.addAttribute(new Attribute("data_mode", "R"));
 				varid_depth.addAttribute(new Attribute("axis", "Z"));
 				varid_depth.addAttribute(new Attribute("positive", "down"));
 				varid_depth.addAttribute(new Attribute("reference", "sea_level"));
@@ -488,6 +489,7 @@ public class CodarRadialToNetCDF {
 				varid_speed.addAttribute(new Attribute("units", "m s-1"));
 				varid_speed.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_speed.addAttribute(new Attribute("valid_max", "10000"));
+				varid_speed.addAttribute(new Attribute("data_mode", "R"));
 				varid_speed.addAttribute(new Attribute("long_name", "Radial sea water velocity away from instrument"));
 				varid_speed.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_speed.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
@@ -520,6 +522,7 @@ public class CodarRadialToNetCDF {
 				varid_direction.addAttribute(new Attribute("units", "degree_true"));
 				varid_direction.addAttribute(new Attribute("valid_min", "0"));
 				varid_direction.addAttribute(new Attribute("valid_max", "360000"));
+				varid_direction.addAttribute(new Attribute("data_mode", "R"));
 				varid_direction.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_direction.addAttribute(new Attribute("sdn_parameter_name","Direction (towards) of water current (Eulerian measurement) in the water body by directional range-gated radar"));
 				varid_direction.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCDAWVRD"));
@@ -539,6 +542,7 @@ public class CodarRadialToNetCDF {
 				varid_u.addAttribute(new Attribute("units", "m s-1"));
 				varid_u.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_u.addAttribute(new Attribute("valid_max", "10000"));
+				varid_u.addAttribute(new Attribute("data_mode", "R"));
 				varid_u.addAttribute(new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
 				varid_u.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCEWZZ01"));
 				varid_u.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
@@ -557,6 +561,7 @@ public class CodarRadialToNetCDF {
 				varid_v.addAttribute(new Attribute("units", "m s-1"));
 				varid_v.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_v.addAttribute(new Attribute("valid_max", "10000"));
+				varid_v.addAttribute(new Attribute("data_mode", "R"));
 				varid_v.addAttribute(new Attribute("sdn_parameter_name", "Northward current velocity in the water body"));
 				varid_v.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCNSZZ01"));
 				varid_v.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
@@ -572,6 +577,7 @@ public class CodarRadialToNetCDF {
 				varid_espc.addAttribute(new Attribute("units", "m s-1"));
 				varid_espc.addAttribute(new Attribute("valid_min", "-32000"));
 				varid_espc.addAttribute(new Attribute("valid_max", "32000"));
+				varid_espc.addAttribute(new Attribute("data_mode", "R"));
 				varid_espc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 				varid_espc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_espc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
@@ -590,6 +596,7 @@ public class CodarRadialToNetCDF {
 				varid_etmp.addAttribute(new Attribute("units", "m s-1"));
 				varid_etmp.addAttribute(new Attribute("valid_min", "-32000"));
 				varid_etmp.addAttribute(new Attribute("valid_max", "32000"));
+				varid_etmp.addAttribute(new Attribute("data_mode", "R"));
 				varid_etmp.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 				varid_etmp.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_etmp.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
@@ -642,6 +649,7 @@ public class CodarRadialToNetCDF {
 				varid_ersc.addAttribute(new Attribute("units", "1"));
 				varid_ersc.addAttribute(new Attribute("valid_min", "0"));
 				varid_ersc.addAttribute(new Attribute("valid_max", "127"));
+				varid_ersc.addAttribute(new Attribute("data_mode", "R"));
 				varid_ersc.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ersc.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ersc.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -660,6 +668,7 @@ public class CodarRadialToNetCDF {
 				varid_ertc.addAttribute(new Attribute("units", "1"));
 				varid_ertc.addAttribute(new Attribute("valid_min", "0"));
 				varid_ertc.addAttribute(new Attribute("valid_max", "127"));
+				varid_ertc.addAttribute(new Attribute("data_mode", "R"));
 				varid_ertc.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ertc.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ertc.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -678,6 +687,7 @@ public class CodarRadialToNetCDF {
 				varid_xdst.addAttribute(new Attribute("units", "km"));
 				varid_xdst.addAttribute(new Attribute("valid_min", "0"));
 				varid_xdst.addAttribute(new Attribute("valid_max", "1000000"));
+				varid_xdst.addAttribute(new Attribute("data_mode", "R"));
 				varid_xdst.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_xdst.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_xdst.addAttribute(new Attribute("sdn_uom_name", "Kilometres"));
@@ -696,6 +706,7 @@ public class CodarRadialToNetCDF {
 				varid_ydst.addAttribute(new Attribute("units", "km"));
 				varid_ydst.addAttribute(new Attribute("valid_min", "0"));
 				varid_ydst.addAttribute(new Attribute("valid_max", "1000000"));
+				varid_ydst.addAttribute(new Attribute("data_mode", "R"));
 				varid_ydst.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ydst.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ydst.addAttribute(new Attribute("sdn_uom_name", "Kilometres"));
@@ -714,6 +725,7 @@ public class CodarRadialToNetCDF {
 				varid_sprc.addAttribute(new Attribute("units", "1"));
 				varid_sprc.addAttribute(new Attribute("valid_min", "0"));
 				varid_sprc.addAttribute(new Attribute("valid_max", "127"));
+				varid_sprc.addAttribute(new Attribute("data_mode", "R"));
 				varid_sprc.addAttribute(new Attribute("coordinates", "LONGITUDE LATITUDE"));
 				varid_sprc.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_sprc.addAttribute(new Attribute("sdn_parameter_urn", ""));
@@ -734,6 +746,7 @@ public class CodarRadialToNetCDF {
 				varid_narx.addAttribute(new Attribute("units", "1"));
 				varid_narx.addAttribute(new Attribute("valid_min", "0"));
 				varid_narx.addAttribute(new Attribute("valid_max", "127"));
+				varid_narx.addAttribute(new Attribute("data_mode", "R"));
 				varid_narx.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_narx.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_narx.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -751,6 +764,7 @@ public class CodarRadialToNetCDF {
 				varid_natx.addAttribute(new Attribute("units", "1"));
 				varid_natx.addAttribute(new Attribute("valid_min", "0"));
 				varid_natx.addAttribute(new Attribute("valid_max", "127"));
+				varid_natx.addAttribute(new Attribute("data_mode", "R"));
 				varid_natx.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_natx.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_natx.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -767,6 +781,7 @@ public class CodarRadialToNetCDF {
 				varid_sltr.addAttribute(new Attribute("units", "degree_north"));
 				varid_sltr.addAttribute(new Attribute("valid_min", "-90000"));
 				varid_sltr.addAttribute(new Attribute("valid_max", "90000"));
+				varid_sltr.addAttribute(new Attribute("data_mode", "R"));
 				varid_sltr.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_sltr.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_sltr.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
@@ -784,6 +799,7 @@ public class CodarRadialToNetCDF {
 				varid_slnr.addAttribute(new Attribute("units", "degree_east"));
 				varid_slnr.addAttribute(new Attribute("valid_min", "-180000"));
 				varid_slnr.addAttribute(new Attribute("valid_max", "180000"));
+				varid_slnr.addAttribute(new Attribute("data_mode", "R"));
 				varid_slnr.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_slnr.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_slnr.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
@@ -801,6 +817,7 @@ public class CodarRadialToNetCDF {
 				varid_sltt.addAttribute(new Attribute("units", "degree_north"));
 				varid_sltt.addAttribute(new Attribute("valid_min", "-90000"));
 				varid_sltt.addAttribute(new Attribute("valid_max", "90000"));
+				varid_sltt.addAttribute(new Attribute("data_mode", "R"));
 				varid_sltt.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_sltt.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_sltt.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
@@ -818,6 +835,7 @@ public class CodarRadialToNetCDF {
 				varid_slnt.addAttribute(new Attribute("units", "degree_east"));
 				varid_slnt.addAttribute(new Attribute("valid_min", "-180000"));
 				varid_slnt.addAttribute(new Attribute("valid_max", "180000"));
+				varid_slnt.addAttribute(new Attribute("data_mode", "R"));
 				varid_slnt.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_slnt.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_slnt.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
@@ -1044,6 +1062,7 @@ public class CodarRadialToNetCDF {
 				// Discovery and Identification
 				dataFile.addGroupAttribute(null, new Attribute("site_code", site_code));
 				dataFile.addGroupAttribute(null, new Attribute("platform_code", platform_code));
+				dataFile.addGroupAttribute(null, new Attribute("platform_name", platform_code));
 				dataFile.addGroupAttribute(null, new Attribute("data_mode", bean.getData_mode()));
 				dataFile.addGroupAttribute(null,
 						new Attribute("DoA_estimation_method", bean.getStationBean().getDoA_estimation_method()));
@@ -1059,13 +1078,25 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null,
 						new Attribute("institution", bean.getNetworkBean().getInstitution_name()));
 				dataFile.addGroupAttribute(null,
+						new Attribute("institution_references", bean.getNetworkBean().getInstitution_name()));
+				dataFile.addGroupAttribute(null,
 						new Attribute("institution_edmo_code", bean.getNetworkBean().getEDMO_code()));
+				dataFile.addGroupAttribute(null,
+						new Attribute("contact", "euhfrnode@azti.es cmems-service@ifremer.fr"));
+				
+				
+				dataFile.addGroupAttribute(null, new Attribute("references", "http://marine.copernicus.eu http://www.marineinsitu.eu http://www.marineinsitu.eu/wp-content/uploads/2018/02/HFR_Data_Model_Reference_Card_v1.pdf"));
 				dataFile.addGroupAttribute(null, new Attribute("data_assembly_center", "European HFR Node"));
+				
 				dataFile.addGroupAttribute(null, new Attribute("id", id));
 
 				// Geo-spatial-temporal
+				dataFile.addGroupAttribute(null, new Attribute("area", bean.getNetworkBean().getArea()));
 				dataFile.addGroupAttribute(null, new Attribute("data_type", "HF radar radial data"));
+				dataFile.addGroupAttribute(null, new Attribute("cdm_data_type", "grid"));
 				dataFile.addGroupAttribute(null, new Attribute("feature_type", "surface"));
+				dataFile.addGroupAttribute(null, new Attribute("geospatial_vertical_positive", "down"));
+				dataFile.addGroupAttribute(null, new Attribute("reference_system", "EPSG:4806"));
 				dataFile.addGroupAttribute(null,
 						new Attribute("geospatial_lat_min", bean.getNetworkBean().getGeospatial_lat_min()));
 				dataFile.addGroupAttribute(null,
@@ -1078,7 +1109,8 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("geospatial_vertical_min", "0"));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_start", bean.getTime_coverage_start()));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_end", bean.getTime_coverage_end()));
-
+				dataFile.addGroupAttribute(null, new Attribute("bottom_depth", ""));
+				
 				dataFile.addGroupAttribute(null,
 						new Attribute("geospatial_lat_units", "degree_north"));
 				dataFile.addGroupAttribute(null,
@@ -1101,6 +1133,9 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("license", bean.getNetworkBean().getLicense()));
 				dataFile.addGroupAttribute(null,
 						new Attribute("acknowledgment", bean.getNetworkBean().getAcknowledgment()));
+				dataFile.addGroupAttribute(null, new Attribute("doi", ""));
+				dataFile.addGroupAttribute(null, new Attribute("pi_name", ""));
+				dataFile.addGroupAttribute(null, new Attribute("qc_manual", ""));
 
 				// Provenance
 				dataFile.addGroupAttribute(null, new Attribute("date_created", bean.getDateCreated()));
@@ -1111,15 +1146,15 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("contributor_name", bean.getContributor_name()));
 				dataFile.addGroupAttribute(null, new Attribute("contributor_role", bean.getContributor_role()));
 				dataFile.addGroupAttribute(null, new Attribute("contributor_email", bean.getContributor_email()));
-
+				dataFile.addGroupAttribute(null, new Attribute("wmo_inst_type", ""));
+				
 				// RECOMMENDED ATTRIBUTES
 
 				// Discovery and Identification
 				dataFile.addGroupAttribute(null, new Attribute("project", bean.getNetworkBean().getProject()));
-				dataFile.addGroupAttribute(null, new Attribute("naming_authority", bean.getNaming_authority())); // en
-																													// el
-																													// original
-																													// it.cnr.ismar
+				dataFile.addGroupAttribute(null, new Attribute("naming_authority", bean.getNaming_authority())); 
+				dataFile.addGroupAttribute(null, new Attribute("wmo_platform_code", ""));
+				dataFile.addGroupAttribute(null, new Attribute("ices_platform_code", ""));				
 				dataFile.addGroupAttribute(null, new Attribute("keywords", bean.getKeywords()));
 				dataFile.addGroupAttribute(null, new Attribute("keywords_vocabulary", bean.getKeywords_vocabulary()));
 				dataFile.addGroupAttribute(null, new Attribute("comment", bean.getNetworkBean().getComment()));
@@ -1140,8 +1175,6 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("metadata_contact", bean.getMetadata_contact()));
 				dataFile.addGroupAttribute(null, new Attribute("metadata_date_stamp", bean.getDateCreated()));
 				dataFile.addGroupAttribute(null, new Attribute("standard_name_vocabulary", bean.getName_vocabulary()));
-				dataFile.addGroupAttribute(null,
-						new Attribute("institution_reference", bean.getNetworkBean().getInstitution_website()));
 				dataFile.addGroupAttribute(null, new Attribute("software_name", "JRadar"));
 				dataFile.addGroupAttribute(null, new Attribute("software_version", "v2.1"));
 				dataFile.addGroupAttribute(null, new Attribute("date_issued", bean.getDateCreated()));

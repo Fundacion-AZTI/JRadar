@@ -840,7 +840,7 @@ public class CodarTotalToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("metadata_date_stamp", bean.getDateCreated()));
 				dataFile.addGroupAttribute(null, new Attribute("standard_name_vocabulary", bean.getName_vocabulary()));
 				dataFile.addGroupAttribute(null,
-						new Attribute("institution_reference", bean.getNetworkBean().getInstitution_website()));
+						new Attribute("institution_references", bean.getNetworkBean().getInstitution_website()));
 				dataFile.addGroupAttribute(null, new Attribute("software_name", "JRadar"));
 				dataFile.addGroupAttribute(null, new Attribute("software_version", "v2.1"));
 				dataFile.addGroupAttribute(null, new Attribute("date_issued", bean.getDateCreated()));
@@ -855,7 +855,7 @@ public class CodarTotalToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("metadata_date_stamp", bean.getDateCreated()));
 				dataFile.addGroupAttribute(null, new Attribute("standard_name_vocabulary", bean.getName_vocabulary()));
 				dataFile.addGroupAttribute(null,
-						new Attribute("institution_reference", bean.getNetworkBean().getInstitution_website()));
+						new Attribute("institution_references", bean.getNetworkBean().getInstitution_website()));
 				dataFile.addGroupAttribute(null, new Attribute("software_name", "JRadar"));
 				dataFile.addGroupAttribute(null, new Attribute("software_version", "v2.1"));
 				dataFile.addGroupAttribute(null, new Attribute("date_issued", bean.getDateCreated()));
