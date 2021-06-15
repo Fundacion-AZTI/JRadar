@@ -663,7 +663,7 @@ public class VentanaPrincipal extends JFrame {
 	 * @return
 	 */
 	private int saveData() {
-		JOptionPane.showMessageDialog(this, "In progress");
+		//JOptionPane.showMessageDialog(this, "In progress");
 		int error = 1;
 		if (codarRadialData == null && codarTotalData == null) {
 			JOptionPane.showMessageDialog(this, "No CODAR data loaded, try loading a file first");
