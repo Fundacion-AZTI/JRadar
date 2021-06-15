@@ -359,7 +359,7 @@ public class CodarTotalToNetCDF {
 				varid_depth.addAttribute(new Attribute("units", "m"));
 				varid_depth.addAttribute(new Attribute("valid_min", "-12000"));
 				varid_depth.addAttribute(new Attribute("valid_max", "12000"));
-				varid_depth.addAttribute(new Attribute("data_mode", "R"));
+				varid_depth.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_depth.addAttribute(new Attribute("axis", "Z"));
 				varid_depth.addAttribute(new Attribute("positive", "down"));
 				varid_depth.addAttribute(new Attribute("reference", "sea_level"));
@@ -376,7 +376,7 @@ public class CodarTotalToNetCDF {
 				varid_u.addAttribute(new Attribute("units", "m s-1"));
 				varid_u.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_u.addAttribute(new Attribute("valid_max", "10000"));
-				varid_u.addAttribute(new Attribute("data_mode", "R"));
+				varid_u.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_u.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
 				varid_u.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
 				varid_u.addAttribute(new Attribute("ioos_category", "Currents"));
@@ -400,7 +400,7 @@ public class CodarTotalToNetCDF {
 				varid_v.addAttribute(new Attribute("units", "m s-1"));
 				varid_v.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_v.addAttribute(new Attribute("valid_max", "10000"));
-				varid_v.addAttribute(new Attribute("data_mode", "R"));
+				varid_v.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_v.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
 				varid_v.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
 				varid_v.addAttribute(new Attribute("ioos_category", "Currents"));
@@ -426,7 +426,7 @@ public class CodarTotalToNetCDF {
 				varid_usd.addAttribute(new Attribute("units", "m s-1"));
 				varid_usd.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_usd.addAttribute(new Attribute("valid_max", "10000"));
-				varid_usd.addAttribute(new Attribute("data_mode", "R"));
+				varid_usd.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_usd.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
 				varid_usd.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
@@ -448,7 +448,7 @@ public class CodarTotalToNetCDF {
 				varid_vsd.addAttribute(new Attribute("units", "m s-1"));
 				varid_vsd.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_vsd.addAttribute(new Attribute("valid_max", "10000"));
-				varid_vsd.addAttribute(new Attribute("data_mode", "R"));
+				varid_vsd.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_vsd.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
 				varid_vsd.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
@@ -464,7 +464,7 @@ public class CodarTotalToNetCDF {
 				// CCOV
 				Variable varid_ccov = dataFile.addVariable(null, "CCOV", DataType.INT, dimsTDYX);
 				varid_ccov.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
-				varid_ccov.addAttribute(new Attribute("data_mode", "R"));
+				varid_ccov.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_ccov.addAttribute(new Attribute("long_name", "Covariance of surface sea water velocity"));
 				varid_ccov.addAttribute(new Attribute("standard_name", " "));
 				varid_ccov.addAttribute(new Attribute("units", "m2 s-2"));
@@ -490,7 +490,7 @@ public class CodarTotalToNetCDF {
 				varid_gdop.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_gdop.addAttribute(new Attribute("valid_min", "-20000"));
 				varid_gdop.addAttribute(new Attribute("valid_max", "20000"));
-				varid_gdop.addAttribute(new Attribute("data_mode", "R"));
+				varid_gdop.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_gdop.addAttribute(
 						new Attribute("valid_range", Arrays.asList(new Short((short) -20), new Short((short) 20))));
 				varid_gdop.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
@@ -687,7 +687,7 @@ public class CodarTotalToNetCDF {
 				// Number of received antennas
 				Variable varid_narx = dataFile.addVariable(null, "NARX", DataType.BYTE, "TIME");
 				varid_narx.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
-				varid_narx.addAttribute(new Attribute("data_mode", "R"));
+				varid_narx.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_narx.addAttribute(new Attribute("long_name", "Number of receive antennas"));
 				varid_narx.addAttribute(new Attribute("standard_name", " "));
 				varid_narx.addAttribute(new Attribute("units", "1"));
@@ -704,7 +704,7 @@ public class CodarTotalToNetCDF {
 
 				Variable varid_natx = dataFile.addVariable(null, "NATX", DataType.BYTE, "TIME");
 				varid_natx.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
-				varid_natx.addAttribute(new Attribute("data_mode", "R"));
+				varid_natx.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_natx.addAttribute(new Attribute("long_name", "Number of transmit antennas"));
 				varid_natx.addAttribute(new Attribute("standard_name", " "));
 				varid_natx.addAttribute(new Attribute("units", "1"));
@@ -721,7 +721,7 @@ public class CodarTotalToNetCDF {
 
 				Variable varid_sltr = dataFile.addVariable(null, "SLTR", DataType.INT, dimsTM);
 				varid_sltr.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
-				varid_sltr.addAttribute(new Attribute("data_mode", "R"));
+				varid_sltr.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_sltr.addAttribute(new Attribute("long_name", "Receive antenna latitudes"));
 				varid_sltr.addAttribute(new Attribute("standard_name", "latitude"));
 				varid_sltr.addAttribute(new Attribute("units", "degree_north"));
@@ -739,7 +739,7 @@ public class CodarTotalToNetCDF {
 
 				Variable varid_slnr = dataFile.addVariable(null, "SLNR", DataType.INT, dimsTM);
 				varid_slnr.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
-				varid_slnr.addAttribute(new Attribute("data_mode", "R"));
+				varid_slnr.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_slnr.addAttribute(new Attribute("long_name", "Receive antenna longitudes"));
 				varid_slnr.addAttribute(new Attribute("standard_name", "longitude"));
 				varid_slnr.addAttribute(new Attribute("units", "degree_east"));
@@ -760,7 +760,7 @@ public class CodarTotalToNetCDF {
 				varid_sltt.addAttribute(new Attribute("standard_name", "latitude"));
 				varid_sltt.addAttribute(new Attribute("units", "degree_north"));
 				varid_sltt.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
-				varid_sltt.addAttribute(new Attribute("data_mode", "D"));
+				varid_sltt.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_sltt.addAttribute(new Attribute("valid_min", "-90000"));
 				varid_sltt.addAttribute(new Attribute("valid_max", "90000"));
 				varid_sltt.addAttribute(
@@ -778,7 +778,7 @@ public class CodarTotalToNetCDF {
 				varid_slnt.addAttribute(new Attribute("standard_name", "longitude"));
 				varid_slnt.addAttribute(new Attribute("units", "degree_east"));
 				varid_slnt.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
-				varid_slnt.addAttribute(new Attribute("data_mode", "D"));
+				varid_slnt.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_slnt.addAttribute(new Attribute("valid_min", "-180000"));
 				varid_slnt.addAttribute(new Attribute("valid_max", "180000"));
 				varid_slnt.addAttribute(
@@ -797,7 +797,7 @@ public class CodarTotalToNetCDF {
 				varid_scdr.addAttribute(new Attribute("standard_name", " "));
 				varid_scdr.addAttribute(new Attribute("units", "1"));
 				varid_scdr.addAttribute(new Attribute("_FillValue", " "));
-				varid_scdr.addAttribute(new Attribute("data_mode", "D"));
+				varid_scdr.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_scdr.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_scdr.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_scdr.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -809,7 +809,7 @@ public class CodarTotalToNetCDF {
 				varid_scdt.addAttribute(new Attribute("standard_name", " "));
 				varid_scdt.addAttribute(new Attribute("units", "1"));
 				varid_scdt.addAttribute(new Attribute("_FillValue", " "));
-				varid_scdt.addAttribute(new Attribute("data_mode", "D"));
+				varid_scdt.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_scdt.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_scdt.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_scdt.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
