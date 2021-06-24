@@ -41,7 +41,7 @@ import ucar.nc2.write.Nc4ChunkingStrategy;
  */
 public class CodarTotalToNetCDF {
 
-	private static final byte MAX_SITE = 50;
+	private static final byte MAX_SITE = 1;
 	private static final int REF_MAX = 1;
 	private static final int SDN_TIME_QC_FLAG = 1;
 	private static final int SDN_DEPTH_QC_FLAG = 1;
@@ -340,8 +340,7 @@ public class CodarTotalToNetCDF {
 
 				// SDN_EDMO_CODE
 				Variable varid_sdnedmocode = dataFile.addVariable(null, "SDN_EDMO_CODE", DataType.SHORT, dimsTMI);
-				varid_sdnedmocode.addAttribute(new Attribute("long_name",
-						"European Directory of Marine Organisations code for the CDI partner"));
+				varid_sdnedmocode.addAttribute(new Attribute("long_name", "European Directory of Marine Organisations code for the CDI partner"));
 				varid_sdnedmocode.addAttribute(new Attribute("units", "1"));
 
 				// SDN_REFERENCES
@@ -381,17 +380,14 @@ public class CodarTotalToNetCDF {
 				varid_u.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
 				varid_u.addAttribute(new Attribute("ioos_category", "Currents"));
 				varid_u.addAttribute(new Attribute("coordsys", "geographic"));
-				varid_u.addAttribute(
-						new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
+				varid_u.addAttribute(new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
 				varid_u.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCEWZZ01"));
 				varid_u.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_u.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
 				varid_u.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_u.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
+				varid_u.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
 				varid_u.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
-				varid_u.addAttribute(
-						new Attribute("ancillary_variables", "QCflag, VART_QC, CSPD_QC, DDNS_QC, GDOP_QC"));
+				varid_u.addAttribute(new Attribute("ancillary_variables", "QCflag, VART_QC, CSPD_QC, DDNS_QC, GDOP_QC"));
 
 				// v
 				Variable varid_v = dataFile.addVariable(null, "NSCT", DataType.SHORT, dimsTDYX);

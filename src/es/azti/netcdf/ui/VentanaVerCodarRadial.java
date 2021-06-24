@@ -32,7 +32,7 @@ import es.azti.codar.beans.CodarDataTableBean;
 /**
  * @author Jose Luis Asensio (jlasensio@azti.es) 18 de may. de 2016
  *
- *         Bean Radial data visualizer in a user interface window. It helps 
+ *         Bean Radial data visualizer in a user interface window. It helps
  *         modifying some data too.
  */
 public class VentanaVerCodarRadial extends JFrame {
@@ -167,8 +167,10 @@ public class VentanaVerCodarRadial extends JFrame {
 		// YYYY-MM-DDThh:mm:ssZ"
 		this.addRowDisplay(tempPanel, "History: ", this.bean.getHistCreated(),
 				this.profile == null ? null : this.profile.getHistCreated(), "HistCreated", true, false);
-		
-		 //contributors name: recomended: A semi colon separaed list of the names of any individuals or institutions that contributed to the creation of this data file
+
+		// contributors name: recomended: A semi colon separaed list of the names of any
+		// individuals or institutions that contributed to the creation of this data
+		// file
 		String contrib_name_temp = "";
 		String contrib_role_temp = "";
 		String contrib_email_temp = "";
@@ -177,14 +179,19 @@ public class VentanaVerCodarRadial extends JFrame {
 			contrib_role_temp = this.bean.getNetworkBean().getContributor_role();
 			contrib_email_temp = this.bean.getNetworkBean().getContributor_email();
 		}
-		 this.addRowDisplay(tempPanel, "Contributor Names: ", this.bean.getContributor_name(),
-				 this.profile==null?contrib_name_temp:this.profile.getContributor_name(), "Contributor_name", true, true);
-		 //contributors roles: recomended: A semi colon separated list of roles of any individuals or institutions mentioned in the previous attribute
-		 this.addRowDisplay(tempPanel, "Contributor Roles: ", this.bean.getContributor_role(),
-				 this.profile==null?contrib_role_temp:this.profile.getContributor_role(), "Contributor_role", true, true);
-		 //contributors email: recomended: A semi colon separated list of emails fo any individuals or institutions mentioned in the previous attributes
-		 this.addRowDisplay(tempPanel, "Contributor Emails: ", this.bean.getContributor_email(),
-				 this.profile==null?contrib_email_temp:this.profile.getContributor_email(), "Contributor_email", true, true);
+		this.addRowDisplay(tempPanel, "Contributor Names: ", this.bean.getContributor_name(),
+				this.profile == null ? contrib_name_temp : this.profile.getContributor_name(), "Contributor_name", true,
+				true);
+		// contributors roles: recomended: A semi colon separated list of roles of any
+		// individuals or institutions mentioned in the previous attribute
+		this.addRowDisplay(tempPanel, "Contributor Roles: ", this.bean.getContributor_role(),
+				this.profile == null ? contrib_role_temp : this.profile.getContributor_role(), "Contributor_role", true,
+				true);
+		// contributors email: recomended: A semi colon separated list of emails fo any
+		// individuals or institutions mentioned in the previous attributes
+		this.addRowDisplay(tempPanel, "Contributor Emails: ", this.bean.getContributor_email(),
+				this.profile == null ? contrib_email_temp : this.profile.getContributor_email(), "Contributor_email",
+				true, true);
 		// angular resolution
 		this.addRowDisplay(tempPanel, "Angular Resolution: ", this.bean.getAngularResolution(),
 				this.profile == null ? null : this.profile.getAngularResolution(), "AngularResolution", true, true);
@@ -655,9 +662,8 @@ public class VentanaVerCodarRadial extends JFrame {
 	}
 
 	/**
-	 * generic method to add a row to the metadata table three cells are added,
-	 * one for the name, one for the value and a last button to modify if
-	 * needed.
+	 * generic method to add a row to the metadata table three cells are added, one
+	 * for the name, one for the value and a last button to modify if needed.
 	 * 
 	 * @param panel
 	 * @param label
