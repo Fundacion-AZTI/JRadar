@@ -110,7 +110,7 @@ public class CodarRadialBean implements Serializable {
 	private String metadata_char_set = "utf8";
 	private String metadata_contact = "";
 	// private String metadata_date_stamp;
-	private String netcdf_version = "4.1.1";
+	private String netcdf_version = "netCDF-4 classic model";
 	private String netcdf_format = NetcdfFileWriter.Version.netcdf4_classic.name();
 	private String name_vocabulary = "NetCDF Climate and Forecast (CF) Metadata Convention Standard Name Table Version 1.6";
 
@@ -120,8 +120,8 @@ public class CodarRadialBean implements Serializable {
 	private String histCreated;
 
 	private String id;
-	private String naming_authority = "";
-	private String cdm_data_type = "Grid";
+	private String naming_authority = "Copernicus Marine In Situ";
+	private String cdm_data_type = "grid";
 	private String project = "";
 	private String time_coverage_start;
 	private String time_coverage_end;
@@ -142,7 +142,7 @@ public class CodarRadialBean implements Serializable {
 	private String citation;
 	private String operational_manager = "";
 	private String operational_manager_email = "";
-	private String format_version = "v1.0";
+	private String format_version = "1.4";
 	private String data_mode = "R";
 	private String update_interval = "void";
 	private String site_code = "";
@@ -1547,7 +1547,7 @@ public class CodarRadialBean implements Serializable {
 	public void setHistCreated(String histCreated) {
 		this.histCreated = histCreated;
 	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -2273,6 +2273,7 @@ public class CodarRadialBean implements Serializable {
 
 			if (getInstitution() == null || getInstitution().isEmpty() || getInstitution().equals("NaN"))
 				setInstitution(profile.getInstitution());
+					
 			// if(getConventions()== null || getConventions().isEmpty() ||
 			// getConventions().equals("NaN"))
 			// setConventions(profile.getConventions());

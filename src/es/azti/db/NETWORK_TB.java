@@ -243,7 +243,11 @@ public class NETWORK_TB extends DataBaseBean implements Serializable {
 			try {
 				coverageStart = dateFormat.parse((comp.split(":"))[1]);
 				String coverageStartString = dateFormat.format(coverageStart.getTime()) + "T" + hourFormat.format(coverageStart.getTime()) + "Z";
-				finalCalibration = finalCalibration + (comp.split(":"))[0] + ":" + coverageStartString + ";";
+				if (!finalCalibration.isEmpty() )
+				{
+					finalCalibration = finalCalibration + "; ";
+				}
+				finalCalibration = finalCalibration + (comp.split(":"))[0] + ": " + coverageStartString;
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

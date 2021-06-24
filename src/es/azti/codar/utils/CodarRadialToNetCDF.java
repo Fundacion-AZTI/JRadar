@@ -38,7 +38,7 @@ import ucar.nc2.write.Nc4ChunkingStrategy;
  */
 public class CodarRadialToNetCDF {
 
-	private static final byte MAX_SITE = 50;
+	private static final byte MAX_SITE = 1;
 	private static final int NUM_SITES = 1;
 	private static final int REF_MAX = 1;
 	private static final int SDN_TIME_QC_FLAG = 1;
@@ -260,7 +260,8 @@ public class CodarRadialToNetCDF {
 				Dimension dimid_maxsite = dataFile.addDimension(null, "MAXSITE", CodarRadialToNetCDF.MAX_SITE);
 				Dimension dimid_maxinst = dataFile.addDimension(null, "MAXINST", CodarRadialToNetCDF.MAX_SITE);
 				Dimension dimid_refmax = dataFile.addDimension(null, "REFMAX", CodarRadialToNetCDF.REF_MAX);
-				Dimension dimid_string_site_id = dataFile.addDimension(null, "STRING"+site_id.length(), site_id.length());
+				Dimension dimid_string_site_id = dataFile.addDimension(null, "STRING" + site_id.length(),
+						site_id.length());
 				Dimension dimid_string_site_code = dimid_string_site_id;
 				if (site_code.length() != site_id.length()) {
 					dimid_string_site_code = dataFile.addDimension(null, "STRING" + site_code.length(),
@@ -315,7 +316,7 @@ public class CodarRadialToNetCDF {
 
 				dimsTM.add(dimid_t);
 				dimsTM.add(dimid_maxsite);
-				
+
 				dimsTMI.add(dimid_t);
 				dimsTMI.add(dimid_maxinst);
 
@@ -326,10 +327,12 @@ public class CodarRadialToNetCDF {
 				// https://www.unidata.ucar.edu/software/netcdf/docs/BestPractices.html
 				// check how to add fillvalues..
 				Variable varid_t = dataFile.addVariable(null, "TIME", DataType.DOUBLE, "TIME");
-				varid_t.addAttribute(new Attribute("long_name", "Time of measurement UTC"));
+				varid_t.addAttribute(new Attribute("long_name", "Time"));
 				varid_t.addAttribute(new Attribute("standard_name", "time"));
 				varid_t.addAttribute(new Attribute("units", "days since 1950-01-01T00:00:00Z"));
-				varid_t.addAttribute(new Attribute("calendar", "Gregorian"));
+				varid_t.addAttribute(new Attribute("valid_min", Double.parseDouble("-90000")));
+				varid_t.addAttribute(new Attribute("valid_max", Double.parseDouble("90000")));
+				varid_t.addAttribute(new Attribute("calendar", "standard"));
 				varid_t.addAttribute(new Attribute("axis", "T"));
 				varid_t.addAttribute(new Attribute("sdn_parameter_name", "Elapsed time (since 1950-01-01T00:00:00Z)"));
 				varid_t.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ELTJLD01"));
@@ -338,20 +341,24 @@ public class CodarRadialToNetCDF {
 				varid_t.addAttribute(new Attribute("ancillary_variables", "TIME_QC"));
 
 				Variable varid_bearing = dataFile.addVariable(null, "BEAR", DataType.FLOAT, "BEAR");
-				varid_bearing.addAttribute(new Attribute("axis", "Y"));
-				varid_bearing.addAttribute(new Attribute("long_name", "Bearing Away From Instrument"));
-				varid_bearing.addAttribute(new Attribute("units", "degrees_true"));
-				varid_bearing.addAttribute(new Attribute("sdn_prameter_name", "Bearing"));
+				varid_bearing.addAttribute(new Attribute("axis", "X"));
+				varid_bearing.addAttribute(new Attribute("long_name", "Bearing away from instrument"));
+				varid_bearing.addAttribute(new Attribute("standard_name", " "));
+				varid_bearing.addAttribute(new Attribute("units", "degree_true"));
+				varid_bearing.addAttribute(new Attribute("uncertainty", ""));
+				varid_bearing.addAttribute(new Attribute("sdn_parameter_name", "Bearing"));
 				varid_bearing.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::BEARRFTR"));
 				varid_bearing.addAttribute(new Attribute("sdn_uom_name", "Degrees true"));
 				varid_bearing.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UABB"));
 				varid_bearing.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				Variable varid_range = dataFile.addVariable(null, "RNGE", DataType.FLOAT, "RNGE");
-				varid_range.addAttribute(new Attribute("axis", "X"));
-				varid_range.addAttribute(new Attribute("long_name", "Range Away From Instrument"));
+				varid_range.addAttribute(new Attribute("axis", "Y"));
+				varid_range.addAttribute(new Attribute("long_name", "Range away from instrument"));
+				varid_range.addAttribute(new Attribute("standard_name", " "));
 				varid_range.addAttribute(new Attribute("units", "km"));
-				varid_range.addAttribute(new Attribute("sdn_prameter_name",
+				varid_range.addAttribute(new Attribute("uncertainty", ""));
+				varid_range.addAttribute(new Attribute("sdn_parameter_name",
 						"Range (from fixed reference point) by unspecified GPS system"));
 				varid_range.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::RIFNAX01"));
 				varid_range.addAttribute(new Attribute("sdn_uom_name", "Kilometres"));
@@ -359,9 +366,13 @@ public class CodarRadialToNetCDF {
 				varid_range.addAttribute(new Attribute("ancillary_variables", "POSITION_QC"));
 
 				Variable varid_depth = dataFile.addVariable(null, "DEPH", DataType.FLOAT, "DEPTH");
-				varid_depth.addAttribute(new Attribute("long_name", "Depth of measurement"));
+				varid_depth.addAttribute(new Attribute("long_name", "Depth"));
 				varid_depth.addAttribute(new Attribute("standard_name", "depth"));
+				varid_depth.addAttribute(new Attribute("_FillValue", "9.96921E36"));
 				varid_depth.addAttribute(new Attribute("units", "m"));
+				varid_depth.addAttribute(new Attribute("valid_min", Float.parseFloat("-12000")));
+				varid_depth.addAttribute(new Attribute("valid_max", Float.parseFloat("12000")));
+				varid_depth.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_depth.addAttribute(new Attribute("axis", "Z"));
 				varid_depth.addAttribute(new Attribute("positive", "down"));
 				varid_depth.addAttribute(new Attribute("reference", "sea_level"));
@@ -369,7 +380,7 @@ public class CodarRadialToNetCDF {
 				varid_depth.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ADEPZZ01"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_name", "Metres"));
 				varid_depth.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULAA"));
-				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPTH_QC"));
+				varid_depth.addAttribute(new Attribute("ancillary_variables", "DEPH_QC"));
 
 				// Add auxillary coordinate variables to provide mapping from
 				// range and bearing to lat, lon.
@@ -387,10 +398,11 @@ public class CodarRadialToNetCDF {
 				// Latitude
 				Variable varid_lat = dataFile.addVariable(null, "LATITUDE", DataType.FLOAT, dimsBR);
 				varid_lat.addAttribute(new Attribute("standard_name", "latitude"));
-				varid_lat.addAttribute(new Attribute("long_name", "Latitude"));
-				varid_lat.addAttribute(new Attribute("units", "degrees_north"));
-				varid_lat.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(-90), new Float(90))));
-				varid_lat.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
+				varid_lat.addAttribute(new Attribute("long_name", "Latitude of each location"));
+				varid_lat.addAttribute(new Attribute("units", "degree_north"));
+				varid_lat.addAttribute(new Attribute("valid_min", Float.parseFloat("-90")));
+				varid_lat.addAttribute(new Attribute("valid_max", Float.parseFloat("90")));
+				varid_lat.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
 				varid_lat.addAttribute(new Attribute("grid_mapping", "crs"));
 				varid_lat.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_lat.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
@@ -401,10 +413,11 @@ public class CodarRadialToNetCDF {
 				// Longitude
 				Variable varid_lon = dataFile.addVariable(null, "LONGITUDE", DataType.FLOAT, dimsBR);
 				varid_lon.addAttribute(new Attribute("standard_name", "longitude"));
-				varid_lon.addAttribute(new Attribute("long_name", "Longitude"));
-				varid_lon.addAttribute(new Attribute("units", "degrees_east"));
-				varid_lon.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(-180), new Float(180))));
-				varid_lon.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
+				varid_lon.addAttribute(new Attribute("long_name", "Longitude of each location"));
+				varid_lon.addAttribute(new Attribute("units", "degree_east"));
+				varid_lon.addAttribute(new Attribute("valid_min", Float.parseFloat("-180")));
+				varid_lon.addAttribute(new Attribute("valid_max", Float.parseFloat("180")));
+				varid_lon.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
 				varid_lon.addAttribute(new Attribute("grid_mapping", "crs"));
 				varid_lon.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_lon.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
@@ -416,8 +429,8 @@ public class CodarRadialToNetCDF {
 				Variable varid_crs = dataFile.addVariable(null, "crs", DataType.SHORT, new ArrayList<Dimension>(0));
 				varid_crs.addAttribute(new Attribute("grid_mapping_name", "latitude_longitude"));
 				varid_crs.addAttribute(new Attribute("epsg_code", "EPSG:4326"));
-				varid_crs.addAttribute(new Attribute("semi_major_axis", 6378137.0f));
-				varid_crs.addAttribute(new Attribute("inverse_flattening", 298.257223563));
+				varid_crs.addAttribute(new Attribute("semi_major_axis", Double.valueOf(6378137.0)));
+				varid_crs.addAttribute(new Attribute("inverse_flattening", Double.valueOf(298.257223563)));
 
 				//// Add SDN namespace variables
 				// To enforce homogeneity in the codes and interoperability with
@@ -470,23 +483,25 @@ public class CodarRadialToNetCDF {
 				// outward). The "instrument" (examples are radar and lidar) is
 				// the device
 				// used to make an observation.
-				Variable varid_speed = dataFile.addVariable(null, "RDVA", DataType.FLOAT, dimsTDBR);
-				varid_speed.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(-10), new Float(10))));
+				Variable varid_speed = dataFile.addVariable(null, "RDVA", DataType.SHORT, dimsTDBR);
 				varid_speed
 						.addAttribute(new Attribute("standard_name", "radial_sea_water_velocity_away_from_instrument"));
 				varid_speed.addAttribute(new Attribute("units", "m s-1"));
-				varid_speed.addAttribute(new Attribute("long_name", "Radial Sea Water Velocity Away From Instrument"));
-				varid_speed.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
-				varid_speed.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
+				varid_speed.addAttribute(new Attribute("valid_min", Short.parseShort("-10000")));
+				varid_speed.addAttribute(new Attribute("valid_max", Short.parseShort("10000")));
+				varid_speed.addAttribute(new Attribute("data_mode", bean.getData_mode()));
+				varid_speed.addAttribute(new Attribute("long_name", "Radial sea water velocity away from instrument"));
+				varid_speed.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_speed.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_speed.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_speed.addAttribute(new Attribute("sdn_parameter_name",
-						"Current speed (Eulerian) in the water body by directional range-gated radar"));
+						"Speed of water current (Eulerian measurement) in the water body by directional range-gated radar"));
 				varid_speed.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCSAWVRD"));
 				varid_speed.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_speed.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
 				varid_speed.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 				varid_speed.addAttribute(
-						new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, RDCT_QC"));
+						new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC, RDCT_QC"));
 
 				// (radial current) direction
 				//
@@ -500,19 +515,20 @@ public class CodarRadialToNetCDF {
 				// and lidar) is the device used to make an observation.
 				// "direction_of_X"
 				// means direction of a vector, a bearing.
-				Variable varid_direction = dataFile.addVariable(null, "DRVA", DataType.FLOAT, dimsTDBR);
-				varid_direction
-						.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(0f), new Float(360f))));
+				Variable varid_direction = dataFile.addVariable(null, "DRVA", DataType.INT, dimsTDBR);
 				varid_direction.addAttribute(
 						new Attribute("standard_name", "direction_of_radial_vector_away_from_instrument"));
 				varid_direction
-						.addAttribute(new Attribute("long_name", "Direction Of Radial Vector Away From Instrument"));
-				varid_direction.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
+						.addAttribute(new Attribute("long_name", "Direction of radial vector away from instrument"));
+				varid_direction.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
 				varid_direction.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_direction.addAttribute(new Attribute("units", "degrees_true"));
-				varid_direction.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
+				varid_direction.addAttribute(new Attribute("units", "degree_true"));
+				varid_direction.addAttribute(new Attribute("valid_min", Integer.parseInt("0")));
+				varid_direction.addAttribute(new Attribute("valid_max", Integer.parseInt("360000")));
+				varid_direction.addAttribute(new Attribute("data_mode", bean.getData_mode()));
+				varid_direction.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_direction.addAttribute(new Attribute("sdn_parameter_name",
-						"Current direction (Eulerian) in the water body by directional range-gated radar"));
+						"Direction (towards) of water current (Eulerian measurement) in the water body by directional range-gated radar"));
 				varid_direction.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCDAWVRD"));
 				varid_direction.addAttribute(new Attribute("sdn_uom_name", "Degrees True"));
 				varid_direction.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UABB"));
@@ -522,13 +538,15 @@ public class CodarRadialToNetCDF {
 
 				// u
 				Variable varid_u = dataFile.addVariable(null, "EWCT", DataType.SHORT, dimsTDBR);
-				varid_u.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-10), new Short((short)10))));
-				varid_u.addAttribute(new Attribute("standard_name", "surface_eastward_sea_water_velocity"));
-				varid_u.addAttribute(new Attribute("long_name", "Surface Eastward Sea Water Velocity"));
-				varid_u.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_u.addAttribute(new Attribute("standard_name", "eastward_sea_water_velocity"));
+				varid_u.addAttribute(new Attribute("long_name", "West-east current component"));
+				varid_u.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_u.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_u.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_u.addAttribute(new Attribute("units", "m s-1"));
+				varid_u.addAttribute(new Attribute("valid_min", Short.parseShort("-10000")));
+				varid_u.addAttribute(new Attribute("valid_max", Short.parseShort("10000")));
+				varid_u.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_u.addAttribute(
 						new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
 				varid_u.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCEWZZ01"));
@@ -540,13 +558,15 @@ public class CodarRadialToNetCDF {
 
 				// v
 				Variable varid_v = dataFile.addVariable(null, "NSCT", DataType.SHORT, dimsTDBR);
-				varid_v.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-10), new Short((short)10))));
-				varid_v.addAttribute(new Attribute("standard_name", "surface_northward_sea_water_velocity"));
-				varid_v.addAttribute(new Attribute("long_name", "Surface Northward Sea Water Velocity"));
-				varid_v.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_v.addAttribute(new Attribute("standard_name", "northward_sea_water_velocity"));
+				varid_v.addAttribute(new Attribute("long_name", "South-north current component"));
+				varid_v.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_v.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_v.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_v.addAttribute(new Attribute("units", "m s-1"));
+				varid_v.addAttribute(new Attribute("valid_min", Short.parseShort("-10000")));
+				varid_v.addAttribute(new Attribute("valid_max", Short.parseShort("10000")));
+				varid_v.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_v.addAttribute(
 						new Attribute("sdn_parameter_name", "Northward current velocity in the water body"));
 				varid_v.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCNSZZ01"));
@@ -558,12 +578,15 @@ public class CodarRadialToNetCDF {
 
 				// Spatial Quality
 				Variable varid_espc = dataFile.addVariable(null, "ESPC", DataType.SHORT, dimsTDBR);
-				varid_espc.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-1000), new Short((short)1000))));
 				varid_espc.addAttribute(new Attribute("long_name",
-						"Radial Standard Deviation of Current Velocity over the Scatter Patch"));
+						"Radial standard deviation of current velocity over the scatter patch"));
+				varid_espc.addAttribute(new Attribute("standard_name", " "));
 				varid_espc.addAttribute(new Attribute("units", "m s-1"));
+				varid_espc.addAttribute(new Attribute("valid_min", Short.parseShort("-32000")));
+				varid_espc.addAttribute(new Attribute("valid_max", Short.parseShort("32000")));
+				varid_espc.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_espc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_espc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_espc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_espc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_espc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_espc.addAttribute(new Attribute("sdn_parameter_name", ""));
@@ -574,12 +597,15 @@ public class CodarRadialToNetCDF {
 
 				// Temporal Quality
 				Variable varid_etmp = dataFile.addVariable(null, "ETMP", DataType.SHORT, dimsTDBR);
-				varid_etmp.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-1000), new Short((short)1000))));
 				varid_etmp.addAttribute(new Attribute("long_name",
-						"Radial Standard Deviation of Current Velocity over Coverage Period"));
+						"Radial standard deviation of current velocity over coverage period"));
+				varid_etmp.addAttribute(new Attribute("standard_name", " "));
 				varid_etmp.addAttribute(new Attribute("units", "m s-1"));
+				varid_etmp.addAttribute(new Attribute("valid_min", Short.parseShort("-32000")));
+				varid_etmp.addAttribute(new Attribute("valid_max", Short.parseShort("32000")));
+				varid_etmp.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_etmp.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_etmp.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_etmp.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_etmp.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_etmp.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_etmp.addAttribute(new Attribute("sdn_parameter_name", ""));
@@ -590,15 +616,14 @@ public class CodarRadialToNetCDF {
 
 				// Velocity Maximum
 				Variable varid_maxv = dataFile.addVariable(null, "MAXV", DataType.SHORT, dimsTDBR);
-				varid_maxv.addAttribute(
-						new Attribute("long_name", "Radial Sea Water Velocity Away From Instrument Maximum"));
-				varid_maxv.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-10), new Short((short)10))));
-				varid_maxv.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_maxv.addAttribute(new Attribute("long_name", "Radial sea water velocity away from instrument maximum"));
+				varid_maxv.addAttribute(new Attribute("valid_min", Short.parseShort("-10000")));
+				varid_maxv.addAttribute(new Attribute("valid_max", Short.parseShort("10000")));
+				varid_maxv.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_maxv.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_maxv.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_maxv.addAttribute(new Attribute("units", "m s-1"));
-				varid_maxv.addAttribute(new Attribute("sdn_parameter_name",
-						"Current speed (Eulerian) in the water body by directional range-gated radar"));
+				varid_maxv.addAttribute(new Attribute("sdn_parameter_name", "Current speed (Eulerian) in the water body by directional range-gated radar"));
 				varid_maxv.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCSAWVRD"));
 				varid_maxv.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_maxv.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
@@ -607,15 +632,14 @@ public class CodarRadialToNetCDF {
 
 				// Velocity Minimum
 				Variable varid_minv = dataFile.addVariable(null, "MINV", DataType.SHORT, dimsTDBR);
-				varid_minv.addAttribute(
-						new Attribute("long_name", "Radial Sea Water Velocity Away From Instrument Minimum"));
-				varid_minv.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short)-10), new Short((short)10))));
-				varid_minv.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_minv.addAttribute(new Attribute("long_name", "Radial sea water velocity away from instrument minimum"));
+				varid_minv.addAttribute(new Attribute("valid_min",Short.parseShort("-10000")));
+				varid_minv.addAttribute(new Attribute("valid_max",Short.parseShort("10000")));
+				varid_minv.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_minv.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_minv.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_minv.addAttribute(new Attribute("units", "m s-1"));
-				varid_minv.addAttribute(new Attribute("sdn_parameter_name",
-						"Current speed (Eulerian) in the water body by directional range-gated radar"));
+				varid_minv.addAttribute(new Attribute("sdn_parameter_name", "Current speed (Eulerian) in the water body by directional range-gated radar"));
 				varid_minv.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::LCSAWVRD"));
 				varid_minv.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_minv.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
@@ -624,13 +648,15 @@ public class CodarRadialToNetCDF {
 
 				// Spatial Count
 				Variable varid_ersc = dataFile.addVariable(null, "ERSC", DataType.SHORT, dimsTDBR);
-				varid_ersc.addAttribute(new Attribute("long_name", "Radial Sea Water Velocity Spatial Quality Count"));
-				varid_ersc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) 0), new Short((short) 127))));
-				varid_ersc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_ersc.addAttribute(new Attribute("long_name", "Radial sea water velocity spatial quality count"));
+				varid_ersc.addAttribute(new Attribute("standard_name", " "));
+				varid_ersc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_ersc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_ersc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_ersc.addAttribute(new Attribute("units", "1"));
+				varid_ersc.addAttribute(new Attribute("valid_min", Short.parseShort("0")));
+				varid_ersc.addAttribute(new Attribute("valid_max", Short.parseShort("127")));
+				varid_ersc.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_ersc.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ersc.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ersc.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -640,13 +666,15 @@ public class CodarRadialToNetCDF {
 
 				// Temporal Count
 				Variable varid_ertc = dataFile.addVariable(null, "ERTC", DataType.SHORT, dimsTDBR);
-				varid_ertc.addAttribute(new Attribute("long_name", "Radial Sea Water Velocity Temporal Quality Count"));
-				varid_ertc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) 0), new Short((short) 127))));
-				varid_ertc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				varid_ertc.addAttribute(new Attribute("long_name", "Radial sea water velocity temporal quality count"));
+				varid_ertc.addAttribute(new Attribute("standard_name", " "));
+				varid_ertc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_ertc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_ertc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_ertc.addAttribute(new Attribute("units", "1"));
+				varid_ertc.addAttribute(new Attribute("valid_min", Short.parseShort("0")));
+				varid_ertc.addAttribute(new Attribute("valid_max", Short.parseShort("127")));
+				varid_ertc.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_ertc.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ertc.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ertc.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -655,47 +683,55 @@ public class CodarRadialToNetCDF {
 				varid_ertc.addAttribute(new Attribute("ancillary_variables", "QCflag"));
 
 				// X-Distance
-				Variable varid_xdst = dataFile.addVariable(null, "XDST", DataType.FLOAT, dimsBR);
-				varid_xdst.addAttribute(new Attribute("long_name", "Eastward Distance From Instrument"));
-				varid_xdst.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(0), new Float(1000))));
-				varid_xdst.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
-				varid_xdst.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
+				Variable varid_xdst = dataFile.addVariable(null, "XDST", DataType.INT, dimsBR);
+				varid_xdst.addAttribute(new Attribute("long_name", "Eastward distance from instrument"));
+				varid_xdst.addAttribute(new Attribute("standard_name", " "));
+				varid_xdst.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
+				varid_xdst.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_xdst.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_xdst.addAttribute(new Attribute("units", "km"));
+				varid_xdst.addAttribute(new Attribute("valid_min", Integer.parseInt("0")));
+				varid_xdst.addAttribute(new Attribute("valid_max", Integer.parseInt("1000000")));
+				varid_xdst.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_xdst.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_xdst.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_xdst.addAttribute(new Attribute("sdn_uom_name", "Kilometres"));
 				varid_xdst.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULKM"));
-				varid_xdst.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
+				varid_xdst.addAttribute(new Attribute("coordinates", "LATITUDE LONGITUDE"));
 				varid_xdst.addAttribute(
 						new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC"));
 
 				// Y-Distance
-				Variable varid_ydst = dataFile.addVariable(null, "YDST", DataType.FLOAT, dimsBR);
-				varid_ydst.addAttribute(new Attribute("long_name", "Northward Distance From Instrument"));
-				varid_ydst.addAttribute(new Attribute("valid_range", Arrays.asList(new Float(0), new Float(1000))));
-				varid_ydst.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_FLOAT));
-				varid_ydst.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
+				Variable varid_ydst = dataFile.addVariable(null, "YDST", DataType.INT, dimsBR);
+				varid_ydst.addAttribute(new Attribute("long_name", "Northward distance from instrument"));
+				varid_ydst.addAttribute(new Attribute("standard_name", " "));
+				varid_ydst.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
+				varid_ydst.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_ydst.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_ydst.addAttribute(new Attribute("units", "km"));
+				varid_ydst.addAttribute(new Attribute("valid_min", Integer.parseInt("0")));
+				varid_ydst.addAttribute(new Attribute("valid_max", Integer.parseInt("1000000")));
+				varid_ydst.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_ydst.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ydst.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ydst.addAttribute(new Attribute("sdn_uom_name", "Kilometres"));
 				varid_ydst.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::ULKM"));
-				varid_ydst.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
+				varid_ydst.addAttribute(new Attribute("coordinates", "LATITUDE LONGITUDE"));
 				varid_ydst.addAttribute(
 						new Attribute("ancillary_variables", "QCflag, OWTR_QC, MDFL_QC, CSPD_QC, VART_QC"));
 
 				// Spectra Range Cell
-				Variable varid_sprc = dataFile.addVariable(null, "SPRC", DataType.BYTE, dimsTDBR);
-				varid_sprc.addAttribute(
-						new Attribute("long_name", "Radial Sea Water Velocity Cross Spectral Range Cell"));
-				varid_sprc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 127))));
-				varid_sprc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				Variable varid_sprc = dataFile.addVariable(null, "SPRC", DataType.SHORT, dimsTDBR);
+				varid_sprc
+						.addAttribute(new Attribute("long_name", "Radial sea water velocity cross spectra range cell"));
+				varid_sprc.addAttribute(new Attribute("standard_name", " "));
+				varid_sprc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_sprc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_sprc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_sprc.addAttribute(new Attribute("units", "1"));
+				varid_sprc.addAttribute(new Attribute("valid_min", Short.parseShort("0")));
+				varid_sprc.addAttribute(new Attribute("valid_max", Short.parseShort("127")));
+				varid_sprc.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_sprc.addAttribute(new Attribute("coordinates", "LONGITUDE LATITUDE"));
 				varid_sprc.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_sprc.addAttribute(new Attribute("sdn_parameter_urn", ""));
@@ -707,27 +743,31 @@ public class CodarRadialToNetCDF {
 
 				// Number of receive antennas
 				Variable varid_narx = dataFile.addVariable(null, "NARX", DataType.BYTE, "TIME");
-				varid_narx.addAttribute(new Attribute("long_name", "Number of Receive Antennas"));
-				varid_narx.addAttribute(new Attribute("valid_range",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) CodarRadialToNetCDF.MAX_SITE))));
-				varid_narx.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_narx.addAttribute(new Attribute("long_name", "Number of receive antennas"));
+				varid_narx.addAttribute(new Attribute("standard_name", " "));
+				varid_narx.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_narx.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_narx.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_narx.addAttribute(new Attribute("units", "1"));
+				varid_narx.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_narx.addAttribute(new Attribute("valid_max", Byte.parseByte("127")));
+				varid_narx.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_narx.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_narx.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_narx.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
 				varid_narx.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UUUU"));
 
 				// Number of transmit antennas
-				Variable varid_natx = dataFile.addVariable(null, "NATX", DataType.SHORT, "TIME");
-				varid_natx.addAttribute(new Attribute("long_name", "Number of Transmit Antennas"));
-				varid_natx.addAttribute(new Attribute("valid_range",
-						Arrays.asList(new Short((short) 0), new Short((short) CodarRadialToNetCDF.MAX_SITE))));
-				varid_natx.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
+				Variable varid_natx = dataFile.addVariable(null, "NATX", DataType.BYTE, "TIME");
+				varid_natx.addAttribute(new Attribute("long_name", "Number of transmit antennas"));
+				varid_natx.addAttribute(new Attribute("standard_name", " "));
+				varid_natx.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_natx.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_natx.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_natx.addAttribute(new Attribute("units", "1"));
+				varid_natx.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_natx.addAttribute(new Attribute("valid_max", Byte.parseByte("127")));
+				varid_natx.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_natx.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_natx.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_natx.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -735,13 +775,15 @@ public class CodarRadialToNetCDF {
 
 				// Receive antenna latitudes
 				Variable varid_sltr = dataFile.addVariable(null, "SLTR", DataType.INT, dimsTM);
-				varid_sltr.addAttribute(new Attribute("long_name", "Receive Antenna Latitudes"));
+				varid_sltr.addAttribute(new Attribute("long_name", "Receive antenna latitudes"));
 				varid_sltr.addAttribute(new Attribute("standard_name", "latitude"));
-				varid_sltr.addAttribute(new Attribute("valid_range", Arrays.asList(new Integer((int)-180), new Integer((int)180))));
-				varid_sltr.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
+				varid_sltr.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
 				varid_sltr.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_sltr.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_sltr.addAttribute(new Attribute("units", "degrees_north"));
+				varid_sltr.addAttribute(new Attribute("units", "degree_north"));
+				varid_sltr.addAttribute(new Attribute("valid_min", Integer.parseInt("-90000")));
+				varid_sltr.addAttribute(new Attribute("valid_max", Integer.parseInt("90000")));
+				varid_sltr.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_sltr.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_sltr.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_sltr.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
@@ -750,13 +792,15 @@ public class CodarRadialToNetCDF {
 
 				// Receive antenna longitudes
 				Variable varid_slnr = dataFile.addVariable(null, "SLNR", DataType.INT, dimsTM);
-				varid_slnr.addAttribute(new Attribute("long_name", "Receive Antenna Longitudes"));
+				varid_slnr.addAttribute(new Attribute("long_name", "Receive antenna longitudes"));
 				varid_slnr.addAttribute(new Attribute("standard_name", "longitude"));
-				varid_slnr.addAttribute(new Attribute("valid_range", Arrays.asList(new Integer((int)-90), new Integer((int)90))));
-				varid_slnr.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
+				varid_slnr.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
 				varid_slnr.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_slnr.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_slnr.addAttribute(new Attribute("units", "degrees_east"));
+				varid_slnr.addAttribute(new Attribute("units", "degree_east"));
+				varid_slnr.addAttribute(new Attribute("valid_min", Integer.parseInt("-180000")));
+				varid_slnr.addAttribute(new Attribute("valid_max", Integer.parseInt("180000")));
+				varid_slnr.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_slnr.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_slnr.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_slnr.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
@@ -765,13 +809,15 @@ public class CodarRadialToNetCDF {
 
 				// Transmit antenna latitudes
 				Variable varid_sltt = dataFile.addVariable(null, "SLTT", DataType.INT, dimsTM);
-				varid_sltt.addAttribute(new Attribute("long_name", "Transmit Antenna Latitudes"));
+				varid_sltt.addAttribute(new Attribute("long_name", "Transmit antenna latitudes"));
 				varid_sltt.addAttribute(new Attribute("standard_name", "latitude"));
-				varid_sltt.addAttribute(new Attribute("valid_range", Arrays.asList(new Integer((int)-180), new Integer((int)180))));
-				varid_sltt.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
+				varid_sltt.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
 				varid_sltt.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_sltt.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_sltt.addAttribute(new Attribute("units", "degrees_north"));
+				varid_sltt.addAttribute(new Attribute("units", "degree_north"));
+				varid_sltt.addAttribute(new Attribute("valid_min", Integer.parseInt("-90000")));
+				varid_sltt.addAttribute(new Attribute("valid_max", Integer.parseInt("90000")));
+				varid_sltt.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_sltt.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_sltt.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_sltt.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
@@ -780,13 +826,15 @@ public class CodarRadialToNetCDF {
 
 				// Transmit antenna longitudes
 				Variable varid_slnt = dataFile.addVariable(null, "SLNT", DataType.INT, dimsTM);
-				varid_slnt.addAttribute(new Attribute("long_name", "Transmit Antenna Longitudes"));
+				varid_slnt.addAttribute(new Attribute("long_name", "Transmit antenna longitudes"));
 				varid_slnt.addAttribute(new Attribute("standard_name", "longitude"));
-				varid_slnt.addAttribute(new Attribute("valid_range", Arrays.asList(new Integer((int)-90), new Integer((int)90))));
-				varid_slnt.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
+				varid_slnt.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_INT));
 				varid_slnt.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
 				varid_slnt.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
-				varid_slnt.addAttribute(new Attribute("units", "degrees_east"));
+				varid_slnt.addAttribute(new Attribute("units", "degree_east"));
+				varid_slnt.addAttribute(new Attribute("valid_min", Integer.parseInt("-180000")));
+				varid_slnt.addAttribute(new Attribute("valid_max", Integer.parseInt("180000")));
+				varid_slnt.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_slnt.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_slnt.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_slnt.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
@@ -796,7 +844,7 @@ public class CodarRadialToNetCDF {
 				// Receive antenna codes
 				Variable varid_scdr = dataFile.addVariable(null, "SCDR", DataType.CHAR, dimsTMS4);
 				varid_scdr.addAttribute(new Attribute("_FillValue", " "));
-				varid_scdr.addAttribute(new Attribute("long_name", "Receive Antenna Codes"));
+				varid_scdr.addAttribute(new Attribute("long_name", "Receive antenna codes"));
 				varid_scdr.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_scdr.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_scdr.addAttribute(new Attribute("units", "1"));
@@ -805,10 +853,10 @@ public class CodarRadialToNetCDF {
 
 				// Transmit antenna codes
 				Variable varid_scdt = dataFile.addVariable(null, "SCDT", DataType.CHAR, dimsTMS4);
-				varid_scdr.addAttribute(new Attribute("_FillValue", " "));
-				varid_scdt.addAttribute(new Attribute("long_name", "Transmit Antenna Codes"));
-				varid_scdt.addAttribute(new Attribute("sdn_parameter_name", ""));
+				varid_scdt.addAttribute(new Attribute("long_name", "Transmit antenna codes"));
 				varid_scdt.addAttribute(new Attribute("units", "1"));
+				varid_scdt.addAttribute(new Attribute("_FillValue", " "));
+				varid_scdt.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_scdt.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_scdt.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
 				varid_scdt.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UUUU"));
@@ -816,202 +864,213 @@ public class CodarRadialToNetCDF {
 				// Add QC variables
 				// Time QC Flag
 				Variable varid_tqc = dataFile.addVariable(null, "TIME_QC", DataType.BYTE, "TIME");
-				varid_tqc.addAttribute(new Attribute("long_name", "Time SeaDataNet Quality Flag"));
-				varid_tqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+				varid_tqc.addAttribute(new Attribute("long_name", "Time quality flag"));
+				varid_tqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_tqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_tqc
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for temporal coordinate."));
-				varid_tqc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_tqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_tqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_tqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_tqc.addAttribute(new Attribute("units", "1"));
+				varid_tqc.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_tqc.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 
 				// Position QC Flag
 				Variable varid_posqc = dataFile.addVariable(null, "POSITION_QC", DataType.BYTE, dimsTDBR);
-				varid_posqc.addAttribute(new Attribute("long_name", "Position SeaDataNet Quality Flags"));
-				varid_posqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+				varid_posqc.addAttribute(new Attribute("long_name", "Position quality flag"));
+				varid_posqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_posqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_posqc
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for position coordinates"));
-				varid_posqc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_posqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_posqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_posqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_posqc.addAttribute(new Attribute("units", "1"));
+				varid_posqc.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_posqc.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 				varid_posqc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
-				// Depth QC Flag
-				Variable varid_dqc = dataFile.addVariable(null, "DEPTH_QC", DataType.BYTE, "TIME");
-				varid_dqc.addAttribute(new Attribute("long_name", "Depth SeaDataNet Quality Flag"));
-				varid_dqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+				// Depth QC
+				Variable varid_dqc = dataFile.addVariable(null, "DEPH_QC", DataType.BYTE, "TIME");
+				varid_dqc.addAttribute(new Attribute("long_name", "Depth quality flag"));
+				varid_dqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_dqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_dqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for depth coordinate."));
-				varid_dqc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_dqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_dqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_dqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_dqc.addAttribute(new Attribute("units", "1"));
+				varid_dqc.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_dqc.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 
 				// Overal QC flag
 				Variable varid_ovqc = dataFile.addVariable(null, "QCflag", DataType.BYTE, dimsTDBR);
-				varid_ovqc.addAttribute(new Attribute("long_name", "Overall Quality Flags"));
-				varid_ovqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_ovqc.addAttribute(new Attribute("long_name", "Overall quality flag"));
+				varid_ovqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_ovqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_ovqc.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_ovqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for all QC tests."));
-				varid_ovqc.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_ovqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_ovqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_ovqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_ovqc.addAttribute(new Attribute("units", "1"));
+				varid_ovqc.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_ovqc.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 				varid_ovqc.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Over-water QC Flag
 				Variable varid_owtr = dataFile.addVariable(null, "OWTR_QC", DataType.BYTE, dimsTDBR);
-				varid_owtr.addAttribute(new Attribute("long_name", "Over-water Quality Flags"));
-				varid_owtr.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_owtr.addAttribute(new Attribute("long_name", "Over-water quality flag"));
+				varid_owtr.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_owtr.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_owtr.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_owtr
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for Over-water QC test."));
-				varid_owtr.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_owtr.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_owtr.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_owtr.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_owtr.addAttribute(new Attribute("units", "1"));
+				varid_owtr.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_owtr.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 				varid_owtr.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Median Filter QC Flag
 				Variable varid_mdfl = dataFile.addVariable(null, "MDFL_QC", DataType.BYTE, dimsTDBR);
-				varid_mdfl.addAttribute(new Attribute("long_name", "Median Filter Quality Flags"));
-				varid_mdfl.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_mdfl.addAttribute(new Attribute("long_name", "Median filter quality flag"));
+				varid_mdfl.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_mdfl.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_mdfl.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_mdfl.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Median Filter QC test. Threshold set to "
 								+ bean.getRadialTest().getMedianFilter() + " m/s."));
-				varid_mdfl.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_mdfl.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_mdfl.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_mdfl.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_mdfl.addAttribute(new Attribute("units", "1"));
+				varid_mdfl.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_mdfl.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 				varid_mdfl.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Variance Threshold QC Flag
 				Variable varid_vart = dataFile.addVariable(null, "VART_QC", DataType.BYTE, dimsTDBR);
 				// netcdf4 compreison netcdf.defVarDeflate(ncid, varid_vart,
 				// true, true, 6);
-				varid_vart.addAttribute(new Attribute("long_name", "Variance Threshold Quality Flags"));
-				varid_vart.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_vart.addAttribute(new Attribute("long_name", "Variance threshold quality flag"));
+				varid_vart.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_vart.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_vart.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Variance Threshold QC test. Test not applicable "
-						+ "to Direction Finding Systems. "
-						+ "The Temporal Derivative test is applied. Threshold set to "
-						+ bean.getRadialTest().getVarianceThreshold() + " m2/s2."));
-				varid_vart.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+								+ "to Direction Finding Systems. "
+								+ "The Temporal Derivative test is applied. Threshold set to "
+								+ bean.getRadialTest().getVarianceThreshold() + " m2/s2."));
+				varid_vart.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_vart.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_vart.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_vart.addAttribute(new Attribute("units", "1"));
+				varid_vart.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_vart.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 				varid_vart.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Velocity Threshold QC Flag
 				Variable varid_cspd = dataFile.addVariable(null, "CSPD_QC", DataType.BYTE, dimsTDBR);
-				varid_cspd.addAttribute(new Attribute("long_name", "Velocity Threshold Quality Flags"));
-				varid_cspd.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_cspd.addAttribute(new Attribute("long_name", "Velocity threshold quality flag"));
+				varid_cspd.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_cspd.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_cspd.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_cspd.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Velocity Threshold QC test. Threshold set to "
 								+ bean.getRadialTest().getVeloThreshold() + " m/s."));
-				varid_cspd.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_cspd.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_cspd.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_cspd.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_cspd.addAttribute(new Attribute("units", "1"));
+				varid_cspd.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_cspd.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 				varid_cspd.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
 
 				// Average Radial Bearing QC Flag
 				Variable varid_avrb = dataFile.addVariable(null, "AVRB_QC", DataType.BYTE, "TIME");
-				varid_avrb.addAttribute(new Attribute("long_name", "Average Radial Bearing Quality Flags"));
-				varid_avrb.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_avrb.addAttribute(new Attribute("long_name", "Average radial bearing quality flag"));
+				varid_avrb.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_avrb.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_avrb.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_avrb.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Average Radial Bearing QC test. Threshold set between "
 								+ bean.getRadialTest().getAvRadialBearingMin() + " and "
 								+ bean.getRadialTest().getAvRadialBearingMax() + " deg."));
-				varid_avrb.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_avrb.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_avrb.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_avrb.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_avrb.addAttribute(new Attribute("units", "1"));
+				varid_avrb.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_avrb.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 
 				// Radial Count QC Flag
 				Variable varid_rdct = dataFile.addVariable(null, "RDCT_QC", DataType.BYTE, "TIME");
-				varid_rdct.addAttribute(new Attribute("long_name", "Radial Count Quality Flag"));
-				varid_rdct.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 2048))));
+				varid_rdct.addAttribute(new Attribute("long_name", "Radial count quality flag"));
+				varid_rdct.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_rdct.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2),
-								new Byte((byte) 3), new Byte((byte) 4), new Byte((byte) 7), new Byte((byte) 8),
+						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
+								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
 								new Byte((byte) 9))));
 				varid_rdct.addAttribute(new Attribute("flag_meanings",
-						"unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_rdct.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Radial Count QC test. Thresholds set to"
 								+ bean.getRadialTest().getRadialCount() + " vectors."));
-				varid_rdct.addAttribute(new Attribute("FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
+				varid_rdct.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_rdct.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
 				varid_rdct.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
 				varid_rdct.addAttribute(new Attribute("units", "1"));
+				varid_rdct.addAttribute(new Attribute("valid_min", Byte.parseByte("0")));
+				varid_rdct.addAttribute(new Attribute("valid_max", Byte.parseByte("9")));
 
 				// MANDATORY ATTRIBUTES
 				// Discovery and Identification
 				dataFile.addGroupAttribute(null, new Attribute("site_code", site_code));
 				dataFile.addGroupAttribute(null, new Attribute("platform_code", platform_code));
+				dataFile.addGroupAttribute(null, new Attribute("platform_name", platform_code));
 				dataFile.addGroupAttribute(null, new Attribute("data_mode", bean.getData_mode()));
 				dataFile.addGroupAttribute(null,
 						new Attribute("DoA_estimation_method", bean.getStationBean().getDoA_estimation_method()));
@@ -1027,13 +1086,25 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null,
 						new Attribute("institution", bean.getNetworkBean().getInstitution_name()));
 				dataFile.addGroupAttribute(null,
+						new Attribute("institution_references", bean.getNetworkBean().getInstitution_name()));
+				dataFile.addGroupAttribute(null,
 						new Attribute("institution_edmo_code", bean.getNetworkBean().getEDMO_code()));
+				dataFile.addGroupAttribute(null,
+						new Attribute("contact", "euhfrnode@azti.es cmems-service@ifremer.fr"));
+
+				dataFile.addGroupAttribute(null, new Attribute("references",
+						"http://marine.copernicus.eu http://www.marineinsitu.eu http://www.marineinsitu.eu/wp-content/uploads/2018/02/HFR_Data_Model_Reference_Card_v1.pdf"));
 				dataFile.addGroupAttribute(null, new Attribute("data_assembly_center", "European HFR Node"));
+
 				dataFile.addGroupAttribute(null, new Attribute("id", id));
 
 				// Geo-spatial-temporal
+				dataFile.addGroupAttribute(null, new Attribute("area", bean.getNetworkBean().getArea()));
 				dataFile.addGroupAttribute(null, new Attribute("data_type", "HF radar radial data"));
+				dataFile.addGroupAttribute(null, new Attribute("cdm_data_type", "grid"));
 				dataFile.addGroupAttribute(null, new Attribute("feature_type", "surface"));
+				dataFile.addGroupAttribute(null, new Attribute("geospatial_vertical_positive", "down"));
+				dataFile.addGroupAttribute(null, new Attribute("reference_system", "EPSG:4806"));
 				dataFile.addGroupAttribute(null,
 						new Attribute("geospatial_lat_min", bean.getNetworkBean().getGeospatial_lat_min()));
 				dataFile.addGroupAttribute(null,
@@ -1046,21 +1117,21 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("geospatial_vertical_min", "0"));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_start", bean.getTime_coverage_start()));
 				dataFile.addGroupAttribute(null, new Attribute("time_coverage_end", bean.getTime_coverage_end()));
+				dataFile.addGroupAttribute(null, new Attribute("bottom_depth", ""));
 
-				dataFile.addGroupAttribute(null,
-						new Attribute("geospatial_lat_units", "degrees_north"));
-				dataFile.addGroupAttribute(null,
-						new Attribute("geospatial_lon_units", "degrees_east"));
+				dataFile.addGroupAttribute(null, new Attribute("geospatial_lat_units", "degree_north"));
+				dataFile.addGroupAttribute(null, new Attribute("geospatial_lon_units", "degree_east"));
 
 				// Conventions used
-				dataFile.addGroupAttribute(null, new Attribute("format_version", "v2.1.1.1"));
+				dataFile.addGroupAttribute(null, new Attribute("format_version", "1.4"));
 				dataFile.addGroupAttribute(null, new Attribute("Conventions",
-						"CF-1.6, OceanSITES-Manual-1.2, Copernicus-InSituTAC-SRD-1.4, CopernicusInSituTAC-ParametersList-3.1.0, Unidata, ACDD, INSPIRE"));
+						"CF-1.6 Copernicus-InSituTAC-FormatManual-1.41 Copernicus-InSituTAC-SRD-1.5 Copernicus-InSituTAC-ParametersList-3.2.0"));
 
 				// Publication information
 				dataFile.addGroupAttribute(null, new Attribute("update_interval", "void"));
-				dataFile.addGroupAttribute(null,
-						new Attribute("citation", "These data were collected and made freely available by the Copernicus project and the programs that contribute to it. " +bean.getNetworkBean().getCitation_statement()));
+				dataFile.addGroupAttribute(null, new Attribute("citation",
+						"These data were collected and made freely available by the Copernicus project and the programs that contribute to it. "
+								+ bean.getNetworkBean().getCitation_statement()));
 				dataFile.addGroupAttribute(null, new Attribute("distribution_statement",
 						"These data follow Copernicus standards; they are public and free of charge. User assumes all risk for use of data. User must display citation in any publication or product using data. User must contact PI prior to any commercial use of data."));
 				dataFile.addGroupAttribute(null, new Attribute("publisher_name", bean.getPublisher_name()));
@@ -1069,6 +1140,9 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("license", bean.getNetworkBean().getLicense()));
 				dataFile.addGroupAttribute(null,
 						new Attribute("acknowledgment", bean.getNetworkBean().getAcknowledgment()));
+				dataFile.addGroupAttribute(null, new Attribute("doi", ""));
+				dataFile.addGroupAttribute(null, new Attribute("pi_name", ""));
+				dataFile.addGroupAttribute(null, new Attribute("qc_manual", ""));
 
 				// Provenance
 				dataFile.addGroupAttribute(null, new Attribute("date_created", bean.getDateCreated()));
@@ -1079,15 +1153,15 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("contributor_name", bean.getContributor_name()));
 				dataFile.addGroupAttribute(null, new Attribute("contributor_role", bean.getContributor_role()));
 				dataFile.addGroupAttribute(null, new Attribute("contributor_email", bean.getContributor_email()));
+				dataFile.addGroupAttribute(null, new Attribute("wmo_inst_type", ""));
 
 				// RECOMMENDED ATTRIBUTES
 
 				// Discovery and Identification
 				dataFile.addGroupAttribute(null, new Attribute("project", bean.getNetworkBean().getProject()));
-				dataFile.addGroupAttribute(null, new Attribute("naming_authority", bean.getNaming_authority())); // en
-																													// el
-																													// original
-																													// it.cnr.ismar
+				dataFile.addGroupAttribute(null, new Attribute("naming_authority", bean.getNaming_authority()));
+				dataFile.addGroupAttribute(null, new Attribute("wmo_platform_code", ""));
+				dataFile.addGroupAttribute(null, new Attribute("ices_platform_code", ""));
 				dataFile.addGroupAttribute(null, new Attribute("keywords", bean.getKeywords()));
 				dataFile.addGroupAttribute(null, new Attribute("keywords_vocabulary", bean.getKeywords_vocabulary()));
 				dataFile.addGroupAttribute(null, new Attribute("comment", bean.getNetworkBean().getComment()));
@@ -1108,8 +1182,6 @@ public class CodarRadialToNetCDF {
 				dataFile.addGroupAttribute(null, new Attribute("metadata_contact", bean.getMetadata_contact()));
 				dataFile.addGroupAttribute(null, new Attribute("metadata_date_stamp", bean.getDateCreated()));
 				dataFile.addGroupAttribute(null, new Attribute("standard_name_vocabulary", bean.getName_vocabulary()));
-				dataFile.addGroupAttribute(null,
-						new Attribute("institution_reference", bean.getNetworkBean().getInstitution_website()));
 				dataFile.addGroupAttribute(null, new Attribute("software_name", "JRadar"));
 				dataFile.addGroupAttribute(null, new Attribute("software_version", "v2.1"));
 				dataFile.addGroupAttribute(null, new Attribute("date_issued", bean.getDateCreated()));
@@ -1248,9 +1320,8 @@ public class CodarRadialToNetCDF {
 				codarFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 				Calendar date2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 				date2.setTime(codarFormat.parse("1950 01 01 00 00 00"));
-				//1950 and divide by millisec, sec, min and hours to get days sice 1950
-				timeData.setDouble(0,
-						( ((date.getTimeInMillis() - date2.getTimeInMillis()) / (1000.0 * 3600 * 24))));
+				// 1950 and divide by millisec, sec, min and hours to get days sice 1950
+				timeData.setDouble(0, (((date.getTimeInMillis() - date2.getTimeInMillis()) / (1000.0 * 3600 * 24))));
 				dataFile.write(varid_t, timeData);
 				timeData = null; // delete value to avoid non expected values.
 
@@ -1263,26 +1334,30 @@ public class CodarRadialToNetCDF {
 				List<Float> latd = bean.getTable().getColumnElementsInOrder(TableColumnNames.LATD, codarToNetcdfIndex);
 				// get origin lat and lon
 				float siteLat = (bean.getOriginElementAsFloat(0) == null)
-						? Float.parseFloat(bean.getStationBean().getSite_lat()) : bean.getOriginElementAsFloat(0);
+						? Float.parseFloat(bean.getStationBean().getSite_lat())
+						: bean.getOriginElementAsFloat(0);
 				float siteLon = (bean.getOriginElementAsFloat(1) == null)
-						? Float.parseFloat(bean.getStationBean().getSite_lon()) : bean.getOriginElementAsFloat(1);
+						? Float.parseFloat(bean.getStationBean().getSite_lon())
+						: bean.getOriginElementAsFloat(1);
 
 				// Calculate lat and lon values.
 				CodarUtils.fillLatLonValues(siteLat, siteLon, latd, lond, rangeDims, bearingDims);
-				Array latArray = CodarUtils.transformCollectionInMultidimensionalFloatArray(latd, varid_lat.getDimensions());
-				Array lonArray = CodarUtils.transformCollectionInMultidimensionalFloatArray(lond, varid_lon.getDimensions());
+				Array latArray = CodarUtils.transformCollectionInMultidimensionalFloatArray(latd,
+						varid_lat.getDimensions());
+				Array lonArray = CodarUtils.transformCollectionInMultidimensionalFloatArray(lond,
+						varid_lon.getDimensions());
 
 				dataFile.write(varid_lat, latArray);
 				dataFile.write(varid_lon, lonArray);
 
-				dataFile.write(varid_crs,
-						CodarUtils.transformCollectionInMultidimensionalShortArray(Arrays.asList(new Float(0)), new ArrayList<Dimension>(0),1));
+				dataFile.write(varid_crs, CodarUtils.transformCollectionInMultidimensionalShortArray(
+						Arrays.asList(new Float(0)), new ArrayList<Dimension>(0), 1));
 				dataFile.write(varid_sdncruise,
 						CodarUtils.transformStringIntoArrayChar(site_code, varid_sdncruise.getDimensions()));
 				dataFile.write(varid_sdnstation,
 						CodarUtils.transformStringIntoArrayChar(platform_code, varid_sdnstation.getDimensions()));
 				dataFile.write(varid_sdnedmocode, CodarUtils.transformCollectionInMultidimensionalShortArray(
-						Arrays.asList(new Float(bean.getNetworkBean().getEDMO_code_As_Short())), dimsTMI,1));
+						Arrays.asList(new Float(bean.getNetworkBean().getEDMO_code_As_Short())), dimsTMI, 1));
 				dataFile.write(varid_sdnlocalcdiid,
 						CodarUtils.transformStringIntoArrayChar(id, varid_sdnlocalcdiid.getDimensions()));
 				dataFile.write(varid_sdnreferences,
@@ -1314,27 +1389,29 @@ public class CodarRadialToNetCDF {
 				dataFile.write(varid_direction, arrayHead);
 
 				// vel_u
-				Array arrayVelU = CodarUtils.transformCollectionInMultidimensionalShortArray(velu, varid_u.getDimensions(),1000);
+				Array arrayVelU = CodarUtils.transformCollectionInMultidimensionalShortArray(velu,
+						varid_u.getDimensions(), 1000);
 				dataFile.write(varid_u, arrayVelU);
 
 				// vel_v
-				Array arrayVelV = CodarUtils.transformCollectionInMultidimensionalShortArray(velv, varid_v.getDimensions(),1000);
+				Array arrayVelV = CodarUtils.transformCollectionInMultidimensionalShortArray(velv,
+						varid_v.getDimensions(), 1000);
 				dataFile.write(varid_v, arrayVelV);
 
 				// temporal and spatial quality
 				Array spatialQData = CodarUtils.transformCollectionInMultidimensionalShortArray(spatialQ,
-						varid_espc.getDimensions(),1000);
+						varid_espc.getDimensions(), 1000);
 				dataFile.write(varid_espc, spatialQData);
 				Array temporalQData = CodarUtils.transformCollectionInMultidimensionalShortArray(tempQ,
-						varid_etmp.getDimensions(),1000);
+						varid_etmp.getDimensions(), 1000);
 				dataFile.write(varid_etmp, temporalQData);
 
 				// temporal and spatial quality
 				Array maxVData = CodarUtils.transformCollectionInMultidimensionalShortArray(maxv,
-						varid_maxv.getDimensions(),1000);
+						varid_maxv.getDimensions(), 1000);
 				dataFile.write(varid_maxv, maxVData);
 				Array minVData = CodarUtils.transformCollectionInMultidimensionalShortArray(minv,
-						varid_minv.getDimensions(),1000);
+						varid_minv.getDimensions(), 1000);
 				dataFile.write(varid_minv, minVData);
 
 				// ersc-edvc Spatial quality count
@@ -1354,7 +1431,7 @@ public class CodarRadialToNetCDF {
 					ersc.add(erTemp);
 				}
 				Array erscData = CodarUtils.transformCollectionInMultidimensionalShortArray(ersc,
-						varid_ersc.getDimensions(),1);
+						varid_ersc.getDimensions(), 1);
 				dataFile.write(varid_ersc, erscData);
 
 				// ertc temporal quality count
@@ -1371,7 +1448,7 @@ public class CodarRadialToNetCDF {
 					ertc.add(erTemp);
 				}
 				Array ertcData = CodarUtils.transformCollectionInMultidimensionalShortArray(ertc,
-						varid_ertc.getDimensions(),1);
+						varid_ertc.getDimensions(), 1);
 				dataFile.write(varid_ertc, ertcData);
 
 				// Eastware distance from instrument
@@ -1396,14 +1473,14 @@ public class CodarRadialToNetCDF {
 						Arrays.asList(new Float(CodarRadialToNetCDF.NUM_SITES)), dimsT));
 				dataFile.write(varid_natx, CodarUtils.transformCollectionInMultidimensionalByteArray(
 						Arrays.asList(new Float(CodarRadialToNetCDF.NUM_SITES)), dimsT));
-				dataFile.write(varid_sltr, CodarUtils
-						.transformCollectionInMultidimensionalIntArray(Arrays.asList(new Float(siteLat)), dimsTM,1000));
-				dataFile.write(varid_slnr, CodarUtils
-						.transformCollectionInMultidimensionalIntArray(Arrays.asList(new Float(siteLon)), dimsTM,1000));
-				dataFile.write(varid_sltt, CodarUtils
-						.transformCollectionInMultidimensionalIntArray(Arrays.asList(new Float(siteLat)), dimsTM,1000));
-				dataFile.write(varid_slnt, CodarUtils
-						.transformCollectionInMultidimensionalIntArray(Arrays.asList(new Float(siteLon)), dimsTM,1000));
+				dataFile.write(varid_sltr, CodarUtils.transformCollectionInMultidimensionalIntArray(
+						Arrays.asList(new Float(siteLat)), dimsTM, 1000));
+				dataFile.write(varid_slnr, CodarUtils.transformCollectionInMultidimensionalIntArray(
+						Arrays.asList(new Float(siteLon)), dimsTM, 1000));
+				dataFile.write(varid_sltt, CodarUtils.transformCollectionInMultidimensionalIntArray(
+						Arrays.asList(new Float(siteLat)), dimsTM, 1000));
+				dataFile.write(varid_slnt, CodarUtils.transformCollectionInMultidimensionalIntArray(
+						Arrays.asList(new Float(siteLon)), dimsTM, 1000));
 
 				dataFile.write(varid_scdr, CodarUtils.transformStringIntoArrayChar(
 						bean.getStationBean().getStation_id(), varid_scdr.getDimensions()));

@@ -320,7 +320,7 @@ public class VentanaPrincipal extends JFrame {
 	public void initMainWindow() {
 
 		setAlwaysOnTop(true);
-		JOptionPane.showMessageDialog(this, "Software in development, not final version");
+		//JOptionPane.showMessageDialog(this, "Software in development, not final version");
 
 		try {
 			setIconImage(ImageIO.read(new File("logoVentana.png")));
@@ -663,7 +663,7 @@ public class VentanaPrincipal extends JFrame {
 	 * @return
 	 */
 	private int saveData() {
-		JOptionPane.showMessageDialog(this, "In progress");
+		//JOptionPane.showMessageDialog(this, "In progress");
 		int error = 1;
 		if (codarRadialData == null && codarTotalData == null) {
 			JOptionPane.showMessageDialog(this, "No CODAR data loaded, try loading a file first");
@@ -843,16 +843,9 @@ public class VentanaPrincipal extends JFrame {
 		try {
 
 			networkData = dbAccess.getTable("network_tb", "network_id", networkId);
-			// JOptionPane.showMessageDialog(this, "Mocking data from DDBB:
-			// VentanaPrincipal.java line 741");
-			// networkData = dbAccess.getMockTable("network_tb");
 			if (codarTotalData == null) {
-				// Station information only loaded when working with radials.
-				// stationData = dbAccess.getMockTable("station_tb",
-				// "station_id", siteId);
 				stationData = dbAccess.getTable("station_tb", "station_id", siteId);
 			} else {
-				
 				stationDataTemp = dbAccess.getCalibration("station_tb", "network_id", networkId);
 				if (stationDataTemp == null) {
 					JOptionPane.showMessageDialog(this,
@@ -864,8 +857,16 @@ public class VentanaPrincipal extends JFrame {
 					String calLink = "";
 					String calDate = "";
 					for(Object obj:stationDataTemp) {
-						stimationMethod = stimationMethod + ((STATION_TB) obj).getStation_id() + ":" +((STATION_TB) obj).getDoA_estimation_method() + ";";
-						calType = calType + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getCalibration_type() + ";";
+						if (!stimationMethod.isEmpty())
+						{
+							stimationMethod = stimationMethod + "; ";
+						}
+						stimationMethod = stimationMethod + ((STATION_TB) obj).getStation_id() + ": " +((STATION_TB) obj).getDoA_estimation_method();
+						if (!calType.isEmpty())
+						{
+							calType = calType + "; ";
+						}
+						calType = calType + ((STATION_TB) obj).getStation_id() + ": " + ((STATION_TB) obj).getCalibration_type();
 						calLink = calLink + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getCalibration_link() + ";";
 						calDate = calDate + ((STATION_TB) obj).getStation_id() + ":" + ((STATION_TB) obj).getLast_calibration_date() + ";";
 					}
