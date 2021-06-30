@@ -195,13 +195,13 @@ public class CodarTotalToNetCDF {
 				List<Float> velu = new ArrayList<Float>(veloURead.size());
 				List<Float> velv = new ArrayList<Float>(veloVRead.size());
 				for (Float velTemp : veloURead) {
-					velu.add(new Float(velTemp / 100));
+					velu.add(Float.valueOf(velTemp / 100));
 				}
 				for (Float velTemp : veloVRead) {
-					velv.add(new Float(velTemp / 100));
+					velv.add(Float.valueOf(velTemp / 100));
 				}
 				for (int i = 0; i < veloVRead.size(); i++) {
-					velo.add(new Float(Math.sqrt(Math.pow(veloURead.get(i), 2) + Math.pow(veloVRead.get(i), 2))));
+					velo.add(Float.valueOf((float) Math.sqrt(Math.pow(veloURead.get(i), 2) + Math.pow(veloVRead.get(i), 2))));
 				}
 
 				String site_code = bean.getNetworkBean().getNetwork_id();
@@ -376,8 +376,8 @@ public class CodarTotalToNetCDF {
 				varid_u.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_u.addAttribute(new Attribute("valid_max", "10000"));
 				varid_u.addAttribute(new Attribute("data_mode", bean.getData_mode()));
-				varid_u.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
-				varid_u.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
+				varid_u.addAttribute(new Attribute("scale_factor", Arrays.asList(Double.valueOf(0.001))));
+				varid_u.addAttribute(new Attribute("add_offset", Arrays.asList(Double.valueOf(0))));
 				varid_u.addAttribute(new Attribute("ioos_category", "Currents"));
 				varid_u.addAttribute(new Attribute("coordsys", "geographic"));
 				varid_u.addAttribute(new Attribute("sdn_parameter_name", "Eastward current velocity in the water body"));
@@ -385,7 +385,7 @@ public class CodarTotalToNetCDF {
 				varid_u.addAttribute(new Attribute("sdn_uom_name", "Metres per second"));
 				varid_u.addAttribute(new Attribute("sdn_uom_urn", "SDN:P06::UVAA"));
 				varid_u.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_u.addAttribute(new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
+				varid_u.addAttribute(new Attribute("valid_range", Arrays.asList(Short.valueOf((short) -10), Short.valueOf((short) 10))));
 				varid_u.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 				varid_u.addAttribute(new Attribute("ancillary_variables", "QCflag, VART_QC, CSPD_QC, DDNS_QC, GDOP_QC"));
 
@@ -397,8 +397,8 @@ public class CodarTotalToNetCDF {
 				varid_v.addAttribute(new Attribute("valid_min", "-10000"));
 				varid_v.addAttribute(new Attribute("valid_max", "10000"));
 				varid_v.addAttribute(new Attribute("data_mode", bean.getData_mode()));
-				varid_v.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
-				varid_v.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
+				varid_v.addAttribute(new Attribute("scale_factor", Arrays.asList(Double.valueOf(0.001))));
+				varid_v.addAttribute(new Attribute("add_offset", Arrays.asList(Double.valueOf(0))));
 				varid_v.addAttribute(new Attribute("ioos_category", "Currents"));
 				varid_v.addAttribute(new Attribute("coordsys", "geographic"));
 				varid_v.addAttribute(
@@ -410,7 +410,7 @@ public class CodarTotalToNetCDF {
 				varid_v.addAttribute(
 						new Attribute("ancillary_variables", "QCflag, VART_QC, CSPD_QC, DDNS_QC, GDOP_QC"));
 				varid_v.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
+						new Attribute("valid_range", Arrays.asList(Short.valueOf((short) -10), Short.valueOf((short) 10))));
 				varid_v.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_SHORT));
 
 				// standar deviation
@@ -424,10 +424,10 @@ public class CodarTotalToNetCDF {
 				varid_usd.addAttribute(new Attribute("valid_max", "10000"));
 				varid_usd.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_usd.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
+						new Attribute("valid_range", Arrays.asList(Short.valueOf((short) -10), Short.valueOf((short) 10))));
 				varid_usd.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_usd.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
-				varid_usd.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
+				varid_usd.addAttribute(new Attribute("scale_factor", Arrays.asList(Double.valueOf(0.001))));
+				varid_usd.addAttribute(new Attribute("add_offset", Arrays.asList(Double.valueOf(0))));
 				varid_usd.addAttribute(new Attribute("sdn_parameter_name",
 						"Eastward current velocity standard deviation in the water body"));
 				varid_usd.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::SDEWZZZZ"));
@@ -446,10 +446,10 @@ public class CodarTotalToNetCDF {
 				varid_vsd.addAttribute(new Attribute("valid_max", "10000"));
 				varid_vsd.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_vsd.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) -10), new Short((short) 10))));
+						new Attribute("valid_range", Arrays.asList(Short.valueOf((short) -10), Short.valueOf((short) 10))));
 				varid_vsd.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_vsd.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
-				varid_vsd.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
+				varid_vsd.addAttribute(new Attribute("scale_factor", Arrays.asList(Double.valueOf(0.001))));
+				varid_vsd.addAttribute(new Attribute("add_offset", Arrays.asList(Double.valueOf(0))));
 				varid_vsd.addAttribute(new Attribute("sdn_parameter_name",
 						"Northward current velocity standard deviation in the water body"));
 				varid_vsd.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::SDNSZZZZ"));
@@ -467,10 +467,10 @@ public class CodarTotalToNetCDF {
 				varid_ccov.addAttribute(new Attribute("valid_min", ""));
 				varid_ccov.addAttribute(new Attribute("valid_max", ""));
 				varid_ccov.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Integer((int) -10), new Integer((int) 10))));
+						new Attribute("valid_range", Arrays.asList(Integer.valueOf((int) -10), Integer.valueOf((int) 10))));
 				varid_ccov.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_ccov.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.000001))));
-				varid_ccov.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
+				varid_ccov.addAttribute(new Attribute("scale_factor", Arrays.asList(Double.valueOf(0.000001))));
+				varid_ccov.addAttribute(new Attribute("add_offset", Arrays.asList(Double.valueOf(0))));
 				varid_ccov.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_ccov.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_ccov.addAttribute(new Attribute("sdn_uom_name", "Square metres per second squared"));
@@ -488,10 +488,10 @@ public class CodarTotalToNetCDF {
 				varid_gdop.addAttribute(new Attribute("valid_max", "20000"));
 				varid_gdop.addAttribute(new Attribute("data_mode", bean.getData_mode()));
 				varid_gdop.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Short((short) -20), new Short((short) 20))));
+						new Attribute("valid_range", Arrays.asList(Short.valueOf((short) -20), Short.valueOf((short) 20))));
 				varid_gdop.addAttribute(new Attribute("coordinates", "TIME DEPH LATITUDE LONGITUDE"));
-				varid_gdop.addAttribute(new Attribute("scale_factor", Arrays.asList(new Double(0.001))));
-				varid_gdop.addAttribute(new Attribute("add_offset", Arrays.asList(new Double(0))));
+				varid_gdop.addAttribute(new Attribute("scale_factor", Arrays.asList(Double.valueOf(0.001))));
+				varid_gdop.addAttribute(new Attribute("add_offset", Arrays.asList(Double.valueOf(0))));
 				varid_gdop.addAttribute(new Attribute("comment",
 						"The Geometric Dilution of PRecision (GDOP) is the coefficient of the uncertainty, "
 								+ "which relates the uncertainties in radial and velocity vectors. The GDOP is a unit-less coefficient, which characterizes "
@@ -515,35 +515,35 @@ public class CodarTotalToNetCDF {
 				varid_tqc.addAttribute(new Attribute("valid_min", "0"));
 				varid_tqc.addAttribute(new Attribute("valid_max", "9"));
 				varid_tqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_tqc
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for temporal coordinate."));
 				varid_tqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
-				varid_tqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_tqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_tqc.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_tqc.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 
 				// Position QC Flag
 				Variable varid_posqc = dataFile.addVariable(null, "POSITION_QC", DataType.BYTE, dimsTDYX);
 				varid_posqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_posqc.addAttribute(new Attribute("long_name", "Position quality flag"));
 				varid_posqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_posqc
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for position coordinates"));
-				varid_posqc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_posqc.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_posqc.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_posqc.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 				varid_posqc.addAttribute(new Attribute("units", "1"));
 				varid_posqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_posqc.addAttribute(new Attribute("valid_min", "0"));
@@ -554,11 +554,11 @@ public class CodarTotalToNetCDF {
 				varid_dqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_dqc.addAttribute(new Attribute("long_name", "Depth quality flag"));
 				varid_dqc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_dqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for depth coordinate."));
@@ -579,16 +579,16 @@ public class CodarTotalToNetCDF {
 				varid_vflg.addAttribute(new Attribute("valid_min", "0"));
 				varid_vflg.addAttribute(new Attribute("valid_max", "9"));
 				varid_vflg.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_vflg.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_vflg.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_vflg.addAttribute(new Attribute("comment", "OceanSITES quality flagging for all QC tests."));
-				varid_vflg.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_vflg.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_vflg.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_vflg.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 
 				// Variance Threshold QC Flag
 				Variable varid_vart = dataFile.addVariable(null, "VART_QC", DataType.BYTE, dimsTDYX);
@@ -599,11 +599,11 @@ public class CodarTotalToNetCDF {
 				varid_vart.addAttribute(new Attribute("valid_min", "0"));
 				varid_vart.addAttribute(new Attribute("valid_max", "9"));
 				varid_vart.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_vart.addAttribute(new Attribute("comment",
@@ -611,8 +611,8 @@ public class CodarTotalToNetCDF {
 								+ "to Direction Finding Systems. "
 								+ "The Temporal Derivative test is applied. Threshold set to "
 								+ bean.getTotalTest().getVarianceThreshold() + " m2/s2."));
-				varid_vart.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_vart.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_vart.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_vart.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 
 				// GDOP Quality flag density_QC
 				Variable varid_gdop_qc = dataFile.addVariable(null, "GDOP_QC", DataType.BYTE, dimsTDYX);
@@ -622,37 +622,37 @@ public class CodarTotalToNetCDF {
 				varid_gdop_qc.addAttribute(new Attribute("valid_min", "0"));
 				varid_gdop_qc.addAttribute(new Attribute("valid_max", "9"));
 				varid_gdop_qc.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_gdop_qc.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_gdop_qc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_gdop_qc.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for GDOP threshold QC test. Threshold set to "
 								+ bean.getTotalTest().getGDOPThreshold()));
 				varid_gdop_qc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
-				varid_gdop_qc.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_gdop_qc.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_gdop_qc.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_gdop_qc.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 
 				// Data Density Quality flag density_QC
 				Variable varid_dd = dataFile.addVariable(null, "DDNS_QC", DataType.BYTE, dimsTDYX);
 				varid_dd.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
 				varid_dd.addAttribute(new Attribute("long_name", "Data density threshold quality flag"));
 				varid_dd.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_dd.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_dd.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_dd.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Data Density threshold QC test. Threshold set to contributing radials. Minimun number of contribution is set to: "
 								+ bean.getTotalTest().getDataDensityThreshold()));
-				varid_dd.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_dd.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_dd.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_dd.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 				varid_dd.addAttribute(new Attribute("units", "1"));
 				varid_dd.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_dd.addAttribute(new Attribute("valid_min", "0"));
@@ -667,18 +667,18 @@ public class CodarTotalToNetCDF {
 				varid_velt.addAttribute(new Attribute("valid_min", "0"));
 				varid_velt.addAttribute(new Attribute("valid_max", "9"));
 				varid_velt.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), new Byte((byte) 9))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_velt.addAttribute(new Attribute("flag_values",
-						Arrays.asList(new Byte((byte) 0), new Byte((byte) 1), new Byte((byte) 2), new Byte((byte) 3),
-								new Byte((byte) 4), new Byte((byte) 5), new Byte((byte) 7), new Byte((byte) 8),
-								new Byte((byte) 9))));
+						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 9))));
 				varid_velt.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
 				varid_velt.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Velocity Threshold QC test. Threshold set to "
 								+ bean.getTotalTest().getVeloThreshold() + " m/s."));
-				varid_velt.addAttribute(new Attribute("scale_factor", Arrays.asList(new Byte((byte) 1))));
-				varid_velt.addAttribute(new Attribute("add_offset", Arrays.asList(new Byte((byte) 0))));
+				varid_velt.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
+				varid_velt.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
 
 				// Number of received antennas
 				Variable varid_narx = dataFile.addVariable(null, "NARX", DataType.BYTE, "TIME");
@@ -690,9 +690,9 @@ public class CodarTotalToNetCDF {
 				varid_narx.addAttribute(new Attribute("valid_min", "0"));
 				varid_narx.addAttribute(new Attribute("valid_max", "127"));
 				varid_narx.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), CodarTotalToNetCDF.MAX_SITE)));
-				varid_narx.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
-				varid_narx.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), CodarTotalToNetCDF.MAX_SITE)));
+				varid_narx.addAttribute(new Attribute("scale_factor", Arrays.asList(Float.valueOf(1))));
+				varid_narx.addAttribute(new Attribute("add_offset", Arrays.asList(Float.valueOf(0))));
 				varid_narx.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_narx.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_narx.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -707,9 +707,9 @@ public class CodarTotalToNetCDF {
 				varid_natx.addAttribute(new Attribute("valid_min", "0"));
 				varid_natx.addAttribute(new Attribute("valid_max", "127"));
 				varid_natx.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Byte((byte) 0), CodarTotalToNetCDF.MAX_SITE)));
-				varid_natx.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(1))));
-				varid_natx.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
+						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), CodarTotalToNetCDF.MAX_SITE)));
+				varid_natx.addAttribute(new Attribute("scale_factor", Arrays.asList(Float.valueOf(1))));
+				varid_natx.addAttribute(new Attribute("add_offset", Arrays.asList(Float.valueOf(0))));
 				varid_natx.addAttribute(new Attribute("sdn_parameter_name", ""));
 				varid_natx.addAttribute(new Attribute("sdn_parameter_urn", ""));
 				varid_natx.addAttribute(new Attribute("sdn_uom_name", "Dimensionless"));
@@ -724,10 +724,10 @@ public class CodarTotalToNetCDF {
 				varid_sltr.addAttribute(new Attribute("valid_min", "-90000"));
 				varid_sltr.addAttribute(new Attribute("valid_max", "90000"));
 				varid_sltr.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Integer((int) -90), new Integer((int) 90))));
+						new Attribute("valid_range", Arrays.asList(Integer.valueOf((int) -90), Integer.valueOf((int) 90))));
 				varid_sltr.addAttribute(new Attribute("coordinates", "TIME MAXSITE"));
-				varid_sltr.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
-				varid_sltr.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
+				varid_sltr.addAttribute(new Attribute("scale_factor", Arrays.asList(Float.valueOf((float) 0.001))));
+				varid_sltr.addAttribute(new Attribute("add_offset", Arrays.asList(Float.valueOf(0))));
 				varid_sltr.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_sltr.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_sltr.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
@@ -742,10 +742,10 @@ public class CodarTotalToNetCDF {
 				varid_slnr.addAttribute(new Attribute("valid_min", "-180000"));
 				varid_slnr.addAttribute(new Attribute("valid_max", "180000"));
 				varid_slnr.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Integer((int) -180), new Integer((int) 180))));
+						new Attribute("valid_range", Arrays.asList(Integer.valueOf((int) -180), Integer.valueOf((int) 180))));
 				varid_slnr.addAttribute(new Attribute("coordinates", "TIME MAXSITE"));
-				varid_slnr.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
-				varid_slnr.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
+				varid_slnr.addAttribute(new Attribute("scale_factor", Arrays.asList(Float.valueOf((float) 0.001))));
+				varid_slnr.addAttribute(new Attribute("add_offset", Arrays.asList(Float.valueOf(0))));
 				varid_slnr.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_slnr.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_slnr.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
@@ -760,10 +760,10 @@ public class CodarTotalToNetCDF {
 				varid_sltt.addAttribute(new Attribute("valid_min", "-90000"));
 				varid_sltt.addAttribute(new Attribute("valid_max", "90000"));
 				varid_sltt.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Integer((int) -90), new Integer((int) 90))));
+						new Attribute("valid_range", Arrays.asList(Integer.valueOf((int) -90), Integer.valueOf((int) 90))));
 				varid_sltt.addAttribute(new Attribute("coordinates", "TIME MAXSITE"));
-				varid_sltt.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
-				varid_sltt.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
+				varid_sltt.addAttribute(new Attribute("scale_factor", Arrays.asList(Float.valueOf((float) 0.001))));
+				varid_sltt.addAttribute(new Attribute("add_offset", Arrays.asList(Float.valueOf(0))));
 				varid_sltt.addAttribute(new Attribute("sdn_parameter_name", "Latitude north"));
 				varid_sltt.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALATZZ01"));
 				varid_sltt.addAttribute(new Attribute("sdn_uom_name", "Degrees north"));
@@ -778,10 +778,10 @@ public class CodarTotalToNetCDF {
 				varid_slnt.addAttribute(new Attribute("valid_min", "-180000"));
 				varid_slnt.addAttribute(new Attribute("valid_max", "180000"));
 				varid_slnt.addAttribute(
-						new Attribute("valid_range", Arrays.asList(new Integer((int) -180), new Integer((int) 180))));
+						new Attribute("valid_range", Arrays.asList(Integer.valueOf((int) -180), Integer.valueOf((int) 180))));
 				varid_slnt.addAttribute(new Attribute("coordinates", "TIME MAXSITE"));
-				varid_slnt.addAttribute(new Attribute("scale_factor", Arrays.asList(new Float(0.001))));
-				varid_slnt.addAttribute(new Attribute("add_offset", Arrays.asList(new Float(0))));
+				varid_slnt.addAttribute(new Attribute("scale_factor", Arrays.asList(Float.valueOf((float) 0.001))));
+				varid_slnt.addAttribute(new Attribute("add_offset", Arrays.asList(Float.valueOf(0))));
 				varid_slnt.addAttribute(new Attribute("sdn_parameter_name", "Longitude east"));
 				varid_slnt.addAttribute(new Attribute("sdn_parameter_urn", "SDN:P01::ALONZZ01"));
 				varid_slnt.addAttribute(new Attribute("sdn_uom_name", "Degrees east"));
@@ -966,13 +966,13 @@ public class CodarTotalToNetCDF {
 				dataFile.write(varid_t, timeData);
 				timeData = null;
 				dataFile.write(varid_depth, CodarUtils.transformCollectionInMultidimensionalFloatArray(
-						Arrays.asList(new Float(0)), varid_depth.getDimensions()));
+						Arrays.asList(Float.valueOf(0)), varid_depth.getDimensions()));
 
 				dataFile.write(varid_lat, CodarUtils.transformCollectionInArray(latCalc));
 				dataFile.write(varid_lon, CodarUtils.transformCollectionInArray(lonCalc));
 
 				dataFile.write(varid_crs, CodarUtils.transformCollectionInMultidimensionalShortArray(
-						Arrays.asList(new Float(0)), varid_crs.getDimensions(), 1));
+						Arrays.asList(Float.valueOf(0)), varid_crs.getDimensions(), 1));
 				dataFile.write(varid_sdncruise,
 						CodarUtils.transformStringIntoArrayChar(site_code, varid_sdncruise.getDimensions()));
 				dataFile.write(varid_sdnstation,
@@ -981,7 +981,7 @@ public class CodarTotalToNetCDF {
 						CodarUtils.transformStringIntoArrayChar(dataID, varid_sdnlocalcdiid.getDimensions()));
 				dataFile.write(varid_sdnedmocode,
 						CodarUtils.transformCollectionInMultidimensionalShortArray(
-								Arrays.asList(new Float(bean.getNetworkBean().getEDMO_code_As_Short())),
+								Arrays.asList(Float.valueOf(bean.getNetworkBean().getEDMO_code_As_Short())),
 								varid_sdnedmocode.getDimensions(), 1));
 				dataFile.write(varid_sdnreferences,
 						CodarUtils.transformStringIntoArrayChar(TDS_catalog, varid_sdnreferences.getDimensions()));
@@ -1042,16 +1042,16 @@ public class CodarTotalToNetCDF {
 					// 15 is the max for the variable
 					for (int x = 0; x < 15; x++) {
 						// 4 is the length of the site name
-						char aa = new Character(' ');
+						char aa = Character.valueOf(' ');
 						if (x < 4)
 							aa = tempSite[x];
 						scodData.setChar(ima.set(0, j, x), aa);
 					}
 				}
 				dataFile.write(varid_narx, CodarUtils.transformCollectionInMultidimensionalByteArray(
-						Arrays.asList(new Float(slat.size())), varid_narx.getDimensions()));
+						Arrays.asList(Float.valueOf(slat.size())), varid_narx.getDimensions()));
 				dataFile.write(varid_natx, CodarUtils.transformCollectionInMultidimensionalByteArray(
-						Arrays.asList(new Float(slat.size())), varid_natx.getDimensions()));
+						Arrays.asList(Float.valueOf(slat.size())), varid_natx.getDimensions()));
 				Array slatData = CodarUtils.transformCollectionInMultidimensionalIntArray(slat,
 						varid_sltr.getDimensions(), 1000);
 				Array slotData = CodarUtils.transformCollectionInMultidimensionalIntArray(slon,
@@ -1067,19 +1067,19 @@ public class CodarTotalToNetCDF {
 
 				// QC flags
 				dataFile.write(varid_tqc, CodarUtils.transformCollectionInMultidimensionalByteArray(
-						Arrays.asList(new Float(CodarTotalToNetCDF.SDN_TIME_QC_FLAG)), varid_tqc.getDimensions()));
+						Arrays.asList(Float.valueOf(CodarTotalToNetCDF.SDN_TIME_QC_FLAG)), varid_tqc.getDimensions()));
 				List<Float> sdnPosFlag = new ArrayList<Float>(velu.size());
 				for (Float vtemp : velu) {
 					if (Float.isNaN(vtemp)) {
 						sdnPosFlag.add(Float.NaN);
 					} else {
-						sdnPosFlag.add(new Float(1));
+						sdnPosFlag.add(Float.valueOf(1));
 					}
 				}
 				dataFile.write(varid_posqc, CodarUtils.transformCollectionInMultidimensionalByteArray(sdnPosFlag,
 						varid_posqc.getDimensions()));
 				dataFile.write(varid_dqc, CodarUtils.transformCollectionInMultidimensionalByteArray(
-						Arrays.asList(new Float(CodarTotalToNetCDF.SDN_DEPTH_QC_FLAG)), varid_dqc.getDimensions()));
+						Arrays.asList(Float.valueOf(CodarTotalToNetCDF.SDN_DEPTH_QC_FLAG)), varid_dqc.getDimensions()));
 
 				// QA - QC flags
 				VentanaRunTotalQualityTests qcqaTest = new VentanaRunTotalQualityTests(bean);
@@ -1119,22 +1119,22 @@ public class CodarTotalToNetCDF {
 					if (gdopThreshold_QCflag.get(i).floatValue() == 1 && tderThreshold_QCFlags.get(i).floatValue() == 1
 							&& velocityThreshold_QCflag.get(i).floatValue() == 1
 							&& ddThreshold.get(i).floatValue() == 1) {
-						overal_QCflag.add(new Float(1));
+						overal_QCflag.add(Float.valueOf(1));
 					} else if (gdopThreshold_QCflag.get(i).floatValue() == 9
 							&& tderThreshold_QCFlags.get(i).floatValue() == 9
 							&& velocityThreshold_QCflag.get(i).floatValue() == 9
 							&& ddThreshold.get(i).floatValue() == 9) {
-						overal_QCflag.add(new Float(9));
+						overal_QCflag.add(Float.valueOf(9));
 					} else if (gdopThreshold_QCflag.get(i).floatValue() == 0
 							&& tderThreshold_QCFlags.get(i).floatValue() == 0
 							&& velocityThreshold_QCflag.get(i).floatValue() == 0
 							&& ddThreshold.get(i).floatValue() == 0) {
-						overal_QCflag.add(new Float(0));
+						overal_QCflag.add(Float.valueOf(0));
 					} else if (gdopThreshold_QCflag.get(i).isNaN() && tderThreshold_QCFlags.get(i).isNaN()
 							&& velocityThreshold_QCflag.get(i).isNaN() && ddThreshold.get(i).isNaN()) {
 						overal_QCflag.add(Float.NaN);
 					} else {
-						overal_QCflag.add(new Float(4));
+						overal_QCflag.add(Float.valueOf(4));
 					}
 
 				}

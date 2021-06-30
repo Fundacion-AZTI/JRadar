@@ -289,7 +289,7 @@ public class CodarRadialBean implements Serializable {
 	 * @return number representing the angular resolution
 	 */
 	public int getAngularResolutionInteger() throws NumberFormatException {
-		Integer vuelta = new Integer(-1);
+		Integer vuelta = Integer.valueOf(-1);
 		if (this.angularResolution != null) {
 			String angRes = this.angularResolution;
 			if (angularResolution.trim().split("\\s+").length > 1) {

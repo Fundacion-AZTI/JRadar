@@ -952,13 +952,13 @@ public class CodarUtils {
 		int i = 0;
 		for (float xInc : x) {
 			GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, 90, xInc * 1000);
-			lond.add(i, new Float(data.lon2));
+			lond.add(i, Float.valueOf((float) data.lon2));
 			i++;
 		}
 		i = 0;
 		for (float yInc : y) {
 			GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, 0, yInc * 1000);
-			latd.add(i, new Float(data.lat2));
+			latd.add(i, Float.valueOf((float) data.lat2));
 			i++;
 		}
 	}
@@ -987,8 +987,8 @@ public class CodarUtils {
 		for (float bear : bearingDims) {
 			for (float range : rangeDims) {
 				GeodesicData data = Geodesic.WGS84.Direct(siteLat, siteLon, bear, range * 1000);
-				latd.set(i, new Float(data.lat2));
-				lond.set(i, new Float(data.lon2));
+				latd.set(i, Float.valueOf((float) data.lat2));
+				lond.set(i, Float.valueOf((float) data.lon2));
 				i++;
 			}
 		}
