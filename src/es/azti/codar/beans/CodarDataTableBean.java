@@ -169,7 +169,7 @@ public class CodarDataTableBean {
 					// indexr + "mascara: " + ((indexb*rangeData.size() +
 					// indexr) + " : pos: " + position));
 				}
-				returnTable.add(indexb * rangeData.size() + indexr, new Integer(position));
+				returnTable.add(indexb * rangeData.size() + indexr, Integer.valueOf(position));
 			}
 		}
 		return returnTable;
@@ -192,7 +192,7 @@ public class CodarDataTableBean {
 	public List<Integer> getTotalTableIndexInNetCdf(List<Float> xData, List<Float> yData) {
 		List<Integer> returnTable = new ArrayList<Integer>(xData.size() * yData.size()) ;
 			for(int i=0;i<xData.size()*yData.size();i++){
-				returnTable.add(new Integer(-1));
+				returnTable.add(Integer.valueOf(-1));
 			}
 		
 		List<Float> xCodarData = getColumnElements(TableColumnNames.XDST);
@@ -219,7 +219,7 @@ public class CodarDataTableBean {
 				}
 				//returnTable.add(indexb * yData.size() + indexr, new Integer(position));
 				returnTable.remove(indexr * xData.size() + indexb);
-				returnTable.add(indexr * xData.size() + indexb, new Integer(position));
+				returnTable.add(indexr * xData.size() + indexb, Integer.valueOf(position));
 			}
 		}
 

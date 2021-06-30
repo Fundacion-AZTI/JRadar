@@ -208,7 +208,7 @@ public class VentanaRunRadialQualityTests extends JFrame {
 						List<Float> velo = new ArrayList<Float>(veloRead.size());
 						for (Float velTemp : veloRead) {
 							// translate to m/s
-							velo.add(new Float(-velTemp / 100));
+							velo.add(Float.valueOf(-velTemp / 100));
 						}
 
 						List<Float> pasaVeloTest = runThresholdTest(velo, bean.getRadialTest().getVeloThreshold());
@@ -712,13 +712,13 @@ public class VentanaRunRadialQualityTests extends JFrame {
 			float value = vflag.get(i);
 			if (value == 0) {
 				// good data
-				overWaterTest.add(i, new Float((float) 1));
+				overWaterTest.add(i, Float.valueOf((float) 1));
 			} else if (Float.isNaN(value)) {
 				// missing value, NaN
 				overWaterTest.add(i, value);
 			} else {
 				// the rest of values, are suspicious of being bad data
-				overWaterTest.add(i, new Float((float) 4));
+				overWaterTest.add(i, Float.valueOf((float) 4));
 			}
 		}
 		return overWaterTest;
@@ -741,16 +741,16 @@ public class VentanaRunRadialQualityTests extends JFrame {
 			float value = data.get(i);
 			if (Math.abs(value) <= limit) {
 				// good data
-				thresholdTest.add(i, new Float((float) 1));
+				thresholdTest.add(i, Float.valueOf((float) 1));
 			} else if (Float.isNaN(value)) {
 				// missing value
 				thresholdTest.add(i, Float.NaN);
 			} else if (Float.isNaN(limit)) {
 				// if the limit is NaN, test not performed
-				thresholdTest.add(i, new Float((float) 0));
+				thresholdTest.add(i, Float.valueOf((float) 0));
 			} else {
 				// the rest of values, are suspicious of being bad data
-				thresholdTest.add(i, new Float((float) 4));
+				thresholdTest.add(i, Float.valueOf((float) 4));
 			}
 		}
 		return thresholdTest;
@@ -770,7 +770,7 @@ public class VentanaRunRadialQualityTests extends JFrame {
 				CodarUtils.getRadialIndexArray(bean, bean.getTable(), profile));
 		List<Float> velo = new ArrayList<Float>(veloRead.size());
 		for (Float velTemp : veloRead) {
-			velo.add(new Float(-velTemp / 100));
+			velo.add(Float.valueOf(-velTemp / 100));
 		}
 
 		int val1 = 0; // good data if value == 1
@@ -785,9 +785,9 @@ public class VentanaRunRadialQualityTests extends JFrame {
 				? bean.getStationBean().getRadial_QC_radial_count_threshold_float()
 				: bean.getRadialTest().getRadialCount();
 		if (radCount < val1) {
-			resultado.add(0, new Float(1));
+			resultado.add(0, Float.valueOf(1));
 		} else {
-			resultado.add(0, new Float(4));
+			resultado.add(0, Float.valueOf(4));
 		}
 
 		return resultado;
@@ -811,7 +811,7 @@ public class VentanaRunRadialQualityTests extends JFrame {
 				CodarUtils.getRadialIndexArray(bean, bean.getTable(), profile));
 		List<Float> velo = new ArrayList<Float>(veloRead.size());
 		for (Float velTemp2 : veloRead) {
-			velo.add(new Float(-velTemp2 / 100));
+			velo.add(Float.valueOf(-velTemp2 / 100));
 		}
 
 		List<Float> bear = bean.getTable().getColumnElementsInOrder(TableColumnNames.BEAR,
@@ -1002,9 +1002,9 @@ public class VentanaRunRadialQualityTests extends JFrame {
 			}
 		}
 		if (suma / i >= minimum && suma / i <= maximum)
-			resultado.add(0, new Float((float) 1));
+			resultado.add(0, Float.valueOf((float) 1));
 		else
-			resultado.add(0, new Float((float) 4));
+			resultado.add(0, Float.valueOf((float) 4));
 
 		return resultado;
 	}
@@ -1033,23 +1033,23 @@ public class VentanaRunRadialQualityTests extends JFrame {
 					thresholdTest.add(i, Float.NaN);
 				} else if (value1 < 0 || value2 < 0) {
 					// Test not performed, a +1h -1h is not present.
-					thresholdTest.add(i, new Float((float) 0));
+					thresholdTest.add(i, Float.valueOf((float) 0));
 				} else if (value1 <= limit && value2 <= limit) {
 					// good data
-					thresholdTest.add(i, new Float((float) 1));
+					thresholdTest.add(i, Float.valueOf((float) 1));
 				} else if (Float.isNaN(limit)) {
 					// If the limit is NaN, we cannot perform the test.
-					thresholdTest.add(i, new Float((float) 0));
+					thresholdTest.add(i, Float.valueOf((float) 0));
 				} else {
 					// the rest of values, are suspicious of being bad data
-					thresholdTest.add(i, new Float((float) 4));
+					thresholdTest.add(i, Float.valueOf((float) 4));
 				}
 			}
 		} else {
 			// test not performed
 
 			for (int i = 0; i < data1.size(); i++) {
-				thresholdTest.add(i, new Float((float) 0));
+				thresholdTest.add(i, Float.valueOf((float) 0));
 			}
 		}
 		return thresholdTest;
