@@ -41,7 +41,7 @@ import ucar.nc2.write.Nc4ChunkingStrategy;
  */
 public class CodarTotalToNetCDF {
 
-	private static final byte MAX_SITE = 1;
+	private static final byte MAX_SITE = 50;
 	private static final int REF_MAX = 1;
 	private static final int SDN_TIME_QC_FLAG = 1;
 	private static final int SDN_DEPTH_QC_FLAG = 1;
