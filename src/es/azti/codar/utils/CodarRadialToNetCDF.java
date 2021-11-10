@@ -868,7 +868,7 @@ public class CodarRadialToNetCDF {
 				varid_tqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_tqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -887,7 +887,7 @@ public class CodarRadialToNetCDF {
 				varid_posqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_posqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5),  Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -907,7 +907,7 @@ public class CodarRadialToNetCDF {
 				varid_dqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_dqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -925,7 +925,7 @@ public class CodarRadialToNetCDF {
 				varid_ovqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_ovqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_ovqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -944,7 +944,7 @@ public class CodarRadialToNetCDF {
 				varid_owtr.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_owtr.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_owtr.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -964,7 +964,7 @@ public class CodarRadialToNetCDF {
 				varid_mdfl.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_mdfl.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_mdfl.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -987,7 +987,7 @@ public class CodarRadialToNetCDF {
 				varid_vart.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_vart.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -1010,7 +1010,7 @@ public class CodarRadialToNetCDF {
 				varid_cspd.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_cspd.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_cspd.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -1031,7 +1031,7 @@ public class CodarRadialToNetCDF {
 				varid_avrb.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_avrb.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_avrb.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -1052,7 +1052,7 @@ public class CodarRadialToNetCDF {
 				varid_rdct.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
 				varid_rdct.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_rdct.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));

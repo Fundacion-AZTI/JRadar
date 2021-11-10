@@ -518,7 +518,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -536,7 +536,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -557,7 +557,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -582,7 +582,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_vflg.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_vflg.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -602,7 +602,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -625,7 +625,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_gdop_qc.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_gdop_qc.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -644,7 +644,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_dd.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_dd.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
@@ -670,7 +670,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("valid_range", Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 9))));
 				varid_velt.addAttribute(new Attribute("flag_values",
 						Arrays.asList(Byte.valueOf((byte) 0), Byte.valueOf((byte) 1), Byte.valueOf((byte) 2), Byte.valueOf((byte) 3),
-								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
+								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_velt.addAttribute(new Attribute("flag_meanings",
 						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
