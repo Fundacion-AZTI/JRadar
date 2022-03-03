@@ -521,7 +521,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_tqc.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_tqc
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for temporal coordinate."));
 				varid_tqc.addAttribute(new Attribute("_FillValue", ucar.nc2.iosp.netcdf3.N3iosp.NC_FILL_BYTE));
@@ -539,7 +539,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_posqc.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_posqc
 						.addAttribute(new Attribute("comment", "OceanSITES quality flagging for position coordinates"));
 				varid_posqc.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
@@ -560,7 +560,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_dqc.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_dqc.addAttribute(new Attribute("comment", "OceanSITES quality flagging for depth coordinate."));
 				varid_dqc.addAttribute(new Attribute("units", "1"));
 				varid_dqc.addAttribute(new Attribute("conventions", "Copernicus Marine In Situ reference table 2"));
@@ -585,7 +585,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_vflg.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_vflg.addAttribute(new Attribute("comment", "OceanSITES quality flagging for all QC tests."));
 				varid_vflg.addAttribute(new Attribute("scale_factor", Arrays.asList(Byte.valueOf((byte) 1))));
 				varid_vflg.addAttribute(new Attribute("add_offset", Arrays.asList(Byte.valueOf((byte) 0))));
@@ -605,7 +605,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_vart.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_vart.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Variance Threshold QC test. Test not applicable "
 								+ "to Direction Finding Systems. "
@@ -628,7 +628,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_gdop_qc.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_gdop_qc.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for GDOP threshold QC test. Threshold set to "
 								+ bean.getTotalTest().getGDOPThreshold()));
@@ -647,7 +647,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_dd.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_dd.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Data Density threshold QC test. Threshold set to contributing radials. Minimun number of contribution is set to: "
 								+ bean.getTotalTest().getDataDensityThreshold()));
@@ -673,7 +673,7 @@ public class CodarTotalToNetCDF {
 								Byte.valueOf((byte) 4), Byte.valueOf((byte) 5), Byte.valueOf((byte) 6), Byte.valueOf((byte) 7), Byte.valueOf((byte) 8),
 								Byte.valueOf((byte) 9))));
 				varid_velt.addAttribute(new Attribute("flag_meanings",
-						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed not_used nominal_value interpolated_value missing_value"));
+						"no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed value_below_detection nominal_value interpolated_value missing_value"));
 				varid_velt.addAttribute(new Attribute("comment",
 						"OceanSITES quality flagging for Velocity Threshold QC test. Threshold set to "
 								+ bean.getTotalTest().getVeloThreshold() + " m/s."));
@@ -866,7 +866,7 @@ public class CodarTotalToNetCDF {
 				// Conventions used
 				dataFile.addGroupAttribute(null, new Attribute("format_version", "1.4"));
 				dataFile.addGroupAttribute(null, new Attribute("Conventions",
-						"CF-1.6 Copernicus-InSituTAC-FormatManual-1.41 Copernicus-InSituTAC-SRD-1.5 Copernicus-InSituTAC-ParametersList-3.2.0"));
+						"CF-1.6 Copernicus-InSituTAC-FormatManual-1.42 Copernicus-InSituTAC-SRD-1.5 Copernicus-InSituTAC-ParametersList-3.2.1"));
 
 				// Publication information
 				dataFile.addGroupAttribute(null, new Attribute("update_interval", "void"));
@@ -883,7 +883,7 @@ public class CodarTotalToNetCDF {
 						new Attribute("acknowledgment", bean.getNetworkBean().getAcknowledgment()));
 				dataFile.addGroupAttribute(null, new Attribute("doi", ""));
 				dataFile.addGroupAttribute(null, new Attribute("pi_name", ""));
-				dataFile.addGroupAttribute(null, new Attribute("qc_manual", ""));
+				dataFile.addGroupAttribute(null, new Attribute("qc_manual", "Recommendation Report 2 on improved common procedures for HFR QC analysis http://dx.doi.org/10.25607/OBP-944"));
 				
 				// Provenance
 				dataFile.addGroupAttribute(null, new Attribute("date_created", bean.getDateCreated()));
