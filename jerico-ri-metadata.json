@@ -1,0 +1,26 @@
+﻿{
+	"_class": "Service",
+		"alias": "https://www.azti.es/en/research-areas/operational-oceanography-services/d2pts-hfr-service",
+		"name": "JRadar-Toolbox",
+		"service_type": "D2PTS",
+		"description": "Radar Toolbox for converting CODAR TUV and RUV native files to the NetCDF European HFR Standard. This Toolbox, provided by the European HFR Node, is developed to be run at operator level.",
+		"url": "https://github.com/Fundacion-AZTI/JRadar/",
+		"terms_of_service": "Under Request",
+		"equipment_type": "HFR",
+		"provider": {
+			"_class": "Organization",
+				"alias": "https://www.azti.es/"
+		},
+		"owner": {
+			"_class": "Topic",
+				"alias": "https://www.azti.es/"	
+		},
+		"temporal": {
+			"_class": "Temporal",
+				"startDate": "2021-11-10"
+		},
+		"contact": {
+			"_class": "Person",
+				"name": "Julien Mader jmader@azti.es"
+		}
+}
