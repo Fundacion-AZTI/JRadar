@@ -1,26 +1,34 @@
-﻿{
-	"_class": "Service",
-		"alias": "https://www.azti.es/en/research-areas/operational-oceanography-services/d2pts-hfr-service",
-		"name": "JRadar-Toolbox",
-		"service_type": "D2PTS",
-		"description": "Radar Toolbox for converting CODAR TUV and RUV native files to the NetCDF European HFR Standard. This Toolbox, provided by the European HFR Node, is developed to be run at operator level.",
-		"url": "https://github.com/Fundacion-AZTI/JRadar/",
-		"terms_of_service": "Under Request",
-		"equipment_type": "HFR",
-		"provider": {
-			"_class": "Organization",
-				"alias": "https://www.azti.es/"
-		},
-		"owner": {
-			"_class": "Topic",
-				"alias": "https://www.azti.es/"	
-		},
-		"temporal": {
-			"_class": "Temporal",
-				"startDate": "2021-11-10"
-		},
-		"contact": {
-			"_class": "Person",
-				"name": "Julien Mader jmader@azti.es"
-		}
+{
+    "_class": "Service",
+    "alias": "https://www.azti.es/en/research-areas/operational-oceanography-services/d2pts-hfr-services",
+    "service_type": "D2PTS",
+    "description": "Radar Toolbox for converting CODAR TUV and RUV native files to NetCDF European HFR Standard. This Toolbox, provided by the European HFR node, is developed to be run at operator level.",
+    "url": "https://github.com/Fundacio-AZTI/JRadar",
+    "terms_of_service": "Under Request",
+    "equipment_type": "HFR",
+    "provider": {
+        "_class": "Organization",
+        "identifier": [
+            {
+                "_class": "Identifier",
+                "system": "EDMO",
+                "code": "1623"
+            }
+        ]
+    },
+    "owner": {
+        "_class": "Organization",
+        "alias": [
+            "https://edmo.seadatanet.org/report/1623"
+        ],
+        "url": "http://www.azti.es"
+    },
+    "temporal": {
+        "_class": "Temporal",
+        "start_date": "2021-11-10"
+    },
+    "contact": {
+        "_class": "Person",
+        "name": "Julien Mader <jmader@azti.es>"
+    }
 }
